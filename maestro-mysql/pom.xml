@@ -16,7 +16,7 @@
         <dependency>
             <groupId>eu.arcadia.maestro</groupId>
             <artifactId>maestro-spi</artifactId>
-            <version>[1.0,)</version>
+            <version>RELEASE</version>
             <scope>provided</scope>
         </dependency>
         
