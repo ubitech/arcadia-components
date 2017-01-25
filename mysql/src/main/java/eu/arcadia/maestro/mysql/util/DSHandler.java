@@ -30,7 +30,7 @@ public enum DSHandler {
     private final String DBUser = System.getProperty("db_user");
     private final String DBPass = System.getProperty("db_password");
     private final String DBPort = System.getProperty("db_port");
-    private final String DBHost = "localhost";//System.getProperty("db_host");
+    private final String DBHost = System.getProperty("db_host");
     private final String DBURL;
 
     DSHandler() {

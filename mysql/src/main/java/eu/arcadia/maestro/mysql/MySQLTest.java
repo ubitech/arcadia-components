@@ -15,7 +15,7 @@ public class MySQLTest {
     public static void main(String[] args) {
         //Properties will be set by the maestro
         System.setProperty("db_user", "root");
-        System.setProperty("db_password", "!arcadia!");
+        System.setProperty("db_password", "*******");
         System.setProperty("db_port", "3306");
         System.setProperty("db_host", "195.46.17.235");
         System.setProperty("db_name", "");
