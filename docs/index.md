@@ -11,21 +11,13 @@ ARCADIA is designing and implementing a novel development toolkit and orchestrat
 
 ARCADIA's core values include the following:
 
- - `DISTRIBUTED APPS DEVELOPMENT ENVIRONMENT`
+ - `DISTRIBUTED APPS DEVELOPMENT ENVIRONMENT` Design and develop microservices using ARCADIA libraries. Define app-oriented metrics. Reconfigurable-by-design apps.
 
- Design and develop microservices using ARCADIA libraries. Define app-oriented metrics. Reconfigurable-by-design apps.
+ - `POLICY-AWARE ORCHESTRATION` Optimal app deployment using meta-heuristic algorithms. Enable real-time policy enforcement. ETSI NFV compliant.
 
- - `POLICY-AWARE ORCHESTRATION`
+ - `MULTI DATACENTER EXECUTION MIDDLEWARE` Exploit unikernel stacks. Support multi-IaaS scenarios. OpenStack-ready.
 
- Optimal app deployment using meta-heuristic algorithms. Enable real-time policy enforcement. ETSI NFV compliant.
-
- - `MULTI DATACENTER EXECUTION MIDDLEWARE`
-
- Exploit unikernel stacks. Support multi-IaaS scenarios. OpenStack-ready.
-
- - `COMPONENT & APPLICATION DISCOVERY`
-
- Compose microservices-based applications. Discover. Reuse. Deploy.
+ - `COMPONENT & APPLICATION DISCOVERY` Compose microservices-based applications. Discover. Reuse. Deploy.
 
 ### Wrapped components
 
