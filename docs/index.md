@@ -1,8 +1,8 @@
 # ARCADIA Components
+ `(Working Draft)`
 > ARCADIA Components Developer Documentation
 
-Authors: [@azafeiropoulos](https://github.com/azafeiropoulos) [@cparaskeva](https://github.com/cparaskeva) [@gtsiolis](https://github.com/gtsiolis)
-
+Editors: [@azafeiropoulos](https://github.com/azafeiropoulos) [@cparaskeva](https://github.com/cparaskeva) [@gtsiolis](https://github.com/gtsiolis)
 
 ## 1 Introduction
 
@@ -54,9 +54,9 @@ Building a component requires using some mandatory and some optional Java annota
 | `@DependencyExport`               |             | 0..N                 | True     |
 | `@DependencyExports`              |             | 0..N                 | True     |
 | `@DependencyResolutionHandler`    |             | 0..N                 | True     |
-| `@LifecycleInitialize`            |             | 1..1                 | False    |
-| `@LifecycleStart`                 |             | 1..1                 | False    |
-| `@LifecycleStop`                  |             | 1..1                 | False    |
+| ~`@LifecycleInitialize`~             |             | 1..1                 | False    |
+| ~`@LifecycleStart`~                 |             | 1..1                 | False    |
+| ~`@LifecycleStop`~                  |             | 1..1                 | False    |
 
 #### 2.1.3 Implementation
 
