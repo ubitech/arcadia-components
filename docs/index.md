@@ -1,4 +1,4 @@
-# ARCADIA COMPONENTS
+# ARCADIA Components
 > ARCADIA Components Developer Documentation
 
 Authors: @azafeiropoulos @cparaskeva @gtsiolis
