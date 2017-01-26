@@ -24,7 +24,7 @@ ARCADIA's core values include the following:
 
 ### 1.2 Components
 
-The ARCADIA (wrapped) components are the basic building blocks of the platform. They are used to compose large and complex systems that depend on each other. Each component has distinct properties that can be configured before use. Some of them can be used as-is while others require other components to operate. Service graphs are composed of components operating together as a unit. These relatively complex structures can range from single-component service graphs to sophisticated complex systems.
+The ARCADIA (wrapped) components are the basic building blocks of the platform.They are used to compose distributed applications with set of components that depend on each other. Each component has distinct properties that can be configured before use. Some of them can be used as-is while others require other components to operate. Service Graphs are composed of components operating together as a unit, however being independently orchestratable. These relatively complex structures can range from single-component service graphs to sophisticated complex services.
 
 ## 2 Getting started
 
