@@ -1,7 +1,9 @@
 # ARCADIA Components
 > ARCADIA Components Developer Documentation
 
-`WORKING DRAFT`
+```
+WORKING DRAFT
+```
 
 ```
 EDITORS
