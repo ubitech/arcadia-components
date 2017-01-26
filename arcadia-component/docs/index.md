@@ -3,7 +3,6 @@
 
 Authors: [@azafeiropoulos](https://github.com/azafeiropoulos) [@cparaskeva](https://github.com/cparaskeva) [@gtsiolis](https://github.com/gtsiolis)
 
-
 ## Introduction
 
 Cloud orchestration is a continuous evolving area targeting at the optimal deployment and management of cloud-based services. Aspects related to elasticity, scalability, fault-tolerance and support of distributed functionalities are highly considered. Towards the support of orchestration mechanisms -targeted at specific environments in terms of resource usage and locality aspects-, multiple deployment templates and associated orchestrators have been specified and developed. However, given the highly evolving area of cloud/fog computing combined with the trend for network softwarization, existing approaches have to be evolved and become more holistic in terms of supporting deployment and management of services over virtualized infrastructure.
