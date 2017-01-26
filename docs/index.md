@@ -1,5 +1,7 @@
 # ARCADIA Components
- `(Working Draft)`
+
+`WORKING DRAFT`
+
 > ARCADIA Components Developer Documentation
 
 Editors: [@azafeiropoulos](https://github.com/azafeiropoulos) [@cparaskeva](https://github.com/cparaskeva) [@gtsiolis](https://github.com/gtsiolis)
