@@ -51,20 +51,20 @@ Annotations are a form of metadata that provide data about a program that is not
 
 Building a component requires using some mandatory and some optional Java annotations based on [JSR 308](https://jcp.org/en/jsr/detail?id=308).
 
-| Annotation                        | Description | Cardinality Constrain | Optional |
-|-----------------------------------|-------------|----------------------|----------|
-| `@ArcadiaComponent`               |             | 1..1                 | False    |
-| `@ArcadiaConfigurationParameter`  |             | 0..N                 | True     |
-| `@ArcadiaConfigurationParameters` |             | 0..N                 | True     |
-| `@ArcadiaMetric`                  |             | 0..N                 | True     |
-| `@ArcadiaMetrics`                 |             | 0..N                 | True     |
-| `@DependencyBindingHandler`       |             | 0..N                 | True     |
-| `@DependencyExport`               |             | 0..N                 | True     |
-| `@DependencyExports`              |             | 0..N                 | True     |
-| `@DependencyResolutionHandler`    |             | 0..N                 | True     |
-| ~~`@LifecycleInitialize`~~ (Deprecated) |             | 1..1                 | False    |
-| ~~`@LifecycleStart`~~ (Deprecated) |             | 1..1                 | False    |
-| ~~`@LifecycleStop`~~ (Deprecated) |             | 1..1                 | False    |
+| Annotation                        | Cardinality Constrain | Optional |
+|-----------------------------------|-----------------------|----------|
+| `@ArcadiaComponent`               |1..1| False    |
+| `@ArcadiaConfigurationParameter`  |0..N| True     |
+| `@ArcadiaConfigurationParameters` |0..N| True     |
+| `@ArcadiaMetric`                  |0..N| True     |
+| `@ArcadiaMetrics`                 |0..N| True     |
+| `@DependencyBindingHandler`       |0..N| True     |
+| `@DependencyExport`               |0..N| True     |
+| `@DependencyExports`              |0..N| True     |
+| `@DependencyResolutionHandler`    |0..N| True     |
+| ~~`@LifecycleInitialize`~~ (Deprecated) |1..1| False    |
+| ~~`@LifecycleStart`~~ (Deprecated) |1..1| False    |
+| ~~`@LifecycleStop`~~ (Deprecated) |1..1| False    |
 
 #### 2.1.3 Implementation
 
