@@ -1,13 +1,23 @@
-# ARCADIA COMPONENT
-> ARCADIA Developer Documentation
+# ARCADIA COMPONENTS
+> ARCADIA Components Developer Documentation
 
 ## Introduction
 
-...
+Cloud orchestration is a continuous evolving area targeting at the optimal deployment and management of cloud-based services. Aspects related to elasticity, scalability, fault-tolerance and support of distributed functionalities are highly considered. Towards the support of orchestration mechanisms -targeted at specific environments in terms of resource usage and locality aspects-, multiple deployment templates and associated orchestrators have been specified and developed. However, given the highly evolving area of cloud/fog computing combined with the trend for network softwarization, existing approaches have to be evolved and become more holistic in terms of supporting deployment and management of services over virtualized infrastructure.
 
 ### The project
 
-...
+ARCADIA is designing and implementing a novel development toolkit and orchestrator for the design, development and orchestration of distributed applications over programmable multi-site infrastructure. The main novelty of ARCADIA stems from the adoption of a microservices-based development paradigm along with the development of a deployment and runtime policy-aware orchestrator able to deploy and manage the execution of distributed applications denoted in the form of a service graph. Reconfiguration-by-design principles are adopted and further specified, aiming at optimal execution of the designed services.
+
+ARCADIA's core values include the following:
+
+ - `DISTRIBUTED APPS DEVELOPMENT ENVIRONMENT` Design and develop microservices using ARCADIA libraries. Define app-oriented metrics. Reconfigurable-by-design apps.
+
+ - `POLICY-AWARE ORCHESTRATION` Optimal app deployment using meta-heuristic algorithms. Enable real-time policy enforcement. ETSI NFV compliant.
+
+ - `MULTI DATACENTER EXECUTION MIDDLEWARE` Eploit unikernel stacks. Support multi-IaaS scenarios. OpenStack-ready.
+
+ - `COMPONENT & APPLICATION DISCOVERY` Compose microservices-based applications. Discover. Reuse. Deploy.
 
 ### Wrapped components
 
@@ -23,7 +33,7 @@
 
 ...
 
-### RELATE
+### MODEL
 
 ...
 
@@ -32,3 +42,13 @@
 ...
 
 ### MONITOR
+
+...
+
+## Component Lifecycle
+
+...
+
+## Examples
+
+...
