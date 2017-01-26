@@ -1,6 +1,8 @@
 # ARCADIA COMPONENTS
 > ARCADIA Components Developer Documentation
 
+Authors: @azafeiropoulos @cparaskeva @gtsiolis
+
 ## Introduction
 
 Cloud orchestration is a continuous evolving area targeting at the optimal deployment and management of cloud-based services. Aspects related to elasticity, scalability, fault-tolerance and support of distributed functionalities are highly considered. Towards the support of orchestration mechanisms -targeted at specific environments in terms of resource usage and locality aspects-, multiple deployment templates and associated orchestrators have been specified and developed. However, given the highly evolving area of cloud/fog computing combined with the trend for network softwarization, existing approaches have to be evolved and become more holistic in terms of supporting deployment and management of services over virtualized infrastructure.
@@ -19,9 +21,9 @@ ARCADIA's core values include the following:
 
  - `COMPONENT & APPLICATION DISCOVERY` Compose microservices-based applications. Discover. Reuse. Deploy.
 
-### Wrapped components
+### Components
 
-...
+The ARCADIA (wrapped) components are the basic building blocks of the platform. They are used to compose large and complex systems that depend on each other. Each component has distinct properties that can be configured before use. Some of them can be used as-is while others require other components to operate. Service graphs are composed of components operating together as a unit. These relatively complex structures can range from single-component service graphs to sophisticated complex systems.
 
 ## Getting started
 
@@ -33,7 +35,7 @@ ARCADIA's core values include the following:
 
 ...
 
-### MODEL
+### COMPOSE
 
 ...
 
