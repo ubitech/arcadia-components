@@ -3,7 +3,11 @@
 
 `WORKING DRAFT`
 
-Editors: [@azafeiropoulos](https://github.com/azafeiropoulos) [@cparaskeva](https://github.com/cparaskeva) [@gtsiolis](https://github.com/gtsiolis)
+`EDITORS`
+
+[azafeiropoulos](https://github.com/azafeiropoulos)
+[cparaskeva](https://github.com/cparaskeva)
+[gtsiolis](https://github.com/gtsiolis)
 
 ## 1 Introduction
 
