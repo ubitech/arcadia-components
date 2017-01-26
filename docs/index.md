@@ -62,9 +62,9 @@ Building a component requires using some mandatory and some optional Java annota
 | `@DependencyExport`               |             | 0..N                 | True     |
 | `@DependencyExports`              |             | 0..N                 | True     |
 | `@DependencyResolutionHandler`    |             | 0..N                 | True     |
-| ~`@LifecycleInitialize`~             |             | 1..1                 | False    |
-| ~`@LifecycleStart`~                 |             | 1..1                 | False    |
-| ~`@LifecycleStop`~                  |             | 1..1                 | False    |
+| ~~`@LifecycleInitialize`~~ (Deprecated)             |             | 1..1                 | False    |
+| ~~`@LifecycleStart`~~ (Deprecated)                 |             | 1..1                 | False    |
+| ~~`@LifecycleStop`~~ (Deprecated)                  |             | 1..1                 | False    |
 
 #### 2.1.3 Implementation
 
