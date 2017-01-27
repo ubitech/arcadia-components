@@ -32,7 +32,7 @@ ARCADIA's core values include the following:
 
 ### 1.2 Components
 
-The ARCADIA (wrapped) components are the basic building blocks of the platform.They are used to compose distributed applications with set of components that depend on each other. Each component has distinct properties that can be configured before use. Some of them can be used as-is while others require other components to operate. Service Graphs are composed of components operating together as a unit, however being independently orchestratable. These relatively complex structures can range from single-component service graphs to sophisticated complex services.
+The ARCADIA (wrapped) components are the basic building blocks of the platform. They are used to compose distributed applications with set of components that depend on each other. Each component has distinct properties that can be configured before use. Some of them can be used as-is while others require other components to operate. Service Graphs are composed of components operating together as a unit, however being independently orchestratable. These relatively complex structures can range from single-component service graphs to sophisticated complex services.
 
 ## 2 Getting started
 
@@ -150,9 +150,121 @@ eu.arcadia.maestro.mysql.impl.MySQLMetricsProvider
 `NOTE: See more examples at the end of the documentation. Learn more about Service Provider Interfaces (SPI) at  https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html
 `
 
-### CONFIGURE
+### 2.2 CONFIGURE
 
-...
+#### 2.2.1 Configuration Parameters
+
+ARCADIA components can be configured during design time upon need. There are three types of configuration parameters that can be modified.
+
+##### 2.2.1.1 Docker Parameters
+
+Docker parameters are eventually used to configure the Docker Engine to be pre-installed in each virtual machine (VM) instantiated during the placement of a service graph. Such parameters can include Docker network settings that will be used by the Docker Agent when starting a container.
+
+For example, to start a MySQL server container you will have to provide a minimum of configuration parameters that include the database root password, the database host, network bindings and more. All these parameters can be set as environment variables passed onto `mysqld`.
+
+##### 2.2.1.2 System Parameters
+
+System parameters are component-related parameters used to define component interdependancies.
+
+For example, a component that uses a MySQL driver to connect to a database should know the database name and the credentials of the database.
+
+##### 2.2.1.3 Agent Parameters
+
+Agent parameters are used by the ARCADIA agent (maestro) to configure internal mechanisms such as the implementation class of the Service Provider Interface (SPI).
+
+#### 2.2.2 Convention over configuration
+
+ARCADIA favors convention over configuration and it has been designed to develop scalable and reconfigurable components as quickly as possible. The following naming conventions are interpreted by the ARCADIA agent (maestro) upon request.
+
+- `ImplementationClassName`: The class name of the API implementation
+- `DockerImage`: Docker image name
+- `DockerExpose`: Docker exposed port
+- `DockerEnvironment`: Docker environment variable
+- `SystemProperties`: Component related properties (e.g. Database name, username, password, etc)
+
+#### 2.2.3 Configuration using ARCADIA annotations
+
+The following code can be used as the minimum configuration required to build a MySQL server component.
+
+```java
+/**
+ * Arcadia Configuration Parameters
+ */
+@ArcadiaConfigurationParameter(name = "ImplementationClassName", description = "The class name of the API implementation", parametertype = ParameterType.String, defaultvalue = "MySQLMetricsProvider", mutableafterstartup = false)
+
+@ArcadiaConfigurationParameter(name = "DockerImage", description = "Docker image name", parametertype = ParameterType.String, defaultvalue = "mysql", mutableafterstartup = false)
+
+@ArcadiaConfigurationParameter(name = "DockerExpose", description = "Docker expose port", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+
+@ArcadiaConfigurationParameter(name = "DockerEnvironment", description = "Docker environment variables", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", mutableafterstartup = false)
+
+@ArcadiaConfigurationParameter(name = "SystemProperties", description = "Docker environment variables", parametertype = ParameterType.String, defaultvalue = "db_user=root,db_password=******,db_port=3306,db_host=localhost", mutableafterstartup = false)
+```
+
+#### 2.2.4 Metrics
+
+The following code can be used to define component metrics such as connections, bytes received and bytes sent.
+
+```java
+/**
+ * Arcadia Metrics
+ */
+@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+
+@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+
+@ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
+```
+
+#### 2.2.4 Chainable endpoints
+
+As aforementioned, some components require other components to operate. ARCADIA has defined specific annotations which can be used to define a require or expose functionality.
+
+##### 2.2.4.1 Creating an exposed chainable endpoint
+
+```java
+/**
+ * Arcadia Dependency Exports
+ */
+@DependencyExport(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+public class WrappedComponent {
+
+ /**
+  * Handle the binding
+  *
+  * @param chainingInfo ChainingInfo object
+  */
+@DependencyResolutionHandler(CEPCID = "mysqltcp")
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        logger.info("BINDED COMPONENT:" + chainingInfo.toString());
+    }
+
+}
+```
+
+##### 2.2.4.1 Creating an required chainable endpoint
+
+```java
+/**
+ * Arcadia Dependency Exports
+ */
+@DependencyExport(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+public class WrappedComponent {
+
+ /**
+  * Handle the required binding
+  *
+  * @param chainingInfo ChainingInfo object
+  */
+   @DependencyBindingHandler(CEPCID = "transcodingprocessor")
+    public static void  bindDependency(ChainingInfo chainingInfo){
+        logger.info("BINDED COMPONENT:"+chainingInfo.toString());
+        String connectedEndpoint = "http://"+chainingInfo.getPrivateIP()+":"+chainingInfo.getParameterValues().get("port")+"/"+chainingInfo.getParameterValues().get("uri");
+        logger.info("Connected Server URI:"+connectedEndpoint);
+        System.setProperty("Component.connectedEndpoint",connectedEndpoint);
+    }
+}
+```
 
 ### COMPOSE
 
