@@ -329,10 +329,10 @@ Component metrics must be defined by the component developer using ARCADIA metri
 
 You can have a graph representation of each metric from the running application list within the ARCADIA dashboard (`/application/{gsgid}/statistics` where `{gsgid}` is the grounded service graph ID).
 
-## 3. Component Lifecycle
+## 3 Component Lifecycle
 
 ...
 
-## 4. Examples
+## 4 Examples
 
 ...
