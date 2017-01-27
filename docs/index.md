@@ -12,6 +12,39 @@ EDITORS
 <a href="https://github.com/gtsiolis">gtsiolis</a>
 </pre>
 
+<pre>
+<a href="#introduction">1 Introduction</a>
+<a href="#the-project">1.1 The project</a>
+<a href="#components">1.2 Components</a>
+<a href="#getting-started">2 Getting Started</a>
+<a href="#create">2.1 CREATE</a>
+<a href="#prerequisites">2.1.1 Prerequisites</a>
+<a href="#annotations">2.1.2 Annotations</a>
+<a href="#implementation">2.1.3 Implementation</a>
+<a href="#implement-spi-service-provider-interface">2.1.3.1 Implement SPI (Service Provider Interface)</a>
+<a href="#register-the-spi-implementation">2.1.3.2 Register the SPI implementation</a>
+<a href="#bundling">2.1.4 Bundling</a>
+<a href="#configure">2.2 CONFIGURE</a>
+<a href="#configuration-parameters">2.2.1 Configuration Parameters</a>
+<a href="#docker-parameters">2.2.1.1 Docker Parameters</a>
+<a href="#system-parameters">2.2.1.2 System Parameters</a>
+<a href="#agent-parameters">2.2.1.3 Agent Parameters</a>
+<a href="#convention-over-configuration">2.2.2 Convention over configuration</a>
+<a href="#configuration-using-arcadia-annotations">2.2.3 Configuration using ARCADIA annotations</a>
+<a href="#metrics">2.2.4 Metrics</a>
+<a href="#chainable-endpoints">2.2.4 Chainable endpoints</a>
+<a href="#creating-an-exposed-chainable-endpoint">2.2.4.1 Creating an exposed chainable endpoint</a>
+<a href="#creating-a-required-chainable-endpoint">2.2.4.1 Creating a required chainable endpoint</a>
+<a href="#upload">2.3 UPLOAD</a>
+<a href="#compose">2.4 COMPOSE</a>
+<a href="#deploy">2.5 DEPLOY</a>
+<a href="#monitor">2.6 MONITOR</a>
+<a href="#component-lifecycle">3 Component Lifecycle</a>
+<a href="#examples">4 Examples</a>
+<a href="#components-without-dependencies">4.1 Components without dependencies</a>
+<a href="#components-with-dependencies">4.2 Components with dependencies</a>
+</pre>
+
 ## 1 Introduction
 
 Cloud orchestration is a continuous evolving area targeting at the optimal deployment and management of cloud-based services. Aspects related to elasticity, scalability, fault-tolerance and support of distributed functionalities are highly considered. Towards the support of orchestration mechanisms -targeted at specific environments in terms of resource usage and locality aspects-, multiple deployment templates and associated orchestrators have been specified and developed. However, given the highly evolving area of cloud/fog computing combined with the trend for network softwarization, existing approaches have to be evolved and become more holistic in terms of supporting deployment and management of services over virtualized infrastructure.
