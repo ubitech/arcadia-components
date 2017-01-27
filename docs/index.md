@@ -272,6 +272,8 @@ public class WrappedComponent {
 
 ### 2.3 UPLOAD
 
+You can upload your (wrapped)
+
 ### 2.4 COMPOSE
 
 Service graph composition is performed based on the compatibility of the chainable endpoints. Each component may expose one or more chainable endpoints. These chainable endpoints belong to specific categories. An endpoint is represented by an identifier that is addressed as an Exposed Chainable Endpoint Identifier (ECEPID) while the category per se is represented by a Chainable Endpoint Category Identifier (CEPCID). One CEPCID may correspond to multiple ECEPIDs.
@@ -282,7 +284,13 @@ A service graph grounding contains the actual service graph along with the place
 
 ### 2.6 MONITOR
 
-...
+Each (wrapped) component can expose a number of quantitative metrics that can be grouped in two categories.
+
+System metrics include metrics deriving from the virtualised environment and are considered to be resource related. These metrics include memory usage, CPU payload, network traffic, disk utilization and more. They are pre-defined and exposed by the ARCADIA agent (maestro) via REST endpoints.
+
+Component metrics must be defined by the component developer using ARCADIA metrics annotations (`@ArcadiaMetric`, `@ArcadiaMetrics`). These metrics are also exposed via REST endpoints using the following URL pattern: `/metrics/get/{metric}` where `{metric}` is the name of the metric defined.
+
+You can have a graph representation of each metric from the running application list within the ARCADIA dashboard (`/application/{gsgid}/statistics` where `{gsgid}` if the grounded service graph ID).
 
 ## 3. Component Lifecycle
 
