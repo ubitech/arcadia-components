@@ -5,12 +5,12 @@
 WORKING DRAFT
 ```
 
-```
+<pre>
 EDITORS
-azafeiropoulos
-cparaskeva
-gtsiolis
-```
+<a href="https://github.com/azafeiropoulos">azafeiropoulos</a>
+<a href="https://github.com/cparaskeva">cparaskeva</a>
+<a href="https://github.com/gtsiolis">gtsiolis</a>
+</pre>
 
 ## 1 Introduction
 
@@ -42,7 +42,7 @@ The ARCADIA (wrapped) components are the basic building blocks of the platform.T
 
 The project is currently using Docker to realise the component architecture so you should first locate the Docker image that would be able to wrap your component. View all available images from [hub.docker.com](https://hub.docker.com/). It is also possible to create your own Docker image.
 
-You should also define a base image for your new virtual machine VM instances that would host the ARCADIA agent (maestro). It is also possible to create your own image.
+You should also define the base image that you want to wrap with the ARCADIA agent (maestro). It is also possible to create your own image.
 
 Docker Engine API v1.24 is supported.
 
@@ -134,13 +134,13 @@ public interface MetricsProvider {
 
 ##### 2.1.3.2 Register the SPI implementation
 
-In this step you should register the implementation of the SPI in order to make it discoverable and useable by the ARCADIA agent.
+In this step you should register the implementation of the SPI in order to make it discoverable and usable by the ARCADIA agent.
 
 First, the component file (.jar) should contain a class file for each supported service. Following Java's convention, each class should have the name of the newly defined class which is a concrete subclass of one of the abstract service provider classes.
 
-Second, table the component file (.jar) must also contain any supporting classes required by the new SPI implementation.
+Second, the component file (.jar) must also contain any supporting classes required by the new SPI implementation.
 
-Last but now least, the component should include a file within the `META-INF/services` folder for each new SPI class being subclassed. For example, for the `Metricsrovider` class you should add a file named `eu.arcadia.maestro.api.MetricsProvider`. The file inside should contain the names pf the new subclasses:
+Last but not least, the component should include a file within the `META-INF/services` folder for each new SPI class being subclassed. For example, for the `MetricsProvider` class you should add a file named `eu.arcadia.maestro.api.MetricsProvider`. The file inside should contain the names of the new subclasses:
 
 ```
 # Provider of metrics services
