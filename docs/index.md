@@ -266,22 +266,22 @@ public class WrappedComponent {
 }
 ```
 
-### COMPOSE
+### 2.3 COMPOSE
+
+Service graph composition is performed based on the compatibility of the chainable endpoints. Each component may expose one or more chainable endpoints. These chainable endpoints belong to specific categories. An endpoint is represented by an identifier that is addressed as an Exposed Chainable Endpoint Identifier (ECEPID) while the category per se is represented by a Chainable Endpoint Category Identifier (CEPCID). One CEPCID may correspond to multiple ECEPIDs.
+
+### 2.4 DEPLOY
+
+A service graph grounding contains the actual service graph along with the placement metadata (i.e. resource provider used  per component) and the configuration metadata (i.e. configuration parameters per component). Just like the component and the service graph, the grounded service graph is also defined in XSD.
+
+### 2.5 MONITOR
 
 ...
 
-### DEPLOY
+## 3. Component Lifecycle
 
 ...
 
-### MONITOR
-
-...
-
-## Component Lifecycle
-
-...
-
-## Examples
+## 4. Examples
 
 ...
