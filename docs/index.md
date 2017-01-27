@@ -152,7 +152,40 @@ eu.arcadia.maestro.mysql.impl.MySQLMetricsProvider
 
 #### 2.1.4 Bundling
 
-...
+Before you can upload the compiled version of the (wrapped) component you should make sure that the compiled file (.jar) include all the required runtime dependencies. The compiled "fat jar" is a file that includes all the dependencies of the Maven project. To create the "fat jar" you will have to use the Maven Assembly Plugin which can be configured as follows:
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>assembly</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
+
+Then, to create a project assembly, simple execute the normal `package` phase from the default lifecycle:
+
+`mvn package`
+
+When this build completes, you should see a file in the target directory with a name similar to the following:
+
+`target/{component}-jar-with-dependencies.jar`
+
+Once you reach here you will have an ARCADIA-ready component which can you can upload, configure and deploy within the ARCADIA platform.
 
 ### 2.2 CONFIGURE
 
@@ -272,7 +305,11 @@ public class WrappedComponent {
 
 ### 2.3 UPLOAD
 
-You can upload your (wrapped)
+You can upload your (wrapped) component in two ways. Both ways require an API key generated via the ARCADIA dashboard.
+
+First, you can use the IDE to create a project. Afterwards you can add your API key, validate the project and upload the project.
+
+Second, you can use your own IDE to create a project. Afterwards you can create and configure a component using the aforementioned steps. Once you finish you can upload the compiled file (.jar) of the component via the ARCADIA dashboard.
 
 ### 2.4 COMPOSE
 
@@ -290,7 +327,7 @@ System metrics include metrics deriving from the virtualised environment and are
 
 Component metrics must be defined by the component developer using ARCADIA metrics annotations (`@ArcadiaMetric`, `@ArcadiaMetrics`). These metrics are also exposed via REST endpoints using the following URL pattern: `/metrics/get/{metric}` where `{metric}` is the name of the metric defined.
 
-You can have a graph representation of each metric from the running application list within the ARCADIA dashboard (`/application/{gsgid}/statistics` where `{gsgid}` if the grounded service graph ID).
+You can have a graph representation of each metric from the running application list within the ARCADIA dashboard (`/application/{gsgid}/statistics` where `{gsgid}` is the grounded service graph ID).
 
 ## 3. Component Lifecycle
 
