@@ -331,14 +331,14 @@ You can have a graph representation of each metric from the running application 
 
 ## 3 Component Lifecycle
 
-TODO
+...
 
 ## 4 Examples
 
 ### 4.1 Components without dependencies
 
-...
+- [MySQL wrapped component with exposed chainable endpoints](https://github.com/ubitech/arcadia-components/tree/master/components/mysql)
 
 ### 4.2 Components with dependencies
 
-- [MySQL wrapped component with exposed chainable endpoints](https://github.com/ubitech/arcadia-components/tree/master/components/mysql)
+...
