@@ -1,9 +1,10 @@
 # Java
 *.class
-*.log
 
 # Package Files
 *.jar
+*.war
+*.ear
 
 # Maven
 target/
@@ -11,7 +12,6 @@ target/
 # NetBeans
 build/
 nb-configuration.xml
-nbactions.xml
 
 # IntelliJ
 *.iml
@@ -20,6 +20,11 @@ nbactions.xml
 .idea/
 *.bak
 
+# Eclipse
+.project
+.classpath
+.settings/
+
 # JRebel
 nb_jr_remoting.cfg
 rebel-remote.xml
@@ -27,7 +32,3 @@ rebel.xml
 
 # OS X
 .DS_Store
-
-# Project
-/clientjars
-app/src/main/resources/static/clientjars/*
