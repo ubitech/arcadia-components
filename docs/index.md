@@ -108,7 +108,7 @@ First, add the SPI dependency:
 
 Then, you should implement the `MetricsProvider` interface. `MetricsProvider` is eventually used by the ARCADIA agent to expose all metrics defined in the component configuration.
 
-```Java
+```java
 public interface MetricsProvider {
 
     /**
@@ -242,7 +242,7 @@ public class WrappedComponent {
 }
 ```
 
-##### 2.2.4.1 Creating an required chainable endpoint
+##### 2.2.4.1 Creating a required chainable endpoint
 
 ```java
 /**
@@ -251,17 +251,17 @@ public class WrappedComponent {
 @DependencyExport(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 public class WrappedComponent {
 
- /**
+/**
   * Handle the required binding
   *
   * @param chainingInfo ChainingInfo object
   */
-   @DependencyBindingHandler(CEPCID = "transcodingprocessor")
-    public static void  bindDependency(ChainingInfo chainingInfo){
-        logger.info("BINDED COMPONENT:"+chainingInfo.toString());
-        String connectedEndpoint = "http://"+chainingInfo.getPrivateIP()+":"+chainingInfo.getParameterValues().get("port")+"/"+chainingInfo.getParameterValues().get("uri");
-        logger.info("Connected Server URI:"+connectedEndpoint);
-        System.setProperty("Component.connectedEndpoint",connectedEndpoint);
+  @DependencyBindingHandler(CEPCID = "transcodingprocessor")
+  public static void  bindDependency(ChainingInfo chainingInfo){
+    logger.info("BINDED COMPONENT:"+chainingInfo.toString());
+    String connectedEndpoint = "http://"+chainingInfo.getPrivateIP()+":"+chainingInfo.getParameterValues().get("port")+"/"+chainingInfo.getParameterValues().get("uri");
+    logger.info("Connected Server URI:"+connectedEndpoint);
+    System.setProperty("Component.connectedEndpoint",connectedEndpoint);
     }
 }
 ```
