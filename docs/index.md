@@ -150,6 +150,10 @@ eu.arcadia.maestro.mysql.impl.MySQLMetricsProvider
 `NOTE: See more examples at the end of the documentation. Learn more about Service Provider Interfaces (SPI) at  https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html
 `
 
+#### 2.1.4 Bundling
+
+...
+
 ### 2.2 CONFIGURE
 
 #### 2.2.1 Configuration Parameters
@@ -266,15 +270,17 @@ public class WrappedComponent {
 }
 ```
 
-### 2.3 COMPOSE
+### 2.3 UPLOAD
+
+### 2.4 COMPOSE
 
 Service graph composition is performed based on the compatibility of the chainable endpoints. Each component may expose one or more chainable endpoints. These chainable endpoints belong to specific categories. An endpoint is represented by an identifier that is addressed as an Exposed Chainable Endpoint Identifier (ECEPID) while the category per se is represented by a Chainable Endpoint Category Identifier (CEPCID). One CEPCID may correspond to multiple ECEPIDs.
 
-### 2.4 DEPLOY
+### 2.5 DEPLOY
 
 A service graph grounding contains the actual service graph along with the placement metadata (i.e. resource provider used  per component) and the configuration metadata (i.e. configuration parameters per component). Just like the component and the service graph, the grounded service graph is also defined in XSD.
 
-### 2.5 MONITOR
+### 2.6 MONITOR
 
 ...
 
