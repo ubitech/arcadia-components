@@ -66,9 +66,89 @@ Building a component requires using some mandatory and some optional Java annota
 | ~~`@LifecycleStart`~~ (Deprecated) |1..1| False    |
 | ~~`@LifecycleStop`~~ (Deprecated) |1..1| False    |
 
+In order to be able to use ARCADIA annotations you should first include the following Maven repository:
+
+```xml
+<repositories>
+  <repository>
+    <id>thirdparty</id>
+    <url>http://ci.arcadia-framework.eu/nexus/content/repositories/thirdparty</url>
+  </repository>
+</repositories>
+```
+
+Onwards, you should add the ARCADIA annotations dependency:
+
+```xml
+<dependency>
+  <groupId>eu.arcadia</groupId>
+  <artifactId>annotation-libs</artifactId>
+  <version>1.0.0.RC1</version>
+</dependency>
+```
+
 #### 2.1.3 Implementation
 
-...
+To build a Java application that is an ARCADIA-ready component you should do the following steps.
+
+##### 2.1.3.1 Implement SPI (Service Provider Interface)
+
+First, add the SPI dependency:
+
+```xml
+<dependency>
+  <groupId>eu.arcadia.maestro</groupId>
+  <artifactId>maestro-spi</artifactId>
+  <version>RELEASE</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+`NOTE: You don't have to include the maestro-spi dependency in the compiled jar since the maestro-spi is provided by the ARCADIA agent (maestro).`
+
+Then, you should implement the `MetricsProvider` interface. `MetricsProvider` is eventually used by the ARCADIA agent to expose all metrics defined in the component configuration.
+
+```Java
+public interface MetricsProvider {
+
+    /**
+     * Fetch an application/service metric given its name
+     *
+     * @param <T> The parameter type of the metric
+     * @param name The name of the metric to retrieve
+     * @return The value of the metric in current time
+     */
+    public <T> T getMetric(String name);
+
+    /**
+     * Fetch an application/service metric given its name and type
+     *
+     * @param <T> The parameter type of the metric
+     * @param name The name of the metric to retrieve
+     * @param clazz The class which the metric value will be casted
+     * @return The value of the metric in current time
+     */
+    public <T> T getMetric(String name, Class<T> clazz);
+}
+```
+
+##### 2.1.3.2 Register the SPI implementation
+
+In this step you should register the implementation of the SPI in order to make it discoverable and useable by the ARCADIA agent.
+
+First, the component file (.jar) should contain a class file for each supported service. Following Java's convention, each class should have the name of the newly defined class which is a concrete subclass of one of the abstract service provider classes.
+
+Second, table the component file (.jar) must also contain any supporting classes required by the new SPI implementation.
+
+Last but now least, the component should include a file within the `META-INF/services` folder for each new SPI class being subclassed. For example, for the `Metricsrovider` class you should add a file named `eu.arcadia.maestro.api.MetricsProvider`. The file inside should contain the names pf the new subclasses:
+
+```
+# Provider of metrics services
+eu.arcadia.maestro.mysql.impl.MySQLMetricsProvider
+```
+
+`NOTE: See more examples at the end of the documentation. Learn more about Service Provider Interfaces (SPI) at  https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html
+`
 
 ### CONFIGURE
 
