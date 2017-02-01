@@ -86,7 +86,7 @@ Building a component requires using some mandatory and some optional Java annota
 
 | Annotation `(Required/Optional)` `(Native/Wrapped)` | Cardinality |
 |---------------------------------------------------|----------------|
-| `@ArcadiaComponent` `(R)` `(N/W)` | 1..1 |
+| `@ArcadiaComponent` `(R)` `(N/W)` | `1..1` |
 | `@ArcadiaConfigurationParameter` `(O)` `N/W` | `0..N` |
 | `@ArcadiaMetric` `(O)` `(N/W)` | `0..N` |
 | `@ArcadiaChainableEndpoint` `(O)` `(N/W)` | `0..N` |
