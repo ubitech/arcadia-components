@@ -91,9 +91,9 @@ Building a component requires using some mandatory and some optional Java annota
 | `@ArcadiaMetric` `(O)` `(N/W)` | 0..N |
 | `@ArcadiaChainableEndpoint` `(O)` `(N/W)` | 0..N |
 | `@ArcadiaChainableEndpointResolutionHandler` `(O)` `(N/W)` | 0..N |
-| `@ArcadiaChainableEndpointBindingHandler` `(O)` `(N/W)` | 0..N / O / N/W |
-| `@ArcadiaBehavioralProfile` `(O)` `(N/W)` | 0..1 / O / N/W |
-| `@ArcadiaExecutionRequirement` `(O)` `(N/W)` | 0..1 / O / N/W |
+| `@ArcadiaChainableEndpointBindingHandler` `(O)` `(N/W)` | 0..N |
+| `@ArcadiaBehavioralProfile` `(O)` `(N/W)` | 0..1 |
+| `@ArcadiaExecutionRequirement` `(O)` `(N/W)` | 0..1 |
 | `@ArcadiaContainerParameter` `(R)` `(W)` | `1..N` |
 | `@ArcadiaLifecycleInitialize` `(R)` `(N)` | `1..1` |
 | `@ArcadiaLifecycleStar` `(R)` `(N)`| `1..1` |
