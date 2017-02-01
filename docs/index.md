@@ -84,23 +84,23 @@ Annotations are a form of metadata that provide data about a program that is not
 
 Building a component requires using some mandatory and some optional Java annotations based on [JSR 308](https://jcp.org/en/jsr/detail?id=308).
 
-| Annotation                        | Cardinality - Optional - Type |
-|-----------------------------------|-----------------------|----------|
-| `@ArcadiaComponent`               |1..1 / F / N/W |
-| `@ArcadiaConfigurationParameter`  |0..N / O / N/W |
-| `@ArcadiaMetric`                  |0..N / O / N/W |
+| Annotation                                        | Cardinality - Optional - Type |
+|--------------------------------------------------||----------------|----------|
+| `@ArcadiaComponent`                               | 1..1 / F / N/W |
+| `@ArcadiaConfigurationParameter`                  | 0..N / O / N/W |
+| `@ArcadiaMetric`                                  | 0..N / O / N/W |
 |||
-| `@ArcadiaChainableEndpoint` *                   |0..N / O / N/W |
-| `@ArcadiaChainableEndpointResolutionHandler` *  |0..N / O / N/W |
-| `@ArcadiaChainableEndpointBindingHandler` *     |0..N / O / N/W |
+| `@ArcadiaChainableEndpoint` *                     | 0..N / O / N/W |
+| `@ArcadiaChainableEndpointResolutionHandler` *    | 0..N / O / N/W |
+| `@ArcadiaChainableEndpointBindingHandler` *       | 0..N / O / N/W |
 |||
-| `@ArcadiaBehavioralProfile`       |0..1 / O / N/W |
-| `@ArcadiaExecutionRequirement`    |0..1 / O / N/W |
-| `@ArcadiaContainerParameter`      |1..N /R / W |
+| `@ArcadiaBehavioralProfile`                       | 0..1 / O / N/W |
+| `@ArcadiaExecutionRequirement`                    | 0..1 / O / N/W |
+| `@ArcadiaContainerParameter`                      | 1..N /R / W |
 |||
-| `@ArcadiaLifecycleInitialize`     |1..1 / R / N |
-| `@ArcadiaLifecycleStar`           |1..1 / R / N |
-| `@ArcadiaLifecycleStop`           |1..1 / R / N |
+| `@ArcadiaLifecycleInitialize`                     | 1..1 / R / N |
+| `@ArcadiaLifecycleStar`                           | 1..1 / R / N |
+| `@ArcadiaLifecycleStop`                           | 1..1 / R / N |
 
 > When using `@ArcadiaChainableEndpoint` annotation you should use `@ArcadiaChainableEndpointResolutionHandler` or `@ArcadiaChainableEndpointBindingHandler` annotation depending whether you are making a component that exposes or requires an endpoint respectively.
 
