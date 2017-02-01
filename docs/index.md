@@ -85,7 +85,7 @@ Annotations are a form of metadata that provide data about a program that is not
 Building a component requires using some mandatory and some optional Java annotations based on [JSR 308](https://jcp.org/en/jsr/detail?id=308).
 
 | Annotation                                        | Cardinality - Optional - Type |
-|--------------------------------------------------||----------------|----------|
+|---------------------------------------------------|----------------|
 | `@ArcadiaComponent`                               | 1..1 / F / N/W |
 | `@ArcadiaConfigurationParameter`                  | 0..N / O / N/W |
 | `@ArcadiaMetric`                                  | 0..N / O / N/W |
