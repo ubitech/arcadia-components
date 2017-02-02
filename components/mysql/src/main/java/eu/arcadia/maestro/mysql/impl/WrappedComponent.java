@@ -1,15 +1,18 @@
 package eu.arcadia.maestro.mysql.impl;
 
+import eu.arcadia.annotations.ArcadiaContainerParameter;
+import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaMetric;
-import eu.arcadia.annotations.DependencyExport;
-import eu.arcadia.annotations.DependencyResolutionHandler;
 import eu.arcadia.annotations.ParameterType;
+import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
-
 import java.util.logging.Logger;
+import eu.arcadia.annotations.ArcadiaBehavioralProfile;
+import eu.arcadia.annotations.ArcadiaChainableEndpoint;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 
 /**
  *
@@ -29,15 +32,29 @@ import java.util.logging.Logger;
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(name = "ImplementationClassName", description = "The class name of the API implementation", parametertype = ParameterType.String, defaultvalue = "MySQLMetricsProvider", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "DockerImage", description = "Docker image name", parametertype = ParameterType.String, defaultvalue = "mysql", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "DockerExpose", description = "Docker expose port", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "DockerEnvironment", description = "Docker environment variables", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "SystemProperties", description = "Docker environment variables", parametertype = ParameterType.String, defaultvalue = "db_user=root,db_password=!arcadia!,db_port=3306,db_host=localhost", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_user", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_password", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_port", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_host", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)
+
+/**
+ * Container Parameters
+ */
+@ArcadiaContainerParameter(key = "DockerImage", value = "mysql", description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose", value = "3306", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")
+
+/**
+ * Miscellaneous
+ */
+@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
+@ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
+
 /**
  * Arcadia Dependency Exports
  */
-@DependencyExport(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+
 public class WrappedComponent {
 
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
@@ -46,23 +63,19 @@ public class WrappedComponent {
      * Arcadia Configuration Parameters 
      * 
      */
-    public String getImplementationClassName() {
+    public String getDb_user() {
         return "";
     }
 
-    public String getDockerImage() {
+    public String getDb_password() {
         return "";
     }
 
-    public String getDockerExpose() {
+    public String getDb_port() {
         return "";
     }
 
-    public String getDockerEnvironment() {
-        return "";
-    }
-
-    public String getSystemProperties() {
+    public String getDb_host() {
         return "";
     }
 
@@ -87,7 +100,7 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @DependencyResolutionHandler(CEPCID = "mysqltcp")
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "mysqltcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
     }
