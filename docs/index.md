@@ -84,22 +84,24 @@ Annotations are a form of metadata that provide data about a program that is not
 
 Building a component requires using some mandatory and some optional Java annotations based on [JSR 308](https://jcp.org/en/jsr/detail?id=308).
 
-| Annotation                        | Cardinality Constrain | Optional |
-|-----------------------------------|-----------------------|----------|
-| `@ArcadiaComponent`               |1..1| False    |
-| `@ArcadiaConfigurationParameter`  |0..N| True     |
-| `@ArcadiaConfigurationParameters` |0..N| True     |
-| `@ArcadiaMetric`                  |0..N| True     |
-| `@ArcadiaMetrics`                 |0..N| True     |
-| `@DependencyBindingHandler`       |0..N| True     |
-| `@DependencyExport`               |0..N| True     |
-| `@DependencyExports`              |0..N| True     |
-| `@DependencyResolutionHandler`    |0..N| True     |
-| ~~`@LifecycleInitialize`~~ (Deprecated) |1..1| False    |
-| ~~`@LifecycleStart`~~ (Deprecated) |1..1| False    |
-| ~~`@LifecycleStop`~~ (Deprecated) |1..1| False    |
+| Annotation `(Required/Optional)` `(Native/Wrapped)` | Cardinality |
+|---------------------------------------------------|----------------|
+| `@ArcadiaComponent` `(R)` `(N/W)` | `1..1` |
+| `@ArcadiaConfigurationParameter` `(O)` `N/W` | `0..N` |
+| `@ArcadiaMetric` `(O)` `(N/W)` | `0..N` |
+| `@ArcadiaChainableEndpoint` `(O)` `(N/W)` | `0..N` |
+| `@ArcadiaChainableEndpointResolutionHandler` `(O)` `(N/W)` | `0..N` |
+| `@ArcadiaChainableEndpointBindingHandler` `(O)` `(N/W)` | `0..N` |
+| `@ArcadiaBehavioralProfile` `(O)` `(N/W)` | `0..1` |
+| `@ArcadiaExecutionRequirement` `(O)` `(N/W)` | `0..1` |
+| `@ArcadiaContainerParameter` `(R)` `(W)` | `1..N` |
+| `@ArcadiaLifecycleInitialize` `(R)` `(N)` | `1..1` |
+| `@ArcadiaLifecycleStar` `(R)` `(N)`| `1..1` |
+| `@ArcadiaLifecycleStop` `(R)` `(N)`| `1..1` |
 
-In order to be able to use ARCADIA annotations you should first include the following Maven repository:
+> When using `@ArcadiaChainableEndpoint` annotation you should use `@ArcadiaChainableEndpointResolutionHandler` or `@ArcadiaChainableEndpointBindingHandler` annotation depending whether you are making a component that exposes or requires an endpoint respectively.
+
+In order to be able to use ARCADIA annotations you should first include  the following Maven repository:
 
 ```xml
 <repositories>
@@ -232,13 +234,13 @@ Docker parameters are eventually used to configure the Docker Engine to be pre-i
 
 For example, to start a MySQL server container you will have to provide a minimum of configuration parameters that include the database root password, the database host, network bindings and more. All these parameters can be set as environment variables passed onto `mysqld`.
 
-##### 2.2.1.2 System Parameters
+##### 2.2.1.2 Component Parameters
 
-System parameters are component-related parameters used to define component interdependancies.
+Component parameters are used to define component interdependancies.
 
 For example, a component that uses a MySQL driver to connect to a database should know the database name and the credentials of the database.
 
-##### 2.2.1.3 Agent Parameters
+##### 2.2.1.3 Agent Parameters (Not implemented yet)
 
 Agent parameters are used by the ARCADIA agent (maestro) to configure internal mechanisms such as the implementation class of the Service Provider Interface (SPI).
 
@@ -246,11 +248,12 @@ Agent parameters are used by the ARCADIA agent (maestro) to configure internal m
 
 ARCADIA favors convention over configuration and it has been designed to develop scalable and reconfigurable components as quickly as possible. The following naming conventions are interpreted by the ARCADIA agent (maestro) upon request.
 
-- `ImplementationClassName`: The class name of the API implementation
 - `DockerImage`: Docker image name
 - `DockerExpose`: Docker exposed port
 - `DockerEnvironment`: Docker environment variable
-- `SystemProperties`: Component related properties (e.g. Database name, username, password, etc)
+
+
+- `ConfigurationParameter`: Component related properties (e.g. Database name, username, password, etc)
 
 #### 2.2.3 Configuration using ARCADIA annotations
 
