@@ -16,10 +16,9 @@ import eu.arcadia.annotations.ValueType;
 import java.util.logging.Logger;
 
 /**
- * Created by John Tsantilis
- * (i[dot]tsantilis[at]yahoo.com A.K.A lumi) on 1/2/2017.
+ * Created by John Tsantilis (i[dot]tsantilis[at]yahoo.com A.K.A lumi) on
+ * 1/2/2017.
  */
-
 /**
  * Arcadia Component Definition
  *
@@ -32,7 +31,6 @@ import java.util.logging.Logger;
 //@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
 //@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
 //@ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
-
 /**
  * Arcadia Configuration Parameters
  */
@@ -58,17 +56,13 @@ import java.util.logging.Logger;
  */
 @ArcadiaChainableEndpoint(CEPCID = "oriontcp", allowsMultipleTenants = true)
 public class WrappedComponent {
+
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
     /*
      * Arcadia wrapper Configuration Parameters
      *
      */
-    public String getImplementationClassName() {
-        return "";
-
-    }
-
     public String getDockerImage() {
         return "";
 
@@ -87,6 +81,10 @@ public class WrappedComponent {
     public String getSystemProperties() {
         return "";
 
+    }
+
+    public String getDb_host() {
+        return "";
     }
 
     /*
