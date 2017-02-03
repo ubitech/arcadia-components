@@ -34,16 +34,14 @@ import java.util.logging.Logger;
 /**
  * Arcadia Configuration Parameters
  */
-//@ArcadiaConfigurationParameter(name = "db_user", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
-//@ArcadiaConfigurationParameter(name = "db_password", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
-//@ArcadiaConfigurationParameter(name = "db_port", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "172.17.0.1", mutableafterstartup = false)
+//None for this component
 
 /**
  * Docker Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage", value = "fiware/orion", description = "Docker image name")
 @ArcadiaContainerParameter(key = "DockerExpose", value = "1026", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerCmd", value = "-dbhost 172.17.0.1", description = "Docker added command")
 
 /**
  * Miscellaneous
@@ -81,10 +79,6 @@ public class WrappedComponent {
     public String getSystemProperties() {
         return "";
 
-    }
-
-    public String getDb_host() {
-        return "";
     }
 
     /*
