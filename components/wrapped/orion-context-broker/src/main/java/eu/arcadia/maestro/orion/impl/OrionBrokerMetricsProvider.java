@@ -1,7 +1,7 @@
-package eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.impl;
+package eu.arcadia.maestro.orion.impl;
 
 import eu.arcadia.maestro.api.MetricsProvider;
-import eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.util.DSHandler;
+import eu.arcadia.maestro.orion.util.DSHandler;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.util;
+package eu.arcadia.maestro.orion.util;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -26,7 +26,7 @@ public enum DSHandler {
     public String sendGet(String metricName) throws Exception {
         HttpClient client = new DefaultHttpClient();
         StringBuilder sb = new StringBuilder();
-        sb.append("http://localhost:1026/" + metricName);
+        sb.append("http://localhost:1026/admin/" + metricName);
         HttpGet request = new HttpGet(sb.toString());
         // Add request header
         request.addHeader("User-Agent", USER_AGENT);
