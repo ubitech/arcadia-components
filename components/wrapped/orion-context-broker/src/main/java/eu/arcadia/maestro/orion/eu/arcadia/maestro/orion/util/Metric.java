@@ -6,6 +6,14 @@ package eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.util;
  */
 
 public enum Metric {
-    //
+    incomingTransactions,
+    incomingTransactionRequestSize,
+    incomingTransactionResponseSize,
+    incomingTransactionErrors,
+    serviceTime,
+    outgoingTransactions,
+    outgoingTransactionRequestSize,
+    outgoingTransactionResponseSize,
+    outgoingTransactionErrors;
 
 }

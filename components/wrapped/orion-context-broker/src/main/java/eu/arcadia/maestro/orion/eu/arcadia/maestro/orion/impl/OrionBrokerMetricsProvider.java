@@ -1,6 +1,10 @@
 package eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.impl;
 
 import eu.arcadia.maestro.api.MetricsProvider;
+import eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.util.DSHandler;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by John Tsantilis
@@ -9,14 +13,25 @@ import eu.arcadia.maestro.api.MetricsProvider;
 
 public class OrionBrokerMetricsProvider implements MetricsProvider {
     @Override
-    public <T> T getMetric(String s) {
-        return null;
+    public String getMetric(String name) {
+        String metric = null;
+
+        try {
+            metric = DSHandler.INSTANCE.sendGet(name);
+
+        }
+        catch (Exception ex) {
+            Logger.getLogger(DSHandler.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        return metric;
 
     }
 
     @Override
     public <T> T getMetric(String s, Class<T> aClass) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet.");
 
     }
 

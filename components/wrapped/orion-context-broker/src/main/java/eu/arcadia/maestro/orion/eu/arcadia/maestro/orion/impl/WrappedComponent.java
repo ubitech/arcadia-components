@@ -5,11 +5,9 @@ import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
-import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ArcadiaMetric;
-import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
 
@@ -28,20 +26,29 @@ import java.util.logging.Logger;
 /**
  * Arcadia wrapper exposed Metrics
  */
-//@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-//@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-//@ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "incomingTransactions", description = "Number of requests consumed by Orion", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "incomingTransactionRequestSize", description = "Total size (bytes) in requests associated to incoming transactions", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "incomingTransactionResponseSize", description = "Total size (bytes) in responses associated to incoming transactions", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "incomingTransactionErrors", description = "Number of incoming transactions resulting in error", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "serviceTime", description = "Average time to serve a transaction", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "outgoingTransactions", description = "Number of requests sent by Orion", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "outgoingTransactionRequestSize", description = "Total size (bytes) in requests associated to outgoing transactions", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "outgoingTransactionResponseSize", description = "Total size (bytes) in responses associated to outgoing transactions", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "outgoingTransactionErrors", description = "Number of outgoing transactions resulting in error", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "100000", minvalue = "0", higherisbetter = false)
 /**
  * Arcadia Configuration Parameters
  */
 //None for this component
+
+//BROKER_DATABASE_HOST
 
 /**
  * Docker Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage", value = "fiware/orion", description = "Docker image name")
 @ArcadiaContainerParameter(key = "DockerExpose", value = "1026", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerCmd", value = "-dbhost 172.17.0.1", description = "Docker added command")
+//@ArcadiaContainerParameter(key = "DockerCmd", value = "-dbhost 172.17.0.1", description = "Docker added command")
+@ArcadiaContainerParameter(key = "DockerEnvironment", value = "BROKER_DATABASE_HOST=172.17.0.1", description = "Docker environment variables")
 
 /**
  * Miscellaneous
@@ -56,46 +63,51 @@ import java.util.logging.Logger;
 public class WrappedComponent {
 
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
-
-    /*
-     * Arcadia wrapper Configuration Parameters
-     *
-     */
-    public String getDockerImage() {
-        return "";
-
-    }
-
-    public String getDockerExpose() {
-        return "";
-
-    }
-
-    public String getDockerEnvironment() {
-        return "";
-
-    }
-
-    public String getSystemProperties() {
-        return "";
-
-    }
-
     /*
      * Arcadia wrapper exposed Metrics
      *
      */
-    public static int getBytes_received() {
+    public static int getIncomingTransactions() {
         return 0;
 
     }
 
-    public static int getBytes_sent() {
+    public static int getIncomingTransactionRequestSize() {
         return 0;
 
     }
 
-    public static int getConnections() {
+    public static String getIncomingTransactionResponseSize() {
+        return "";
+
+    }
+
+    public static String getIncomingTransactionErrors() {
+        return "";
+
+    }
+
+    public static int getServiceTime() {
+        return 0;
+
+    }
+
+    public static int getOutgoingTransactions() {
+        return 0;
+
+    }
+
+    public static String getOutgoingTransactionRequestSize() {
+        return "";
+
+    }
+
+    public static String getOutgoingTransactionResponseSize() {
+        return "";
+
+    }
+
+    public static int getOutgoingTransactionErrors() {
         return 0;
 
     }
@@ -108,6 +120,7 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "oriontcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+
     }
 
 }
