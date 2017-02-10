@@ -63,7 +63,6 @@ import java.util.logging.Level;
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 
 public class WrappedComponent {
-
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
     /*

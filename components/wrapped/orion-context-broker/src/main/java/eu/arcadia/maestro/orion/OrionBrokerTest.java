@@ -1,8 +1,8 @@
 package eu.arcadia.maestro.orion;
 
 import eu.arcadia.maestro.api.MetricsProvider;
-import eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.impl.OrionBrokerMetricsProvider;
-import eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.util.Metric;
+import eu.arcadia.maestro.orion.impl.OrionBrokerMetricsProvider;
+import eu.arcadia.maestro.orion.util.Metric;
 
 import java.util.Arrays;
 

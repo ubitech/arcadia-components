@@ -1,15 +1,13 @@
-package eu.arcadia.maestro.orion.eu.arcadia.maestro.orion.impl;
+package eu.arcadia.maestro.orion.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
-import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ArcadiaMetric;
-import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
 
@@ -28,22 +26,20 @@ import java.util.logging.Logger;
 /**
  * Arcadia wrapper exposed Metrics
  */
-//@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-//@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-//@ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "metrics", description = "A multi-level JSON tree response that includes various internal metrics", unitofmeasurement = "string", valuetype = ValueType.String, maxvalue = "N/A", minvalue = "N/A", higherisbetter = false)
+
 /**
  * Arcadia Configuration Parameters
  */
-//@ArcadiaConfigurationParameter(name = "db_user", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
-//@ArcadiaConfigurationParameter(name = "db_password", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
-//@ArcadiaConfigurationParameter(name = "db_port", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "172.17.0.1", mutableafterstartup = false)
+//None for this component
 
 /**
  * Docker Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage", value = "fiware/orion", description = "Docker image name")
 @ArcadiaContainerParameter(key = "DockerExpose", value = "1026", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerCmd", value = "-dbhost 172.17.0.1", description = "Docker added command")
+//@ArcadiaContainerParameter(key = "DockerEnvironment", value = "BROKER_DATABASE_HOST=172.17.0.1", description = "Docker environment variables")
 
 /**
  * Miscellaneous
@@ -56,53 +52,14 @@ import java.util.logging.Logger;
  */
 @ArcadiaChainableEndpoint(CEPCID = "oriontcp", allowsMultipleTenants = true)
 public class WrappedComponent {
-
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
-
-    /*
-     * Arcadia wrapper Configuration Parameters
-     *
-     */
-    public String getDockerImage() {
-        return "";
-
-    }
-
-    public String getDockerExpose() {
-        return "";
-
-    }
-
-    public String getDockerEnvironment() {
-        return "";
-
-    }
-
-    public String getSystemProperties() {
-        return "";
-
-    }
-
-    public String getDb_host() {
-        return "";
-    }
 
     /*
      * Arcadia wrapper exposed Metrics
      *
      */
-    public static int getBytes_received() {
-        return 0;
-
-    }
-
-    public static int getBytes_sent() {
-        return 0;
-
-    }
-
-    public static int getConnections() {
-        return 0;
+    public static String getMetrics() {
+        return "";
 
     }
 
@@ -114,6 +71,7 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "oriontcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+
     }
 
 }

@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.arcadia.maestro</groupId>
-    <artifactId>orion</artifactId>
+    <artifactId>wordpress</artifactId>
     <version>0.1.0.BUILD-SNAPSHOT</version>
-    <name>orion</name>
+    <name>wordpress</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -58,7 +58,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.arcadia.maestro.orion.OrionBrokerTest</mainClass>
+                            <mainClass>eu.arcadia.maestro.wordpress.WordpressTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

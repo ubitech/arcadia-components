@@ -1,7 +1,7 @@
 package eu.arcadia.sample;
 
 import eu.arcadia.agentglue.ChainingInfo;
-import eu.arcadia.annotations.*;
+import eu.arcadia.annotations.ArcadiaComponent;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import java.util.logging.Logger;

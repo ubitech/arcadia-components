@@ -26,11 +26,11 @@
 
 
     <dependencies>
-        <!-- internal dependencies-->
+        <!-- arcadia internal dependencies -->
         <dependency>
             <groupId>eu.arcadia</groupId>
             <artifactId>annotation-libs</artifactId>
-            <version>${eu.arcadia.annotation-libs}</version>
+            <version>1.0.0.RC1</version>
         </dependency>
 
         <!-- SpringBoot -->
