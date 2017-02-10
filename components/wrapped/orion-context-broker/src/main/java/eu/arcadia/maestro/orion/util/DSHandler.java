@@ -21,7 +21,7 @@ public enum DSHandler {
      * HTTP GET request
      *
      * @param metricName The metric name required to perform teh GET request.
-     * @return
+     * @return The HTTP reply (String)
      */
     public String sendGet(String metricName) throws Exception {
         HttpClient client = new DefaultHttpClient();
@@ -45,6 +45,15 @@ public enum DSHandler {
         System.out.println(result.toString());
 
         return result.toString();
+
+    }
+
+    /**
+     * Default constructor
+     * @return DSHandler Object
+     */
+    DSHandler() {
+        //Do nothing
 
     }
 

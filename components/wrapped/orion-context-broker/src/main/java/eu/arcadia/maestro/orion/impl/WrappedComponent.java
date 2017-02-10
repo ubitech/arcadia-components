@@ -52,7 +52,6 @@ import java.util.logging.Logger;
  */
 @ArcadiaChainableEndpoint(CEPCID = "oriontcp", allowsMultipleTenants = true)
 public class WrappedComponent {
-
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
     /*

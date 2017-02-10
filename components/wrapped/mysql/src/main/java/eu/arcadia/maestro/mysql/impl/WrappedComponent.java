@@ -56,7 +56,6 @@ import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 
 public class WrappedComponent {
-
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
     /*
