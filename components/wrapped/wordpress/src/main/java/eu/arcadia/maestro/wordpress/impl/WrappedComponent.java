@@ -8,6 +8,7 @@ package eu.arcadia.maestro.wordpress.impl;
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
+import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
@@ -48,18 +49,24 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "wordpresstcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 public class WrappedComponent {
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
-    /**
-     * Handle the binding
-     *
-     * @param chainingInfo ChainingInfo object
-     */
-    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "wordpresstcp")
-    public static void bindedRootComponent(ChainingInfo chainingInfo) {
-        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+    public static String getUri() {
+        return System.getProperty("uri");
+
+    }
+
+    public static String getPort() {
+        return System.getProperty("port");
+
+    }
+
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "mysqltcp")
+    public static void bindDependency(ChainingInfo chainingInfo) {
+        String environment = System.getProperty("environment");
+        System.setProperty("environment", environment.replace("%WORDPRESS_DB_HOST%", getUri() + ":" + getPort()));
 
     }
 
