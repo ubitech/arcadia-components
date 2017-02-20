@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia wrapper exposed Metrics
  */
-//Non for this component
+//None for this component
 
 /**
  * Arcadia Configuration Parameters
