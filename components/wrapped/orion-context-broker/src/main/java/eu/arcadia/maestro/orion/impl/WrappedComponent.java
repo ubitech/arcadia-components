@@ -63,6 +63,16 @@ public class WrappedComponent {
 
     }
 
+    public static String getUri() {
+        return System.getProperty("uri");
+
+    }
+
+    public static String getPort() {
+        return System.getProperty("port");
+
+    }
+
     /**
      * Handle the binding
      *
