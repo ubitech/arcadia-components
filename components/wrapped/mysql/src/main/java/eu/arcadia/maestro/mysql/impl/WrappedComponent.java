@@ -115,17 +115,17 @@ public class WrappedComponent {
      * Arcadia Metrics 
      * 
      */
-//    public static int getBytes_received() {
-//        return 0;
-//    }
-//
-//    public static int getBytes_sent() {
-//        return 0;
-//    }
-//
-//    public static int getConnections() {
-//        return 0;
-//    }
+    public static int getBytes_received() {
+        return 0;
+    }
+
+    public static int getBytes_sent() {
+        return 0;
+    }
+
+    public static int getConnections() {
+        return 0;
+    }
 
     /**
      * Handle the binding
