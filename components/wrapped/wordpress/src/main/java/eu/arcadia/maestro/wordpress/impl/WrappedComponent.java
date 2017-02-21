@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  * Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage", value = "wordpress", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "12345", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerExpose", value = "80", description = "Docker expose port")
 @ArcadiaContainerParameter(key = "DockerEnvironment", value = "WORDPRESS_DB_HOST=%WORDPRESS_DB_HOST%,WORDPRESS_DB_USER=root,WORDPRESS_DB_PASSWORD=!arcadia!", description = "Docker environment variables")
 
 /**

@@ -12,7 +12,6 @@ import eu.arcadia.annotations.ValueType;
 import java.util.logging.Logger;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
-import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,20 +28,20 @@ import java.util.logging.Level;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "MySQL", componentversion = "0.1.0", componentdescription = "MySQL is a widely used, open-source relational database management system (RDBMS)", tags = {"database", "rdbms", "server", "sql"})
+@ArcadiaComponent(componentname = "MySQL", componentversion = "1.0.0", componentdescription = "MySQL is a widely used, open-source relational database management system (RDBMS)", tags = {"database", "rdbms", "server", "sql"})
 /**
  * Arcadia Metrics
  */
-@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-@ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "Number of bytes", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "Number of bytes", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(name = "Connections", description = "Number of current connections to mysql server", unitofmeasurement = "Number of connections", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(name = "db_user", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_password", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_port", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host", description = "System Properties", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_port", description = "The port which mysql server is listening", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)
 
 /**
  * Container Parameters
@@ -63,6 +62,7 @@ import java.util.logging.Level;
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 
 public class WrappedComponent {
+
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
     /*
@@ -85,12 +85,17 @@ public class WrappedComponent {
         return "";
     }
 
+    /**
+     * Find the public IP of the VM
+     *
+     * @return The public IP of the VM
+     */
     public static String getUri() {
         try {
             URL whatismyip = new URL("http://checkip.amazonaws.com");
             BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
             try {
-                return in.readLine(); //you get the IP as a String
+                return in.readLine();
             } catch (IOException ex) {
                 Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -110,17 +115,17 @@ public class WrappedComponent {
      * Arcadia Metrics 
      * 
      */
-    public static int getBytes_received() {
-        return 0;
-    }
-
-    public static int getBytes_sent() {
-        return 0;
-    }
-
-    public static int getConnections() {
-        return 0;
-    }
+//    public static int getBytes_received() {
+//        return 0;
+//    }
+//
+//    public static int getBytes_sent() {
+//        return 0;
+//    }
+//
+//    public static int getConnections() {
+//        return 0;
+//    }
 
     /**
      * Handle the binding
