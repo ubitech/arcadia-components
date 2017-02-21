@@ -14,13 +14,21 @@ import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "mongo", componentversion = "0.1.0", componentdescription = "MongoDB is a cross-platform document-oriented database", tags = {"Schema-less DB", "document db"})
+@ArcadiaComponent(componentname = "mongo",
+        componentversion = "0.1.0",
+        componentdescription = "MongoDB is a cross-platform document-oriented database",
+        tags = {"Schema-less DB", "document db"})
 
 /**
  * Arcadia wrapper exposed Metrics
@@ -49,15 +57,42 @@ import java.util.logging.Logger;
  */
 @ArcadiaChainableEndpoint(CEPCID = "mongotcp", allowsMultipleTenants = true)
 public class WrappedComponent {
-    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
+    public static String getMongoUri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
 
-    public static String getUri() {
-        return System.getProperty("uri");
+        }
+        catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+
+            }
+
+        }
+
+        if (addr != null) {
+            return addr.getHostAddress();
+
+        }
+        else {
+            return "";
+
+        }
+
 
     }
 
-    public static String getPort() {
-        return System.getProperty("port");
+    public static String getMongoPort() {
+        return System.getProperty("mongoPort");
 
     }
 
@@ -66,5 +101,7 @@ public class WrappedComponent {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
+
+    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }
