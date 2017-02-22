@@ -51,7 +51,9 @@ Cloud orchestration is a continuous evolving area targeting at the optimal deplo
 
 ### 1.1 The project
 
-ARCADIA is designing and implementing a novel development toolkit and orchestrator for the design, development and orchestration of distributed applications over programmable multi-site infrastructure. The main novelty of ARCADIA stems from the adoption of a microservices-based development paradigm along with the development of a deployment and runtime policy-aware orchestrator able to deploy and manage the execution of distributed applications denoted in the form of a service graph. Reconfiguration-by-design principles are adopted and further specified, aiming at optimal execution of the designed services.
+ARCADIA is a development and orchestration framework for distributed applications. ARCADIA is coming up with a software development toolkit and an orchestrator. The software development toolkit includes a web-based IDE for the design and development of distributed applications, following a microservices-based development paradigm. Each application is denoted in the form of a service graph consisted of application components (or microservices) chained among each other.
+
+The orchestrator includes a set of intelligent orchestration mechanisms supporting the placement and runtime management of distributed applications over programmable multi-site infrastructure. The set of mechanisms regard an optimisation engine supporting the preparation of optimal deployment plans provided through a constraint satisfaction solver, a runtime policies enforcement engine supporting the real-time adaptation of the deployed applications based on a rules-based management system, a monitoring and analytics extraction engine supporting the extraction of advanced insights and forecasts regarding performance aspects of the deployed applications and a multi-site resource manager supporting management of resources coming from one or multiple infrastructure providers. The intelligent orchestration mechanisms are combined with a dashboard providing a toolset for the visual design of distributed applications in the form of a service graph, an editor for declaring optimization objectives and runtime policies description, as well as a set of custom views regarding the available and active applications and statistics based on their real-time operation. It should be noted that ARCADIA is currently applicable to distributed cloud applications, however it is fully extensible in order to incorporate provision and management of network services -combined with the applications- following the evolution of Software Defined Networking (SDN) and Network Function Virtualization (NFV) technologies.
 
 ARCADIA's core values include the following:
 
@@ -87,7 +89,7 @@ Building a component requires using some mandatory and some optional Java annota
 | Annotation `(Required/Optional)` `(Native/Wrapped)` | Cardinality |
 |---------------------------------------------------|----------------|
 | `@ArcadiaComponent` `(R)` `(N/W)` | `1..1` |
-| `@ArcadiaConfigurationParameter` `(O)` `N/W` | `0..N` |
+| `@ArcadiaConfigurationParameter` `(O)` `(N/W)` | `0..N` |
 | `@ArcadiaMetric` `(O)` `(N/W)` | `0..N` |
 | `@ArcadiaChainableEndpoint` `(O)` `(N/W)` | `0..N` |
 | `@ArcadiaChainableEndpointResolutionHandler` `(O)` `(N/W)` | `0..N` |
