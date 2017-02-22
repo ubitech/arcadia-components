@@ -17,9 +17,7 @@ public class OrionBrokerMetricsProvider implements MetricsProvider {
         String metric = null;
 
         try {
-            String ip = System.getenv("%MONGO_DB_HOST%");
-            System.out.printf("%n%n%n%n%nMONGO_DB_HOST: %s%n%n%n%n%n%n", ip);
-            metric = DSHandler.INSTANCE.sendGet(name, ip);
+            metric = DSHandler.INSTANCE.sendGet(name);
 
         }
         catch (Exception ex) {

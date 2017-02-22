@@ -105,7 +105,6 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mongotcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         String environment = System.getProperty("environment");
-        System.out.printf("%n%n%n%n%nMONGO_DB_HOST: %s%n%n%n%n%n%n", getUri());
         LOGGER.info(String.format("MONGO_DB_HOST: %s", getUri()));
         System.setProperty("environment", environment.replace("%MONGO_DB_HOST%", getUri() + ":" + getPort()));
 

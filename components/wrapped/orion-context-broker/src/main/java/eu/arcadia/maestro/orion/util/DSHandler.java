@@ -23,10 +23,10 @@ public enum DSHandler {
      * @param metricName The metric name required to perform teh GET request.
      * @return The HTTP reply (String)
      */
-    public String sendGet(String metricName, String ip) throws Exception {
+    public String sendGet(String metricName) throws Exception {
         HttpClient client = new DefaultHttpClient();
         StringBuilder sb = new StringBuilder();
-        sb.append("http://" + ip +":1026/admin/" + metricName);
+        sb.append("http://localhost:1026/admin/" + metricName);
         HttpGet request = new HttpGet(sb.toString());
         // Add request header
         request.addHeader("User-Agent", USER_AGENT);
