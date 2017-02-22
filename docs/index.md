@@ -27,7 +27,7 @@ EDITORS
 <a href="#22-configure">2.2 CONFIGURE</a>
 <a href="#221-configuration-parameters">2.2.1 Configuration Parameters</a>
 <a href="#2211-docker-parameters">2.2.1.1 Docker Parameters</a>
-<a href="#2212-system-parameters">2.2.1.2 System Parameters</a>
+<a href="#2212-component-parameters">2.2.1.2 Component Parameters</a>
 <a href="#2213-agent-parameters">2.2.1.3 Agent Parameters</a>
 <a href="#222-convention-over-configuration">2.2.2 Convention over configuration</a>
 <a href="#223-configuration-using-arcadia-annotations">2.2.3 Configuration using ARCADIA annotations</a>
