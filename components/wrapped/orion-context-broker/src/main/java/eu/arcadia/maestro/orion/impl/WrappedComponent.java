@@ -3,7 +3,7 @@ package eu.arcadia.maestro.orion.impl;
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
-import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
@@ -11,11 +11,6 @@ import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
-import java.util.Enumeration;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -52,9 +47,15 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage", value = "fiware/orion", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "1026", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerCmd", value = "-dbhost %MONGO_DB_HOST%", description = "Docker added command")
+@ArcadiaContainerParameter(key = "DockerImage",
+        value = "fiware/orion",
+        description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose",
+        value = "1026",
+        description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerCmd",
+        value = "-dbhost %MONGO_DB_HOST%",
+        description = "Docker added command")
 
 /**
  * Miscellaneous
@@ -86,8 +87,13 @@ public class WrappedComponent {
 
     }
 
-    public static String getMongoUri() {
-        return System.getProperty("mongoUri");
+    public static String getUri() {
+        return System.getProperty("uri");
+
+    }
+
+    public static String getPort() {
+        return System.getProperty("port");
 
     }
 
@@ -96,10 +102,12 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "mongotcp")
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "mongotcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         String environment = System.getProperty("environment");
-        System.setProperty("environment", environment.replace("%MONGO_DB_HOST%", getMongoUri()));
+        System.out.printf("%n%n%n%n%nMONGO_DB_HOST: %s%n%n%n%n%n%n", getUri());
+        LOGGER.info(String.format("MONGO_DB_HOST: %s", getUri()));
+        System.setProperty("environment", environment.replace("%MONGO_DB_HOST%", getUri() + ":" + getPort()));
 
     }
 

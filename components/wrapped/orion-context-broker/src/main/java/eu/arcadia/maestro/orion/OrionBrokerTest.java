@@ -13,13 +13,7 @@ import java.util.Arrays;
 
 public class OrionBrokerTest {
     public static void main(String[] args) {
-        //Instantiate
-        MetricsProvider metricsProvider = new OrionBrokerMetricsProvider();
-
-        Arrays.asList(Metric.values()).forEach(metric -> {
-            System.out.println(String.format("Metric: %s\tValue: %s", metric, metricsProvider.getMetric(metric.name())));
-
-        });
+        //
 
     }
 
