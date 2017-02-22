@@ -13,36 +13,36 @@ EDITORS
 </pre>
 
 <pre>
-<a href="#introduction">1 Introduction</a>
-<a href="#the-project">1.1 The project</a>
-<a href="#components">1.2 Components</a>
-<a href="#getting-started">2 Getting Started</a>
-<a href="#create">2.1 CREATE</a>
-<a href="#prerequisites">2.1.1 Prerequisites</a>
-<a href="#annotations">2.1.2 Annotations</a>
-<a href="#implementation">2.1.3 Implementation</a>
-<a href="#implement-spi-service-provider-interface">2.1.3.1 Implement SPI (Service Provider Interface)</a>
-<a href="#register-the-spi-implementation">2.1.3.2 Register the SPI implementation</a>
-<a href="#bundling">2.1.4 Bundling</a>
-<a href="#configure">2.2 CONFIGURE</a>
-<a href="#configuration-parameters">2.2.1 Configuration Parameters</a>
-<a href="#docker-parameters">2.2.1.1 Docker Parameters</a>
-<a href="#system-parameters">2.2.1.2 System Parameters</a>
-<a href="#agent-parameters">2.2.1.3 Agent Parameters</a>
-<a href="#convention-over-configuration">2.2.2 Convention over configuration</a>
-<a href="#configuration-using-arcadia-annotations">2.2.3 Configuration using ARCADIA annotations</a>
-<a href="#metrics">2.2.4 Metrics</a>
-<a href="#chainable-endpoints">2.2.4 Chainable endpoints</a>
-<a href="#creating-an-exposed-chainable-endpoint">2.2.4.1 Creating an exposed chainable endpoint</a>
-<a href="#creating-a-required-chainable-endpoint">2.2.4.1 Creating a required chainable endpoint</a>
-<a href="#upload">2.3 UPLOAD</a>
-<a href="#compose">2.4 COMPOSE</a>
-<a href="#deploy">2.5 DEPLOY</a>
-<a href="#monitor">2.6 MONITOR</a>
-<a href="#component-lifecycle">3 Component Lifecycle</a>
-<a href="#examples">4 Examples</a>
-<a href="#components-without-dependencies">4.1 Components without dependencies</a>
-<a href="#components-with-dependencies">4.2 Components with dependencies</a>
+<a href="#1-introduction">1 Introduction</a>
+<a href="#11-the-project">1.1 The project</a>
+<a href="#12-components">1.2 Components</a>
+<a href="#2-getting-started">2 Getting Started</a>
+<a href="#21-create">2.1 CREATE</a>
+<a href="#211-prerequisites">2.1.1 Prerequisites</a>
+<a href="#212-annotations">2.1.2 Annotations</a>
+<a href="#213-implementation">2.1.3 Implementation</a>
+<a href="#2131-implement-spi-service-provider-interface">2.1.3.1 Implement SPI (Service Provider Interface)</a>
+<a href="#2132-register-the-spi-implementation">2.1.3.2 Register the SPI implementation</a>
+<a href="#214-bundling">2.1.4 Bundling</a>
+<a href="#22-configure">2.2 CONFIGURE</a>
+<a href="#221-configuration-parameters">2.2.1 Configuration Parameters</a>
+<a href="#2211-docker-parameters">2.2.1.1 Docker Parameters</a>
+<a href="#2212-system-parameters">2.2.1.2 System Parameters</a>
+<a href="#2213-agent-parameters">2.2.1.3 Agent Parameters</a>
+<a href="#222-convention-over-configuration">2.2.2 Convention over configuration</a>
+<a href="#223-configuration-using-arcadia-annotations">2.2.3 Configuration using ARCADIA annotations</a>
+<a href="#224-metrics">2.2.4 Metrics</a>
+<a href="#2241-chainable-endpoints">2.2.4.1 Chainable endpoints</a>
+<a href="#2242-creating-an-exposed-chainable-endpoint">2.2.4.2 Creating an exposed chainable endpoint</a>
+<a href="#2243-creating-a-required-chainable-endpoint">2.2.4.3 Creating a required chainable endpoint</a>
+<a href="#23-upload">2.3 UPLOAD</a>
+<a href="#24-compose">2.4 COMPOSE</a>
+<a href="#25-deploy">2.5 DEPLOY</a>
+<a href="#26-monitor">2.6 MONITOR</a>
+<a href="#3-component-lifecycle">3 Component Lifecycle</a>
+<a href="#4-examples">4 Examples</a>
+<a href="#41-components-without-dependencies">4.1 Components without dependencies</a>
+<a href="#42-components-with-dependencies">4.2 Components with dependencies</a>
 </pre>
 
 ## 1 Introduction
@@ -291,11 +291,11 @@ The following code can be used to define component metrics such as connections, 
 @ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
 ```
 
-#### 2.2.4 Chainable endpoints
+##### 2.2.4.1 Chainable endpoints
 
 As aforementioned, some components require other components to operate. ARCADIA has defined specific annotations which can be used to define a require or expose functionality.
 
-##### 2.2.4.1 Creating an exposed chainable endpoint
+##### 2.2.4.2 Creating an exposed chainable endpoint
 
 ```java
 /**
@@ -317,7 +317,7 @@ public class WrappedComponent {
 }
 ```
 
-##### 2.2.4.1 Creating a required chainable endpoint
+##### 2.2.4.3 Creating a required chainable endpoint
 
 ```java
 /**
