@@ -4,6 +4,7 @@ import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
@@ -27,13 +28,13 @@ import java.util.logging.Logger;
 /**
  * Arcadia wrapper exposed Metrics
  */
-/*@ArcadiaMetric(name = "metrics",
+@ArcadiaMetric(name = "metrics",
         description = "A multi-level JSON tree response that includes various internal metrics",
         unitofmeasurement = "string",
         valuetype = ValueType.String,
         maxvalue = "N/A",
         minvalue = "N/A",
-        higherisbetter = false)*/
+        higherisbetter = false)
 
 /**
  * Arcadia Configuration Parameters
@@ -56,7 +57,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "mongotcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "oriontcp", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
      * Arcadia wrapper exposed Metrics
@@ -98,6 +99,11 @@ public class WrappedComponent {
         System.setProperty("cmd", System.getProperty("cmd").replace("%MONGO_DB_HOST%", getUri()));
         LOGGER.info(String.format("cmd: %s", System.getProperty("cmd")));
 
+    }
+
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "oriontcp")
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
     }
 
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
