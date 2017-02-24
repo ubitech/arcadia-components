@@ -94,20 +94,9 @@ public class WrappedComponent {
      */
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mongotcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
-        LOGGER.info(String.format("\n\n\n\n\nI am in here!!!!!!!!!\n\n\n\n\n"));
         String CMD = System.getProperty("cmd");
-        System.out.printf("%n%n%n%n%n%n%n%n%nCMD is: " + CMD + "%n%n%n%n%n%n%n%n%n");
-        LOGGER.info(String.format("\n\n\n\n\nCMD is: %s\n\n\n\n" + CMD));
-        LOGGER.info(String.format("MONGO_DB_HOST: %s", getUri()));
-        if (null != CMD && !CMD.isEmpty()) {
-            System.setProperty("cmd", CMD.replace("%MONGO_DB_HOST%", getUri() + ":" + getPort()));
-            LOGGER.info(String.format("\n\n\n\n\nCMD is: %s\n\n\n\n" + CMD));
-
-        }
-        else {
-            LOGGER.severe(String.format("\n\n\n\n\nSomething went wrong!!!!\n\n\n\n"));
-
-        }
+        System.setProperty("cmd", System.getProperty("cmd").replace("%MONGO_DB_HOST%", getUri()));
+        LOGGER.info(String.format("cmd: %s", System.getProperty("cmd")));
 
     }
 
