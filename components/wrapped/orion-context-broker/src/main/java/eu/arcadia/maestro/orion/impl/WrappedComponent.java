@@ -72,10 +72,10 @@ public class WrappedComponent {
      * Arcadia wrapper exposed Metrics
      *
      */
-    /*public static String getMetrics() {
+    public static String getMetrics() {
         return "";
 
-    }*/
+    }
 
     public static String getOrionUri() {
         return System.getProperty("orionUri");
@@ -104,15 +104,24 @@ public class WrappedComponent {
      */
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mongotcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
-        System.out.printf("%n%n%n%n%n%n%n%n%nI am in here!!!!!!!!!%n%n%n%n%n%n%n%n%n%n%n");
+        LOGGER.info(String.format("\n\n\n\n\nI am in here!!!!!!!!!\n\n\n\n\n"));
         String CMD = System.getProperty("cmd");
         System.out.printf("%n%n%n%n%n%n%n%n%nCMD is: " + CMD + "%n%n%n%n%n%n%n%n%n");
+        LOGGER.info(String.format("\n\n\n\n\nCMD is: %s\n\n\n\n" + CMD));
         LOGGER.info(String.format("MONGO_DB_HOST: %s", getUri()));
-        System.setProperty("cmd", CMD.replace("%MONGO_DB_HOST%", getUri() + ":" + getPort()));
-        System.out.printf("%n%n%n%n%n%n%n%n%nCMD is: " + CMD + "%n%n%n%n%n%n%n%n%n");
+        if (null != CMD && !CMD.isEmpty()) {
+            System.setProperty("cmd", CMD.replace("%MONGO_DB_HOST%", getUri() + ":" + getPort()));
+            LOGGER.info(String.format("\n\n\n\n\nCMD is: %s\n\n\n\n" + CMD));
+
+        }
+        else {
+            LOGGER.severe(String.format("\n\n\n\n\nSomething went wrong!!!!\n\n\n\n"));
+
+        }
 
     }
 
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }
+
