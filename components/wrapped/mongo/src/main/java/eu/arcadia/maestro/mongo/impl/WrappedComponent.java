@@ -26,10 +26,7 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "Mongo",
-        componentversion = "0.1.0",
-        componentdescription = "MongoDB is a cross-platform document-oriented database",
-        tags = {"Schema-less DB", "document db", "database", "server"})
+@ArcadiaComponent(componentname = "Mongo", componentversion = "0.1.0", componentdescription = "MongoDB is a cross-platform document-oriented database", tags = {"Schema-less DB", "document db", "database", "server"})
 
 /**
  * Arcadia wrapper exposed Metrics
@@ -44,12 +41,8 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage",
-        value = "mongo",
-        description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose",
-        value = "27017",
-        description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerImage", value = "mongo", description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose", value = "27017", description = "Docker expose port")
 
 /**
  * Miscellaneous
