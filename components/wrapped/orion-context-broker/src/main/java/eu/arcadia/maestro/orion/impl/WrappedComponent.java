@@ -101,11 +101,6 @@ public class WrappedComponent {
 
     }
 
-    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "oriontcp")
-    public static void bindedRootComponent(ChainingInfo chainingInfo) {
-        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
-    }
-
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }
