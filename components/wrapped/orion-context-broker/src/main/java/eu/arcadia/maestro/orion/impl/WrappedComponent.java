@@ -31,13 +31,13 @@ import java.util.logging.Logger;
 /**
  * Arcadia wrapper exposed Metrics
  */
-@ArcadiaMetric(name = "metrics",
+/*@ArcadiaMetric(name = "metrics",
         description = "A multi-level JSON tree response that includes various internal metrics",
         unitofmeasurement = "string",
         valuetype = ValueType.String,
         maxvalue = "N/A",
         minvalue = "N/A",
-        higherisbetter = false)
+        higherisbetter = false)*/
 
 /**
  * Arcadia Configuration Parameters
@@ -72,10 +72,10 @@ public class WrappedComponent {
      * Arcadia wrapper exposed Metrics
      *
      */
-    public static String getMetrics() {
+    /*public static String getMetrics() {
         return "";
 
-    }
+    }*/
 
     public static String getOrionUri() {
         return System.getProperty("orionUri");
@@ -104,9 +104,12 @@ public class WrappedComponent {
      */
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mongotcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
+        System.out.printf("%n%n%n%n%n%n%n%n%nI am in here!!!!!!!!!%n%n%n%n%n%n%n%n%n%n%n");
         String CMD = System.getProperty("cmd");
+        System.out.printf("%n%n%n%n%n%n%n%n%nCMD is: " + CMD + "%n%n%n%n%n%n%n%n%n");
         LOGGER.info(String.format("MONGO_DB_HOST: %s", getUri()));
         System.setProperty("cmd", CMD.replace("%MONGO_DB_HOST%", getUri() + ":" + getPort()));
+        System.out.printf("%n%n%n%n%n%n%n%n%nCMD is: " + CMD + "%n%n%n%n%n%n%n%n%n");
 
     }
 
