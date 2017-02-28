@@ -23,7 +23,11 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "OrionBroker", componentversion = "0.1.0", componentdescription = "The Orion Context Broker is an implementation of the Publish/Subscribe Context Broker GE, providing the NGSI9 and NGSI10 interfaces.", tags = {"Context broker", "Publish/Subscribe", "IoT", "smart devices"})
+@ArcadiaComponent(componentname = "OrionBroker", 
+    componentversion = "0.1.0", 
+    componentdescription = "The Orion Context Broker is an implementation of the Publish/Subscribe Context Broker GE, 
+    providing the NGSI9 and NGSI10 interfaces.", 
+    tags = {"Context broker", "Publish/Subscribe", "IoT", "smart devices"})
 
 /**
  * Arcadia wrapper exposed Metrics
@@ -44,9 +48,15 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage", value = "fiware/orion", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "1026", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerCmd", value = "-dbhost %MONGO_DB_HOST%", description = "Docker added command")
+@ArcadiaContainerParameter(key = "DockerImage", 
+    value = "fiware/orion", 
+    description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose", 
+    value = "1026", 
+    description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerCmd", 
+    value = "-dbhost %MONGO_DB_HOST%", 
+    description = "Docker added command")
 
 /**
  * Miscellaneous

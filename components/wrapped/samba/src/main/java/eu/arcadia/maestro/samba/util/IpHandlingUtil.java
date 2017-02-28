@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.mongo.util;
+package eu.arcadia.maestro.samba.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +11,7 @@ import java.util.regex.PatternSyntaxException;
  * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 22/2/2017.
  */
 
-public class Utilities {
+public class IpHandlingUtil {
     /**
      * Determine if the given string is a valid IPv4. This method
      * uses pattern matching to see if the given string could be a valid IP address.
@@ -22,7 +22,7 @@ public class Utilities {
      *  <code>false</code> otherwise.
      */
     public static boolean isIpV4Address(String ipAddress) {
-        Matcher m1 = Utilities.VALID_IPV4_PATTERN.matcher(ipAddress);
+        Matcher m1 = IpHandlingUtil.VALID_IPV4_PATTERN.matcher(ipAddress);
 
         if (m1.matches()) {
             return true;
@@ -45,7 +45,7 @@ public class Utilities {
      *  <code>false</code> otherwise.
      */
     public static boolean isIpV6Address(String ipAddress) {
-        Matcher m2 = Utilities.VALID_IPV6_PATTERN.matcher(ipAddress);
+        Matcher m2 = IpHandlingUtil.VALID_IPV6_PATTERN.matcher(ipAddress);
 
         if (m2.matches()) {
             return true;
@@ -70,7 +70,7 @@ public class Utilities {
 
         }
         catch (PatternSyntaxException ex) {
-            Logger.getLogger(Utilities.class.getName()).log(Level.SEVERE, "Unable to compile pattern ", ex);
+            Logger.getLogger(IpHandlingUtil.class.getName()).log(Level.SEVERE, "Unable to compile pattern ", ex);
 
         }
 

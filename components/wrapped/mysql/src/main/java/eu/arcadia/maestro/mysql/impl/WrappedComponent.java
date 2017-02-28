@@ -107,47 +107,60 @@ import java.util.logging.Level;
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 
 public class WrappedComponent {
-    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
-
     /*
      * Arcadia Configuration Parameters 
      * 
      */
     public String getDb_user() {
         return "";
+
     }
 
     public String getDb_password() {
         return "";
+
     }
 
     public String getDb_port() {
         return "";
+
     }
 
     public String getDb_host() {
         return "";
+
     }
 
     public static String getUri() {
         try {
             URL whatismyip = new URL("http://checkip.amazonaws.com");
             BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
+
             try {
                 return in.readLine(); //you get the IP as a String
-            } catch (IOException ex) {
+
+            } 
+            catch (IOException ex) {
                 Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
             }
-        } catch (MalformedURLException ex) {
+        } 
+        catch (MalformedURLException ex) {
             Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+
+        } 
+        catch (IOException ex) {
             Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
         }
+
         return "";
+        
     }
 
     public static String getPort() {
         return System.getProperty("db_port");
+
     }
 
     /*
@@ -156,14 +169,17 @@ public class WrappedComponent {
      */
     public static int getBytes_received() {
         return 0;
+
     }
 
     public static int getBytes_sent() {
         return 0;
+
     }
 
     public static int getConnections() {
         return 0;
+
     }
 
     /**
@@ -174,6 +190,9 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "mysqltcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+
     }
+
+private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }

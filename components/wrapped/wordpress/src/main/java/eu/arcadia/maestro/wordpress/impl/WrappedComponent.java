@@ -20,7 +20,11 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "Wordpress", componentversion = "0.1.0", componentdescription = "WordPress is a free and open source blogging tool and a content management system (CMS) based on PHP and MySQL, which runs on a web hosting service.", tags = {"CMS", "site", "PHP", "MySQL"})
+@ArcadiaComponent(componentname = "Wordpress", 
+    componentversion = "0.1.0", 
+    componentdescription = "WordPress is a free and open source blogging tool and a content 
+    management system (CMS) based on PHP and MySQL, which runs on a web hosting service.", 
+    tags = {"CMS", "site", "PHP", "MySQL"})
 
 /**
  * Arcadia Metrics
@@ -35,9 +39,15 @@ import java.util.logging.Logger;
 /**
  * Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage", value = "wordpress", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "12345", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerEnvironment", value = "WORDPRESS_DB_HOST=%WORDPRESS_DB_HOST%,WORDPRESS_DB_USER=root,WORDPRESS_DB_PASSWORD=!arcadia!", description = "Docker environment variables")
+@ArcadiaContainerParameter(key = "DockerImage", 
+    value = "wordpress", 
+    description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose", 
+    value = "12345", 
+    description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerEnvironment", 
+    value = "WORDPRESS_DB_HOST=%WORDPRESS_DB_HOST%,WORDPRESS_DB_USER=root,WORDPRESS_DB_PASSWORD=!arcadia!", 
+    description = "Docker environment variables")
 
 /**
  * Miscellaneous
@@ -50,8 +60,6 @@ import java.util.logging.Logger;
  */
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 public class WrappedComponent {
-    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
-
     public static String getUri() {
         return System.getProperty("uri");
 
@@ -62,11 +70,18 @@ public class WrappedComponent {
 
     }
 
+    /**
+     * Handle the binding
+     *
+     * @param chainingInfo ChainingInfo object
+     */
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mysqltcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
         String environment = System.getProperty("environment");
         System.setProperty("environment", environment.replace("%WORDPRESS_DB_HOST%", getUri() + ":" + getPort()));
 
     }
+
+ private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }

@@ -8,20 +8,31 @@ package eu.arcadia.maestro.samba.impl;
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
-import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
+import eu.arcadia.maestro.samba.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "samba", componentversion = "0.1.0", componentdescription = "Samba is an Open Source/Free Software suite that provides seamless file and print services to SMB/CIFS clients", tags = {"samba", "file service", "SMB/CIFS"})
+@ArcadiaComponent(componentname = "samba",
+        componentversion = "0.1.0",
+        componentdescription = "Samba is an Open Source/Free Software suite that provides " +
+                "seamless file and print services to SMB/CIFS clients",
+        tags = {"samba", "file service", "SMB/CIFS"})
 
+//TODO:  Must add specific metrics for Samba server.
 /**
  * Arcadia wrapper exposed Metrics
  */
@@ -35,8 +46,13 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage", value = "php-image-app", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "80", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerImage",
+        value = "dperson/samba",
+        description = "Docker image name")
+//TODO:  Must allow multiple ports for docker container to be exposed to vm instance.
+@ArcadiaContainerParameter(key = "DockerExpose",
+        value = "139" /* multiple ports! must add value = "445"*/,
+        description = "Docker expose port")
 
 /**
  * Miscellaneous
@@ -47,24 +63,60 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "php", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "samba", allowsMultipleTenants = true)
+@SuppressWarnings("Duplicates")
 public class WrappedComponent {
-    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
+    public static String getSambaUri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
 
-    public static String getUri() {
-        return System.getProperty("uri");
+        }
+        catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress())) &&
+                        (!IpHandlingUtil.isIpV6Address(addr.getHostAddress())) &&
+                        (!addr.getHostAddress().toString().equals("127.0.0.1")) &&
+                        (!addr.getHostAddress().toString().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
 
     }
 
-    public static String getPort() {
-        return System.getProperty("port");
+    //TODO:  Must return multiple ports!Therefore String should change to List<> or ArrayList<>.
+    public static String getSambaPort() {
+        return "139";
+        //return 139 & 445
 
     }
 
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "php")
+    /**
+     * Handle the binding
+     *
+     * @param chainingInfo ChainingInfo object
+     */
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "samba")
     public static void bindDependency(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
+
+    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }

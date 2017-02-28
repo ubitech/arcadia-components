@@ -13,7 +13,7 @@ import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
-import eu.arcadia.maestro.mongo.util.Utilities;
+import eu.arcadia.maestro.mongo.util.IpHandlingUtil;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -26,7 +26,10 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "Mongo", componentversion = "0.1.0", componentdescription = "MongoDB is a cross-platform document-oriented database", tags = {"Schema-less DB", "document db", "database", "server"})
+@ArcadiaComponent(componentname = "Mongo", 
+    componentversion = "0.1.0", 
+    componentdescription = "MongoDB is a cross-platform document-oriented database", 
+    tags = {"Schema-less DB", "document db", "database", "server"})
 
 /**
  * Arcadia wrapper exposed Metrics
@@ -41,8 +44,12 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage", value = "mongo", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "27017", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerImage", 
+    value = "mongo", 
+    description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose", 
+    value = "27017", 
+    description = "Docker expose port")
 
 /**
  * Miscellaneous
@@ -54,6 +61,7 @@ import java.util.logging.Logger;
  * Arcadia Dependency Exports
  */
 @ArcadiaChainableEndpoint(CEPCID = "mongotcp", allowsMultipleTenants = true)
+@SuppressWarnings("Duplicates")
 public class WrappedComponent {
     public static String getUri() {
         Enumeration<NetworkInterface> n = null;
@@ -72,8 +80,8 @@ public class WrappedComponent {
             Enumeration<InetAddress> a = e.getInetAddresses();
             for (; a.hasMoreElements();) {
                 addr = a.nextElement();
-                if ((Utilities.isIpV4Address(addr.getHostAddress())) &&
-                        (!Utilities.isIpV6Address(addr.getHostAddress())) &&
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress())) &&
+                        (!IpHandlingUtil.isIpV6Address(addr.getHostAddress())) &&
                         (!addr.getHostAddress().toString().equals("127.0.0.1")) &&
                         (!addr.getHostAddress().toString().equals("172.17.0.1"))) {
                     return addr.getHostAddress();
