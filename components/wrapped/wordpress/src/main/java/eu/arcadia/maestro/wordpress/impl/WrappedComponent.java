@@ -22,8 +22,8 @@ import java.util.logging.Logger;
  */
 @ArcadiaComponent(componentname = "Wordpress", 
     componentversion = "0.1.0", 
-    componentdescription = "WordPress is a free and open source blogging tool and a content 
-    management system (CMS) based on PHP and MySQL, which runs on a web hosting service.", 
+    componentdescription = "WordPress is a free and open source blogging tool and a content " +
+            "management system (CMS) based on PHP and MySQL, which runs on a web hosting service.",
     tags = {"CMS", "site", "PHP", "MySQL"})
 
 /**

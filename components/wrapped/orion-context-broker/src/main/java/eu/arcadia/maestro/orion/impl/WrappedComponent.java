@@ -4,7 +4,6 @@ import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
-import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
@@ -25,8 +24,8 @@ import java.util.logging.Logger;
  */
 @ArcadiaComponent(componentname = "OrionBroker", 
     componentversion = "0.1.0", 
-    componentdescription = "The Orion Context Broker is an implementation of the Publish/Subscribe Context Broker GE, 
-    providing the NGSI9 and NGSI10 interfaces.", 
+    componentdescription = "The Orion Context Broker is an implementation of " +
+            "the Publish/Subscribe Context Broker GE, providing the NGSI9 and NGSI10 interfaces.",
     tags = {"Context broker", "Publish/Subscribe", "IoT", "smart devices"})
 
 /**

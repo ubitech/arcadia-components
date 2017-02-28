@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.arcadia.maestro</groupId>
-    <artifactId>samba</artifactId>
+    <artifactId>phpdashboard</artifactId>
     <version>0.1.0.BUILD-SNAPSHOT</version>
-    <name>samba</name>
+    <name>phpdashboard</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -29,15 +29,7 @@
             <artifactId>annotation-libs</artifactId>
             <version>1.0.0.RC1</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
-        </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
@@ -58,7 +50,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.arcadia.maestro.samba.SambaTest</mainClass>
+                            <mainClass>eu.arcadia.maestro.phpdashboard.PhpDashboardTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

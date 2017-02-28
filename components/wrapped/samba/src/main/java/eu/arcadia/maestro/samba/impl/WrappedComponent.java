@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "samba",
+@ArcadiaComponent(componentname = "Samba",
         componentversion = "0.1.0",
         componentdescription = "Samba is an Open Source/Free Software suite that provides " +
                 "seamless file and print services to SMB/CIFS clients",
