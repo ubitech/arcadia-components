@@ -17,5 +17,6 @@
         <module>orion-context-broker</module>
         <module>samba</module>
         <module>wordpress</module>
+        <module>phpdashboard</module>
     </modules>
 </project>

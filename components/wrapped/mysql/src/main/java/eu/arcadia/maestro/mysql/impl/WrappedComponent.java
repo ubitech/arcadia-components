@@ -9,11 +9,18 @@ import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
+
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.logging.Logger;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
+import eu.arcadia.maestro.mysql.util.IpHandlingUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -131,7 +138,7 @@ public class WrappedComponent {
 
     }
 
-    public static String getUri() {
+    /*public static String getUri() {
         try {
             URL whatismyip = new URL("http://checkip.amazonaws.com");
             BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
@@ -156,6 +163,40 @@ public class WrappedComponent {
 
         return "";
         
+    }*/
+
+    @SuppressWarnings("Duplicates")
+    public static String getUri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        }
+        catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress())) &&
+                        (!IpHandlingUtil.isIpV6Address(addr.getHostAddress())) &&
+                        (!addr.getHostAddress().toString().equals("127.0.0.1")) &&
+                        (!addr.getHostAddress().toString().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
     }
 
     public static String getPort() {

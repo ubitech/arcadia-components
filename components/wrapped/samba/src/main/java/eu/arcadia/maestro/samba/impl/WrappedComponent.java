@@ -51,7 +51,7 @@ import java.util.logging.Logger;
         description = "Docker image name")
 //TODO:  Must allow multiple ports for docker container to be exposed to vm instance.
 @ArcadiaContainerParameter(key = "DockerExpose",
-        value = "139" /* multiple ports! must add value = "445"*/,
+        value = "139,445" /* multiple ports! must add value = "445"*/,
         description = "Docker expose port")
 
 /**
@@ -66,7 +66,7 @@ import java.util.logging.Logger;
 @ArcadiaChainableEndpoint(CEPCID = "samba", allowsMultipleTenants = true)
 @SuppressWarnings("Duplicates")
 public class WrappedComponent {
-    public static String getSambaUri() {
+    public static String getSambauri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
         try {
@@ -100,7 +100,7 @@ public class WrappedComponent {
     }
 
     //TODO:  Must return multiple ports!Therefore String should change to List<> or ArrayList<>.
-    public static String getSambaPort() {
+    public static String getSambaport() {
         return "139";
         //return 139 & 445
 
