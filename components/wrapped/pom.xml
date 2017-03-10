@@ -14,9 +14,16 @@
     <modules>
         <module>mongo</module>
         <module>mysql</module>
-        <module>orion-context-broker</module>
+        <module>orion</module>
         <module>samba</module>
         <module>wordpress</module>
         <module>phpdashboard</module>
+        <module>springbootapp</module>
+        <module>dummycomponentone</module>
+        <module>dummycomponenttwo</module>
+        <module>dummycomponentthree</module>
+        <module>dummycomponentfour</module>
+        <module>dummycomponentfive</module>
+        <module>dummycomponentsix</module>
     </modules>
 </project>

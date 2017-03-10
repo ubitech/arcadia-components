@@ -1,10 +1,5 @@
 package eu.arcadia.maestro.phpdashboard.impl;
 
-/**
- * Created by John Tsantilis
- * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 28/2/2017.
- */
-
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
@@ -15,6 +10,11 @@ import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
 
 import java.util.logging.Logger;
+
+/**
+ * Created by John Tsantilis
+ * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 28/2/2017.
+ */
 
 /**
  * Arcadia Component Definition
@@ -100,12 +100,11 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mysqltcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
         String environment = System.getProperty("environment");
-        System.setProperty("environment", environment.replace("%DB_HOST%", getUri() + ":" + getPort())
+        System.setProperty("environment", environment.replace("%DB_HOST%", getUri())
                 .replace("%SHARE_HOST%", getSambauri()));
         LOGGER.info(String.format("env: %s", System.getProperty("environment")));
 
     }
-
 
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "samba")
     public static void bindDependencySecondary(ChainingInfo chainingInfo) {

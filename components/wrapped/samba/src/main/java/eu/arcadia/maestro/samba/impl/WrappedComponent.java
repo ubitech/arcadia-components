@@ -112,7 +112,7 @@ public class WrappedComponent {
      * @param chainingInfo ChainingInfo object
      */
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "samba")
-    public static void bindDependency(ChainingInfo chainingInfo) {
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
