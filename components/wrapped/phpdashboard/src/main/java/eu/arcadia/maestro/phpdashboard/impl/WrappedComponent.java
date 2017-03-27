@@ -1,9 +1,5 @@
-package eu.arcadia.maestro.wordpress.impl;
+package eu.arcadia.maestro.phpdashboard.impl;
 
-/**
- * Created by John Tsantilis (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi)
- * on 10/2/2017.
- */
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
@@ -16,35 +12,52 @@ import eu.arcadia.annotations.ScaleBehavior;
 import java.util.logging.Logger;
 
 /**
+ * Created by John Tsantilis
+ * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 28/2/2017.
+ */
+
+/**
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "Wordpress",
+@ArcadiaComponent(componentname = "PhpDashboard",
         componentversion = "0.1.0",
-        componentdescription = "WordPress is a free and open source blogging tool and a content "
-        + "management system (CMS) based on PHP and MySQL, which runs on a web hosting service.",
-        tags = {"CMS", "site", "PHP", "MySQL"})
+        componentdescription = "A PHP pilot application created for Arcadia demonstration purposes.",
+        tags = {"PHP", "Application", "Arcadia Pilot"})
 
 /**
- * Arcadia Metrics
+ * Arcadia wrapper exposed Metrics
  */
 //Non for this component
+
 /**
  * Arcadia Configuration Parameters
  */
-//Non for this component
+//None for this component
+
 /**
- * Container Parameters
+ * Docker Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage",
-        value = "wordpress",
+        value = "giannis20012001/phpdashboard",
         description = "Docker image name")
 @ArcadiaContainerParameter(key = "DockerExpose",
         value = "80",
         description = "Docker expose port")
 @ArcadiaContainerParameter(key = "DockerEnvironment",
-        value = "WORDPRESS_DB_HOST=%WORDPRESS_DB_HOST%,WORDPRESS_DB_USER=root,WORDPRESS_DB_PASSWORD=!arcadia!",
+        value = "SHARE_HOST=%SHARE_HOST%," +
+                "GIT_USER=itsantilis," +
+                "GIT_PASS=arcadialtfe," +
+                "DB_HOST=%DB_HOST%," +
+                "DB_ROOT_USER=root," +
+                "DB_ROOT_PASS=gen6," +
+                "DB_NAME=gen6," +
+                "DB_USER=gen6," +
+                "DB_PASS=gen6",
         description = "Docker environment variables")
+@ArcadiaContainerParameter(key = "DockerCmd",
+        value = "--privileged",
+        description = "Docker added command")
 
 /**
  * Miscellaneous
@@ -56,8 +69,8 @@ import java.util.logging.Logger;
  * Arcadia Dependency Exports
  */
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "samba", allowsMultipleTenants = true)
 public class WrappedComponent {
-
     public static String getUri() {
         return System.getProperty("uri");
 
@@ -68,15 +81,34 @@ public class WrappedComponent {
 
     }
 
+    public static String getSambauri() {
+        return System.getProperty("sambauri");
+
+    }
+
+    public static String getSambaport() {
+        return System.getProperty("sambaport");
+
+    }
+
     /**
      * Handle the binding
      *
      * @param chainingInfo ChainingInfo object
      */
+    //TODO: Add secondary ArcadiaChainableEndpointBindingHandler to support additional component interconnection
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mysqltcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
         String environment = System.getProperty("environment");
-        System.setProperty("environment", environment.replace("%WORDPRESS_DB_HOST%", getUri() + ":" + getPort()));
+        System.setProperty("environment", environment.replace("%DB_HOST%", getUri())
+                .replace("%SHARE_HOST%", getSambauri()));
+        LOGGER.info(String.format("env: %s", System.getProperty("environment")));
+
+    }
+
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "samba")
+    public static void bindDependencySecondary(ChainingInfo chainingInfo) {
+        //
 
     }
 

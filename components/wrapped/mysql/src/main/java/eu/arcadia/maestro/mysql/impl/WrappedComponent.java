@@ -13,11 +13,11 @@ import java.util.logging.Logger;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
+import eu.arcadia.maestro.mysql.util.IpHandlingUtil;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.logging.Level;
 
 /**
@@ -90,25 +90,42 @@ public class WrappedComponent {
      *
      * @return The public IP of the VM
      */
+    @SuppressWarnings("Duplicates")
     public static String getUri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
         try {
-            URL whatismyip = new URL("http://checkip.amazonaws.com");
-            BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
-            try {
-                return in.readLine();
-            } catch (IOException ex) {
-                Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (MalformedURLException ex) {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        } catch (SocketException ex) {
             Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
         }
-        return "";
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress()))
+                        && (!IpHandlingUtil.isIpV6Address(addr.getHostAddress()))
+                        && (!addr.getHostAddress().equals("127.0.0.1"))
+                        && (!addr.getHostAddress().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
     }
 
     public static String getPort() {
         return System.getProperty("db_port");
+
     }
 
     /*
