@@ -9,7 +9,13 @@ import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
+import eu.arcadia.maestro.dummycomponentthree.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -40,8 +46,11 @@ import java.util.logging.Logger;
  * Docker Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage",
-        value = "alpine",
+        value = "httpd:2.4",
         description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose",
+        value = "80",
+        description = "Docker expose port")
 
 /**
  * Miscellaneous
@@ -52,10 +61,67 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "dummycomponentfive", allowsMultipleTenants = true)
-@ArcadiaChainableEndpoint(CEPCID = "dummycomponentfour", allowsMultipleTenants = true)
 @ArcadiaChainableEndpoint(CEPCID = "dummycomponentthree", allowsMultipleTenants = true)
 public class WrappedComponent {
+    @SuppressWarnings("Duplicates")
+    public static String getDummycomponentthreeuri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        }
+        catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress())) &&
+                        (!IpHandlingUtil.isIpV6Address(addr.getHostAddress())) &&
+                        (!addr.getHostAddress().toString().equals("127.0.0.1")) &&
+                        (!addr.getHostAddress().toString().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static String getDummycomponentthreeport() {
+        return "80";
+
+    }
+
+    public static String getDummycomponentfiveuri() {
+        return System.getProperty("dummycomponentfiveuri");
+
+    }
+
+    public static String getDummycomponentfiveport() {
+        return System.getProperty("dummycomponentfiveport");
+
+    }
+
+    public static String getDummycomponentfoururi() {
+        return System.getProperty("dummycomponentfoururi");
+
+    }
+
+    public static String getDummycomponentfourport() {
+        return System.getProperty("dummycomponentfourport");
+
+    }
+
     /**
      * Handle the binding
      *

@@ -15,9 +15,14 @@ import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.maestro.samba.util.IpHandlingUtil;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,6 +58,9 @@ import java.util.logging.Logger;
 @ArcadiaContainerParameter(key = "DockerExpose",
         value = "139,445" /* multiple ports! must add value = "445"*/,
         description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerCmd",
+        value = "-v /home/ubuntu/share:/mount",
+        description = "Docker added command")
 
 /**
  * Miscellaneous
@@ -113,6 +121,28 @@ public class WrappedComponent {
      */
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "samba")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        String currentUsersHomeDir = System.getProperty("user.home");
+        Path path = Paths.get(currentUsersHomeDir + "/share/");
+        //if directory exists?
+        if (!Files.exists(path)) {
+            LOGGER.info(String.format("\n\n\n\n\n\nI am Executing\n\n\n\n\n\n"));
+            try {
+                Files.createDirectories(path);
+
+            }
+            catch (IOException e) {
+                //fail to create directory
+                LOGGER.info(String.format("Exception: %s", e));
+
+            }
+
+            File file = new File(path.toString());
+            file.setReadable(true, false);
+            file.setExecutable(true, false);
+            file.setWritable(true, false);
+
+        }
+
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }

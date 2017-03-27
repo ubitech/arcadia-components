@@ -61,8 +61,8 @@ import java.util.logging.Logger;
  * Arcadia Dependency Exports
  */
 @ArcadiaChainableEndpoint(CEPCID = "mongotcp", allowsMultipleTenants = true)
-@SuppressWarnings("Duplicates")
 public class WrappedComponent {
+    @SuppressWarnings("Duplicates")
     public static String getUri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;

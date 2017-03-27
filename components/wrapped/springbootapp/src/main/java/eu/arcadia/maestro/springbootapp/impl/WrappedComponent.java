@@ -13,7 +13,13 @@ import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
+import eu.arcadia.maestro.springbootapp.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -54,8 +60,56 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "dummycomponenttwo", allowsMultipleTenants = true)
 public class WrappedComponent {
+    @SuppressWarnings("Duplicates")
+    public static String getSpringbootappuri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        }
+        catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress())) &&
+                        (!IpHandlingUtil.isIpV6Address(addr.getHostAddress())) &&
+                        (!addr.getHostAddress().toString().equals("127.0.0.1")) &&
+                        (!addr.getHostAddress().toString().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static String getSpringbootappport() {
+        return "80";
+
+    }
+
+    public static String getDummycomponenttwouri() {
+        return System.getProperty("dummycomponenttwouri");
+
+    }
+
+    public static String getDummycomponenttwoport() {
+        return System.getProperty("dummycomponenttwoport");
+
+    }
+
     /**
      * Handle the binding
      *

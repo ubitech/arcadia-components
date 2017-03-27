@@ -8,7 +8,13 @@ import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ScaleBehavior;
+import eu.arcadia.maestro.dummycomponentfour.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -39,8 +45,11 @@ import java.util.logging.Logger;
  * Docker Container Parameters
  */
 @ArcadiaContainerParameter(key = "DockerImage",
-        value = "alpine",
+        value = "httpd:2.4",
         description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerExpose",
+        value = "80",
+        description = "Docker expose port")
 
 /**
  * Miscellaneous
@@ -53,6 +62,45 @@ import java.util.logging.Logger;
  */
 @ArcadiaChainableEndpoint(CEPCID = "dummycomponentfour", allowsMultipleTenants = true)
 public class WrappedComponent {
+    @SuppressWarnings("Duplicates")
+    public static String getDummycomponentfoururi() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        }
+        catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress())) &&
+                        (!IpHandlingUtil.isIpV6Address(addr.getHostAddress())) &&
+                        (!addr.getHostAddress().toString().equals("127.0.0.1")) &&
+                        (!addr.getHostAddress().toString().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static String getDummycomponentfourport() {
+        return "80";
+
+    }
+
     /**
      * Handle the binding
      *
