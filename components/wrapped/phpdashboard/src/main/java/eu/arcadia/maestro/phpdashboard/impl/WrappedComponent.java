@@ -55,9 +55,12 @@ import java.util.logging.Logger;
                 "DB_USER=gen6," +
                 "DB_PASS=gen6",
         description = "Docker environment variables")
-@ArcadiaContainerParameter(key = "DockerCmd",
+/*@ArcadiaContainerParameter(key = "DockerCmd",
         value = "--privileged",
-        description = "Docker added command")
+        description = "Docker added command")*/
+@ArcadiaContainerParameter(key = "DockerPrivilegeflag",
+value = "true",
+description = "Enable docker privileged condition")
 
 /**
  * Miscellaneous

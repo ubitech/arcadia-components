@@ -59,7 +59,7 @@ import java.util.logging.Logger;
         value = "139,445" /* multiple ports! must add value = "445"*/,
         description = "Docker expose port")
 @ArcadiaContainerParameter(key = "DockerCmd",
-        value = "-v /home/ubuntu/share:/mount",
+        value = "-p -u www-data;ngn -s share;/mnt;no;no;no;www-data;www-data;www-data",
         description = "Docker added command")
 
 /**
@@ -121,28 +121,6 @@ public class WrappedComponent {
      */
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "samba")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
-        String currentUsersHomeDir = System.getProperty("user.home");
-        Path path = Paths.get(currentUsersHomeDir + "/share/");
-        //if directory exists?
-        if (!Files.exists(path)) {
-            LOGGER.info(String.format("\n\n\n\n\n\nI am Executing\n\n\n\n\n\n"));
-            try {
-                Files.createDirectories(path);
-
-            }
-            catch (IOException e) {
-                //fail to create directory
-                LOGGER.info(String.format("Exception: %s", e));
-
-            }
-
-            File file = new File(path.toString());
-            file.setReadable(true, false);
-            file.setExecutable(true, false);
-            file.setWritable(true, false);
-
-        }
-
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
