@@ -107,7 +107,7 @@ Building a component requires using some mandatory and some optional Java annota
 
 > When using `@ArcadiaChainableEndpoint` annotation you should use `@ArcadiaChainableEndpointResolutionHandler` or `@ArcadiaChainableEndpointBindingHandler` annotation depending whether you are making a component that exposes or requires an endpoint respectively.
 
-In order to be able to use ARCADIA annotations you should first include  the following Maven repository:
+In order to be able to use ARCADIA annotations you should first include the following Maven repository:
 
 ```xml
 <repositories>
@@ -134,7 +134,7 @@ Onwards, you should add the ARCADIA annotations dependency:
 
 #### 2.1.1 Prerequisites
 
-The project is currently using Docker to realise the component architecture so you should first locate the Docker image that would be able to wrap your component. View all available images from [hub.docker.com](https://hub.docker.com/). It is also possible to create your own Docker image.
+The project is using [Docker](https://www.docker.com/) to realise the WRAPPED components so you should first locate the Docker image that would be able to wrap your component. View all available images from [hub.docker.com](https://hub.docker.com/). It is also possible to create your own Docker image.
 
 You should also define the base image that you want to wrap with the ARCADIA agent (maestro). It is also possible to create your own image.
 
@@ -297,15 +297,67 @@ The following code can be used as the minimum configuration required to build a 
 
 #### 3.1.1 Prerequisites
 
-#### 3.1.2 Implementation
+The project is using [Spring Boot](http://projects.spring.io/spring-boot/) to realise the NATIVE components so make sure that you build your component using Spring Boot. You can geneate a Maven project with Spring Boot using the [Spring Initializr](https://start.spring.io/) or start using Spring Boot by adding the following dependancy:
+       
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+  <version>1.5.2.RELEASE</version>
+</dependency>
+```
 
-To build a Java application that is an ARCADIA-ready component you should do the following steps.
+#### 3.1.2 
 
-+++ (CP)
+1. To build a Java application that is an ARCADIA-ready component you should do the following steps. Once you include the Spring Boot dependancy in your project, you should implement the following static lifecycle methods that will be later on invoked by the agent (maestro):
+
+```java
+public static void init() {
+    System.setProperty("Component.sentRequests", "0");
+    System.setProperty("Component.receivedRequests", "0");
+    System.setProperty("app.port", NativeApplication.DEFAULT_PORT);
+}
+
+public static String start() {
+    if (appContext == null) {
+        appContext = SpringApplication.run(new Class[]{NativeApplication.class, CustomizationBean.class}, new String[]{});
+    } else {
+        LOGGER.severe("AppContext is not null ! Application is already started !");
+    }
+    return String.valueOf(appContext.isActive());
+}
+
+public static String stop() {
+    if (appContext != null) {
+        SpringApplication.exit(appContext);
+        appContext.close();
+        appContext = null;
+    } else {
+        LOGGER.severe("AppContext is null ! Application has not been started !");
+    }
+    return String.valueOf((appContext == null));
+}
+```
+
+2. Then, you should annotate each method with the corresponding lifecycle annotation:
+
+```java
+@ArcadiaLifecycleInitialize /* for the init() method */
+@ArcadiaLifecycleStart /* for the start() method */
+@ArcadiaLifecycleStop /* for the stop() method */
+```
+
+> Include only one static main function. The main function is never called.
+
+3. Set `isNative` parameter to `true` within `@ArcadiaComponent` annotation like the following:
+
+```java
+@ArcadiaComponent(componentname = "Ping", componentversion = "0.1.0", componentdescription = "Sample arcadia native component which sends ping request", isNative = true, tags = {"ping", "sample"})
+```
 
 #### 3.1.2.3 Bundling
 
-+++ (CP)
+Ensure that all lifecycle methods are declared as public and static.
 
 ### 3.2 CONFIGURE
 
