@@ -24,10 +24,7 @@ EDITORS
 <a href="#213-bundling">2.1.3 Bundling</a>
 <a href="#22-configure">2.2 CONFIGURE</a>
 <a href="#221-configuration-parameters">2.2.1 Configuration Parameters</a>
-<a href="#2211-docker-parameters">2.2.1.1 Docker Parameters</a>
-<a href="#2212-component-parameters">2.2.1.2 Component Parameters</a>
-<a href="#222-convention-over-configuration">2.2.2 Convention over configuration</a>
-<a href="#223-configuration-using-arcadia-annotations">2.2.3 Configuration using ARCADIA annotations</a>
+<a href="#222-container-parameters">2.2.2 Container Parameters</a>
 <a href="#3-getting-started-with-native-components">3 Getting Started with NATIVE components</a>
 <a href="#31-create">3.1 CREATE</a>
 <a href="#311-prerequisites">3.1.1 Prerequisites</a>
@@ -35,9 +32,6 @@ EDITORS
 <a href="#313-bundling">3.1.3 Bundling</a>
 <a href="#32-configure">3.2 CONFIGURE</a>
 <a href="#321-configuration-parameters">3.2.1 Configuration Parameters</a>
-<a href="#3211-component-parameters">3.2.1.1 Component Parameters</a>
-<a href="#322-convention-over-configuration">3.2.2 Convention over configuration</a>
-<a href="#323-configuration-using-arcadia-annotations">3.2.3 Configuration using ARCADIA annotations</a>
 <a href="#4-metrics">4 Metrics</a>
 <a href="#5-chainable-endpoints">5 Chainable endpoints</a>
 <a href="#51-creating-a-chainable-endpoint-exposed-and-required">5.1 Creating a chainable endpoint (exposed and required)</a>
@@ -236,33 +230,27 @@ Once you reach here you will have an ARCADIA-ready component which can you can u
 
 #### 2.2.1 Configuration Parameters
 
-ARCADIA components can be configured during design time upon need. There are three types of configuration parameters that can be modified.
+Component parameters are used to define component interdependancies. For example, to start a MySQL server container you will have to provide a minimum of configuration parameters that include the database root password, the database host, network bindings and more. All these parameters can be set as environment variables passed onto `mysqld`.
 
-##### 2.2.1.1 Docker Parameters
+```java
+@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
 
-Docker parameters are eventually used to configure the Docker Engine to be pre-installed in each virtual machine (VM) instantiated during the placement of a service graph. Such parameters can include Docker network settings that will be used by the Docker Agent when starting a container.
+@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
 
-For example, to start a MySQL server container you will have to provide a minimum of configuration parameters that include the database root password, the database host, network bindings and more. All these parameters can be set as environment variables passed onto `mysqld`.
+@ArcadiaConfigurationParameter(name = "db_port", description = "The port which mysql server is listening", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
 
-##### 2.2.1.2 Component Parameters
+@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)
+```
 
-Component parameters are used to define component interdependancies.
+### 2.2.2 Container Parameters
 
-For example, a component that uses a MySQL driver to connect to a database should know the database name and the credentials of the database.
-
-#### 2.2.2 Convention over configuration
-
-ARCADIA favors convention over configuration and it has been designed to develop scalable and reconfigurable components as quickly as possible. The following naming conventions are interpreted by the ARCADIA agent (maestro) upon request.
+Container parameters are eventually used to configure the Docker Engine to be pre-installed in each virtual machine (VM) instantiated during the placement of a service graph. Such parameters can include Docker network settings that will be used by the Docker Agent when starting a container.
 
 - `DockerImage`: Docker image name (MANDATORY)
-- `DockerExpose`: Docker exposed port (OPTIONAL)
-- `DockerEnvironment`: Docker environment variable (OPTIONAL)
+- `DockerExpose`: Docke exposed port (OPTIONAL)
+- `DockerEnvironment`:Docker environment variable (OPTIONAL)
 - `DockerCmd`: Docker arbitary command for the container (OPTIONAL)
 - `DockerPrivilege`: Enable/Disable container privilege flag (Default: FALSE)
-
-- `ConfigurationParameter`: Component related properties (e.g. Database name, username, password, etc)
-
-#### 2.2.3 Configuration using ARCADIA annotations
 
 The following code can be used as the minimum configuration required to build a MySQL server component.
 
@@ -270,15 +258,18 @@ The following code can be used as the minimum configuration required to build a 
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(name = "ImplementationClassName", description = "The class name of the API implementation", parametertype = ParameterType.String, defaultvalue = "MySQLMetricsProvider", mutableafterstartup = false)
+@ArcadiaContainerParameter(key = "DockerImage", value = "mysql", description = "Docker image name")
 
-@ArcadiaConfigurationParameter(name = "DockerImage", description = "Docker image name", parametertype = ParameterType.String, defaultvalue = "mysql", mutableafterstartup = false)
+@ArcadiaContainerParameter(key = "DockerExpose", value = "3306", description = "Docker expose port")
 
-@ArcadiaConfigurationParameter(name = "DockerExpose", description = "Docker expose port", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")
 
-@ArcadiaConfigurationParameter(name = "DockerEnvironment", description = "Docker environment variables", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", mutableafterstartup = false)
+@ArcadiaContainerParameter(key = "DockerCmd",   value = "-dbhost %MONGO_DB_HOST%",   description = "Docker added command")
 
-@ArcadiaConfigurationParameter(name = "SystemProperties", description = "Docker environment variables", parametertype = ParameterType.String, defaultvalue = "db_user=root,db_password=******,db_port=3306,db_host=localhost", mutableafterstartup = false)
+@ArcadiaContainerParameter(key = "DockerPrivilegeflag",value = "true", description = "Enable docker privileged condition"
+
+@ArcadiaContainerParameter(key = "DockerExpose",  value = "139,445" ,  description = "Docker expose port")
+ 
 ```
 
 ## 3 Getting started with NATIVE components
@@ -376,39 +367,18 @@ Once you package your application you can find the executable within the `target
 
 #### 3.2.1 Configuration Parameters
 
-ARCADIA components can be configured during design time upon need. There are three types of configuration parameters that can be modified.
+Configuration parameters are used to define component interdependancies.
 
-##### 3.2.1.1 Component Parameters
+- `ConfigurationParameter`: Component related properties (e.g. Max requests, Service port, Credentials, etc)
 
-Component parameters are used to define component interdependancies.
-
-For example, a component that uses a MySQL driver to connect to a database should know the database name and the credentials of the database.
-
-+++ (CP)
-
-#### 3.2.2 Convention over configuration
-
-ARCADIA favors convention over configuration and it has been designed to develop scalable and reconfigurable components as quickly as possible. The following naming conventions are interpreted by the ARCADIA agent (maestro) upon request.
-
-- `ConfigurationParameter`: Component related properties (e.g. Database name, username, password, etc)
-
-#### 3.2.3 Configuration using ARCADIA annotations
-
-The following code can be used as the minimum configuration required to build a MySQL server component.
+The following code can be used to set the maximum allowed requests handled by a component:
 
 ```java
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(name = "ImplementationClassName", description = "The class name of the API implementation", parametertype = ParameterType.String, defaultvalue = "MySQLMetricsProvider", mutableafterstartup = false)
-
-+++
-+++
-+++
-
+@ArcadiaConfigurationParameter(name = "maxrequests", description = "Max allowed request handlings", parametertype = ParameterType.String, defaultvalue = "10", mutableafterstartup = false)
 ```
-
-+++ (CP)
 
 ## 4 Metrics
 
