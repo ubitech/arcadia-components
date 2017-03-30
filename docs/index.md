@@ -21,8 +21,6 @@ EDITORS
 <a href="#21-create">2.1 CREATE</a>
 <a href="#211-prerequisites">2.1.1 Prerequisites</a>
 <a href="#212-implementation">2.1.2 Implementation</a>
-<a href="#2121-implement-spi-service-provider-interface">2.1.2.1 Implement SPI (Service Provider Interface)</a>
-<a href="#2122-register-the-spi-implementation">2.1.2.2 Register the SPI implementation</a>
 <a href="#213-bundling">2.1.3 Bundling</a>
 <a href="#22-configure">2.2 CONFIGURE</a>
 <a href="#221-configuration-parameters">2.2.1 Configuration Parameters</a>
@@ -142,13 +140,7 @@ Docker Engine API v1.24 is supported.
 
 #### 2.1.2 Implementation
 
-To build a Java application that is an ARCADIA-ready component you should do the following steps.
-
-+++ (CP)
-
-##### 2.1.2.1 Implement SPI (Service Provider Interface)
-
-First, add the SPI dependency:
+First, add the SPI (Service Provider Interface) dependency:
 
 ```xml
 <dependency>
@@ -186,8 +178,6 @@ public interface MetricsProvider {
     public <T> T getMetric(String name, Class<T> clazz);
 }
 ```
-
-##### 2.1.2.2 Register the SPI implementation
 
 In this step you should register the implementation of the SPI in order to make it discoverable and usable by the ARCADIA agent.
 
