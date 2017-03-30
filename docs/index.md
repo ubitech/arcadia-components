@@ -307,17 +307,19 @@ The project is using [Spring Boot](http://projects.spring.io/spring-boot/) to re
 </dependency>
 ```
 
-#### 3.1.2 
+#### 3.1.2 Implementation
 
-1. To build a Java application that is an ARCADIA-ready component you should do the following steps. Once you include the Spring Boot dependancy in your project, you should implement the following static lifecycle methods that will be later on invoked by the agent (maestro):
+To build a Java application that is an ARCADIA-ready component you should do the following steps. Once you include the Spring Boot dependancy in your project, you should implement and annotate the following static lifecycle methods that will be later on invoked by the agent (maestro):
 
 ```java
+@ArcadiaLifecycleInitialize /* for the init() method */
 public static void init() {
     System.setProperty("Component.sentRequests", "0");
     System.setProperty("Component.receivedRequests", "0");
     System.setProperty("app.port", NativeApplication.DEFAULT_PORT);
 }
 
+@ArcadiaLifecycleStart /* for the start() method */
 public static String start() {
     if (appContext == null) {
         appContext = SpringApplication.run(new Class[]{NativeApplication.class, CustomizationBean.class}, new String[]{});
@@ -327,6 +329,7 @@ public static String start() {
     return String.valueOf(appContext.isActive());
 }
 
+@ArcadiaLifecycleStop /* for the stop() method */
 public static String stop() {
     if (appContext != null) {
         SpringApplication.exit(appContext);
@@ -339,25 +342,45 @@ public static String stop() {
 }
 ```
 
-2. Then, you should annotate each method with the corresponding lifecycle annotation:
-
-```java
-@ArcadiaLifecycleInitialize /* for the init() method */
-@ArcadiaLifecycleStart /* for the start() method */
-@ArcadiaLifecycleStop /* for the stop() method */
-```
-
 > Include only one static main function. The main function is never called.
 
-3. Set `isNative` parameter to `true` within `@ArcadiaComponent` annotation like the following:
+Set `isNative` parameter to `true` within `@ArcadiaComponent` annotation like the following:
 
 ```java
 @ArcadiaComponent(componentname = "Ping", componentversion = "0.1.0", componentdescription = "Sample arcadia native component which sends ping request", isNative = true, tags = {"ping", "sample"})
 ```
 
+> Ensure that all lifecycle methods are declared as public and static.
+
 #### 3.1.2.3 Bundling
 
-Ensure that all lifecycle methods are declared as public and static.
+Before uploading the compiled version of the NATIVE component, you should make sure that the compiled file (.jar) is build using the Spring Boot Maven plugin. To package the executable jar or war and run an application, add the following plugin in your pom.xml:
+
+```xml
+<build>                      
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
+
+This configuration will repackage a jar or war that is built during the package phase of the Maven lifecycle.
+
+```
+mvn package
+```
+
+Once you package your application you can find the executable within the `target` directory. You can then UPLOAD, COMPOSE, DEPLOY and MONITOR this ARCADIA-ready native component.
 
 ### 3.2 CONFIGURE
 
@@ -426,7 +449,7 @@ As aforementioned, some components require other components to operate. ARCADIA 
 /**
  * Arcadia Dependency Exports
  */
-@DependencyExport(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 public class WrappedComponent {
 
  /**
@@ -434,11 +457,10 @@ public class WrappedComponent {
   *
   * @param chainingInfo ChainingInfo object
   */
-@DependencyResolutionHandler(CEPCID = "mysqltcp")
+@ArcadiaChainableEndpointResolutionHandler(CEPCID = "mysqltcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         logger.info("BINDED COMPONENT:" + chainingInfo.toString());
     }
-
 }
 ```
 
@@ -448,7 +470,7 @@ public class WrappedComponent {
 /**
  * Arcadia Dependency Exports
  */
-@DependencyExport(CEPCID = "mysqltcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
 public class WrappedComponent {
 
 /**
@@ -456,7 +478,7 @@ public class WrappedComponent {
   *
   * @param chainingInfo ChainingInfo object
   */
-  @DependencyBindingHandler(CEPCID = "transcodingprocessor")
+  @ArcadiaChainableEndpointBindingHandler(CEPCID = "transcodingprocessor")
   public static void  bindDependency(ChainingInfo chainingInfo){
     logger.info("BINDED COMPONENT:"+chainingInfo.toString());
     String connectedEndpoint = "http://"+chainingInfo.getPrivateIP()+":"+chainingInfo.getParameterValues().get("port")+"/"+chainingInfo.getParameterValues().get("uri");
