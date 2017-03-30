@@ -1,2 +1,0 @@
-# TPU
-Tsanscoding Processor Component
