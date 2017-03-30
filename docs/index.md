@@ -205,7 +205,7 @@ eu.arcadia.maestro.mysql.impl.MySQLMetricsProvider
 `NOTE: See more examples at the end of the documentation. Learn more about Service Provider Interfaces (SPI) at  https://docs.oracle.com/javase/tutorial/sound/SPI-intro.html
 `
 
-#### 2.1.2.3 Bundling
+#### 2.1.3 Bundling
 
 Before you can upload the compiled version of the (wrapped) component you should make sure that the compiled file (.jar) include all the required runtime dependencies. The compiled "fat jar" is a file that includes all the dependencies of the Maven project. To create the "fat jar" you will have to use the Maven Assembly Plugin which can be configured as follows:
 
@@ -352,7 +352,7 @@ Set `isNative` parameter to `true` within `@ArcadiaComponent` annotation like th
 
 > Ensure that all lifecycle methods are declared as public and static.
 
-#### 3.1.2.3 Bundling
+#### 3.1.3 Bundling
 
 Before uploading the compiled version of the NATIVE component, you should make sure that the compiled file (.jar) is build using the Spring Boot Maven plugin. To package the executable jar or war and run an application, add the following plugin in your pom.xml:
 
