@@ -159,7 +159,7 @@ First, add the SPI dependency:
 </dependency>
 ```
 
-`NOTE: You don't have to include the maestro-spi dependency in the compiled jar since the maestro-spi is provided by the ARCADIA agent (maestro).`
+> NOTE: You don't have to include the maestro-spi dependency in the compiled jar since the maestro-spi is provided by the ARCADIA agent (maestro).
 
 Then, you should implement the `MetricsProvider` interface. `MetricsProvider` is eventually used by the ARCADIA agent to expose all metrics defined in the component configuration.
 
@@ -342,7 +342,7 @@ public static String stop() {
 }
 ```
 
-> Include only one static main function. The main function is never called.
+> NOTE: Include only one static main function. The main function is never called.
 
 Set `isNative` parameter to `true` within `@ArcadiaComponent` annotation like the following:
 
@@ -516,7 +516,18 @@ You can have a graph representation of each metric from the running application 
 
 ## 10 Component Lifecycle
 
-+++ SIGNALING (CP, GT)
+The following describe the states during the lifecycle of an ARCADIA component.
+
+| Lifecycle State | Description |
+|---------------------------------------------------|----------------|
+| `BOOTSTRAPPED`| A virtual machine has been spawned and has received the boot command |
+| `INITIALIZED` | The agent has established a bidirectional path is established with the controller |
+| `BLOCKED` | The agent has been interrupted and waiting for all endpoints to become resolved |
+| `DEPLOYED` | The agent has complete component information regarding system properties, required endpoints and required container images |
+| `STARTED` | The component is up and running |
+| `UNDEPLOYED` | The component is not running and configuration has not been set |
+| `STOPPED` | The component is not running |
+| `ERRONEOUS` | An error has occured during the previous states |
 
 ## 11 Examples
 
