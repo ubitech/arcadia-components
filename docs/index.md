@@ -37,7 +37,7 @@ EDITORS
 <a href="#313-bundling">3.1.3 Bundling</a>
 <a href="#32-configure">3.2 CONFIGURE</a>
 <a href="#321-configuration-parameters">3.2.1 Configuration Parameters</a>
-<a href="#3212-component-parameters">3.2.1.2 Component Parameters</a>
+<a href="#3211-component-parameters">3.2.1.1 Component Parameters</a>
 <a href="#322-convention-over-configuration">3.2.2 Convention over configuration</a>
 <a href="#323-configuration-using-arcadia-annotations">3.2.3 Configuration using ARCADIA annotations</a>
 <a href="#4-metrics">4 Metrics</a>
