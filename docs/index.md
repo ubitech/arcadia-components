@@ -73,8 +73,9 @@ The ARCADIA components are the basic building blocks of the platform. They are u
 
 ARCADIA currently supports *wrapped* and *native* components.
 
-+++ (GT)
+A wrapped component is a component that is already developed (in an arbitrary programming framework) and can be chained by another ARCADIA component.  From the Orchestrator point of view, the component has the same behaviour as the native component yet the lifecycle management and the handling of metrics and configuration-parameters are performed by the business logic of the component per-se.
 
+A native component is the component that that is developed solely in Java as an autonomous microservice. To this end, the lifecycle management of the service and the handling of metrics, configuration-parameters and required/exposed interfaces are handled by the microservice itself.
 
 ### 1.3 Annotations
 
@@ -242,7 +243,7 @@ Component parameters are used to define component interdependancies. For example
 @ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)
 ```
 
-### 2.2.2 Container Parameters
+#### 2.2.2 Container Parameters
 
 Container parameters are eventually used to configure the Docker Engine to be pre-installed in each virtual machine (VM) instantiated during the placement of a service graph. Such parameters can include Docker network settings that will be used by the Docker Agent when starting a container.
 
@@ -255,9 +256,6 @@ Container parameters are eventually used to configure the Docker Engine to be pr
 The following code can be used as the minimum configuration required to build a MySQL server component.
 
 ```java
-/**
- * Arcadia Configuration Parameters
- */
 @ArcadiaContainerParameter(key = "DockerImage", value = "mysql", description = "Docker image name")
 
 @ArcadiaContainerParameter(key = "DockerExpose", value = "3306", description = "Docker expose port")
@@ -374,9 +372,6 @@ Configuration parameters are used to define component interdependancies.
 The following code can be used to set the maximum allowed requests handled by a component:
 
 ```java
-/**
- * Arcadia Configuration Parameters
- */
 @ArcadiaConfigurationParameter(name = "maxrequests", description = "Max allowed request handlings", parametertype = ParameterType.String, defaultvalue = "10", mutableafterstartup = false)
 ```
 
@@ -401,7 +396,7 @@ As aforementioned, some components require other components to operate. ARCADIA 
 
 ### 5.1 Creating a chainable endpoint (exposed and required)
 
-+++ (GT)
+You can create or edit all chainable endpoint categories and their parameters via the ARCADIA dashboard.
 
 ### 5.2 Using an exposed chainable endpoint
 
@@ -481,11 +476,11 @@ The following describe the states during the lifecycle of an ARCADIA component.
 | State | Description |
 |---------------------------------------------------|----------------|
 | `BOOTSTRAPPED`| A virtual machine has been spawned and has received the boot command |
-| `INITIALIZED` | The agent has established a bidirectional path is established with the controller |
+| `INITIALIZED` | The agent has established connection with the controller |
 | `BLOCKED` | The agent has been interrupted and waiting for all endpoints to become resolved |
 | `DEPLOYED` | The agent has complete component information regarding system properties, required endpoints and required container images |
 | `STARTED` | The component is up and running |
-| `UNDEPLOYED` | The component is not running and configuration has not been set |
+| `UNDEPLOYED` | The component is not running and configuration has been unset |
 | `STOPPED` | The component is not running |
 | `ERRONEOUS` | An error has occured during the previous states |
 
