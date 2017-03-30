@@ -16,7 +16,7 @@ EDITORS
 <a href="#1-introduction">1 Introduction</a>
 <a href="#11-the-project">1.1 The project</a>
 <a href="#12-components">1.2 Components</a>
-<a href="#12-components">1.3 Annotations</a>
+<a href="#12-annotations">1.3 Annotations</a>
 <a href="#2-getting-started-with-wrapped-components">2 Getting Started with WRAPPED components</a>
 <a href="#21-create">2.1 CREATE</a>
 <a href="#211-prerequisites">2.1.1 Prerequisites</a>
