@@ -439,15 +439,15 @@ You can have a graph representation of each metric from the running application 
 
 ### 4.1 WRAPPED Components
 
-- [mongo] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
-- [mysql] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
-- [orion] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
-- [phpdashboard] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
-- [samba] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
-- [springbootapp] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
-- [wordpress] (https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
+- [mongo](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mongo)
+- [mysql](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
+- [orion](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/orion)
+- [phpdashboard](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/phpdashboard)
+- [samba](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/samba)
+- [springbootapp](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/springbootapp)
+- [wordpress](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/wordpress)
 
 ### 4.2 NATIVE Components
 
-- [ping] (https://github.com/ubitech/arcadia-components/tree/master/components/native/ping)
-- [pong] (https://github.com/ubitech/arcadia-components/tree/master/components/native/pong)
+- [ping](https://github.com/ubitech/arcadia-components/tree/master/components/native/ping)
+- [pong](https://github.com/ubitech/arcadia-components/tree/master/components/native/pong)
