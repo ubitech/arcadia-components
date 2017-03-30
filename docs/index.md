@@ -16,33 +16,43 @@ EDITORS
 <a href="#1-introduction">1 Introduction</a>
 <a href="#11-the-project">1.1 The project</a>
 <a href="#12-components">1.2 Components</a>
-<a href="#2-getting-started">2 Getting Started</a>
+<a href="#12-components">1.3 Annotations</a>
+<a href="#2-getting-started-with-wrapped-components">2 Getting Started with WRAPPED components</a>
 <a href="#21-create">2.1 CREATE</a>
 <a href="#211-prerequisites">2.1.1 Prerequisites</a>
-<a href="#212-annotations">2.1.2 Annotations</a>
-<a href="#213-implementation">2.1.3 Implementation</a>
-<a href="#2131-implement-spi-service-provider-interface">2.1.3.1 Implement SPI (Service Provider Interface)</a>
-<a href="#2132-register-the-spi-implementation">2.1.3.2 Register the SPI implementation</a>
-<a href="#214-bundling">2.1.4 Bundling</a>
+<a href="#212-implementation">2.1.2 Implementation</a>
+<a href="#2121-implement-spi-service-provider-interface">2.1.2.1 Implement SPI (Service Provider Interface)</a>
+<a href="#2122-register-the-spi-implementation">2.1.2.2 Register the SPI implementation</a>
+<a href="#213-bundling">2.1.3 Bundling</a>
 <a href="#22-configure">2.2 CONFIGURE</a>
 <a href="#221-configuration-parameters">2.2.1 Configuration Parameters</a>
 <a href="#2211-docker-parameters">2.2.1.1 Docker Parameters</a>
 <a href="#2212-component-parameters">2.2.1.2 Component Parameters</a>
-<a href="#2213-agent-parameters">2.2.1.3 Agent Parameters</a>
 <a href="#222-convention-over-configuration">2.2.2 Convention over configuration</a>
 <a href="#223-configuration-using-arcadia-annotations">2.2.3 Configuration using ARCADIA annotations</a>
-<a href="#224-metrics">2.2.4 Metrics</a>
-<a href="#2241-chainable-endpoints">2.2.4.1 Chainable endpoints</a>
-<a href="#2242-creating-an-exposed-chainable-endpoint">2.2.4.2 Creating an exposed chainable endpoint</a>
-<a href="#2243-creating-a-required-chainable-endpoint">2.2.4.3 Creating a required chainable endpoint</a>
-<a href="#23-upload">2.3 UPLOAD</a>
-<a href="#24-compose">2.4 COMPOSE</a>
-<a href="#25-deploy">2.5 DEPLOY</a>
-<a href="#26-monitor">2.6 MONITOR</a>
-<a href="#3-component-lifecycle">3 Component Lifecycle</a>
-<a href="#4-examples">4 Examples</a>
-<a href="#41-components-without-dependencies">4.1 Components without dependencies</a>
-<a href="#42-components-with-dependencies">4.2 Components with dependencies</a>
+<a href="#3-getting-started-with-native-components">3 Getting Started with NATIVE components</a>
+<a href="#31-create">3.1 CREATE</a>
+<a href="#311-prerequisites">3.1.1 Prerequisites</a>
+<a href="#312-implementation">3.1.2 Implementation</a>
+<a href="#313-bundling">3.1.3 Bundling</a>
+<a href="#32-configure">3.2 CONFIGURE</a>
+<a href="#321-configuration-parameters">3.2.1 Configuration Parameters</a>
+<a href="#3212-component-parameters">3.2.1.2 Component Parameters</a>
+<a href="#322-convention-over-configuration">3.2.2 Convention over configuration</a>
+<a href="#323-configuration-using-arcadia-annotations">3.2.3 Configuration using ARCADIA annotations</a>
+<a href="#4-metrics">4 Metrics</a>
+<a href="#5-chainable-endpoints">5 Chainable endpoints</a>
+<a href="#51-creating-a-chainable-endpoint-exposed-and-required">5.1 Creating a chainable endpoint (exposed and required)</a>
+<a href="#52-using-an-exposed-chainable-endpoint">5.2 Using an exposed chainable endpoint</a>
+<a href="#53-using-a-required-chainable-endpoint">5.2 Using a required chainable endpoint</a>
+<a href="#6-upload">6 UPLOAD</a>
+<a href="#7-compose">7 COMPOSE</a>
+<a href="#8-deploy">8 DEPLOY</a>
+<a href="#9-monitor">9 MONITOR</a>
+<a href="#10-component-lifecycle">10 Component Lifecycle</a>
+<a href="#11-examples">11 Examples</a>
+<a href="#111-wrapped-components">11.1 WRAPPED components</a>
+<a href="#112-wrapped-components">11.2 NATIVE components</a>
 </pre>
 
 ## 1 Introduction
@@ -335,8 +345,7 @@ The following code can be used as the minimum configuration required to build a 
 
 +++ (CP)
 
-
-#### 4 Metrics
+## 4 Metrics
 
 The following code can be used to define component metrics such as connections, bytes received and bytes sent.
 
@@ -351,15 +360,15 @@ The following code can be used to define component metrics such as connections, 
 @ArcadiaMetric(name = "Connections", description = "Number of current connection to mysql server", unitofmeasurement = "integer", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
 ```
 
-##### 5 Chainable endpoints
+## 5 Chainable endpoints
 
 As aforementioned, some components require other components to operate. ARCADIA has defined specific annotations which can be used to define a require or expose functionality.
 
-##### 5.1 Creating a chainable endpoint (exposed and required)
+### 5.1 Creating a chainable endpoint (exposed and required)
 
 +++ (GT)
 
-##### 5.2 Using an exposed chainable endpoint
+### 5.2 Using an exposed chainable endpoint
 
 ```java
 /**
@@ -381,7 +390,7 @@ public class WrappedComponent {
 }
 ```
 
-##### 5.3 Using a required chainable endpoint
+### 5.3 Using a required chainable endpoint
 
 ```java
 /**
@@ -405,7 +414,7 @@ public class WrappedComponent {
 }
 ```
 
-### 6 UPLOAD
+## 6 UPLOAD
 
 You can upload your (wrapped) component in two ways. Both ways require an API key generated via the ARCADIA dashboard.
 
@@ -413,15 +422,15 @@ First, you can use the IDE to create a project. Afterwards you can add your API 
 
 Second, you can use your own IDE to create a project. Afterwards you can create and configure a component using the aforementioned steps. Once you finish you can upload the compiled file (.jar) of the component via the ARCADIA dashboard.
 
-### 7 COMPOSE
+## 7 COMPOSE
 
 Service graph composition is performed based on the compatibility of the chainable endpoints. Each component may expose one or more chainable endpoints. These chainable endpoints belong to specific categories. An endpoint is represented by an identifier that is addressed as an Exposed Chainable Endpoint Identifier (ECEPID) while the category per se is represented by a Chainable Endpoint Category Identifier (CEPCID). One CEPCID may correspond to multiple ECEPIDs.
 
-### 8 DEPLOY
+## 8 DEPLOY
 
 A service graph grounding contains the actual service graph along with the placement metadata (i.e. resource provider used  per component) and the configuration metadata (i.e. configuration parameters per component). Just like the component and the service graph, the grounded service graph is also defined in XSD.
 
-### 9 MONITOR
+## 9 MONITOR
 
 Each (wrapped) component can expose a number of quantitative metrics that can be grouped in two categories.
 
@@ -435,9 +444,9 @@ You can have a graph representation of each metric from the running application 
 
 +++ SIGNALING (CP, GT)
 
-## 4 Examples
+## 11 Examples
 
-### 4.1 WRAPPED Components
+### 11.1 WRAPPED Components
 
 - [mongo](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mongo)
 - [mysql](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/mysql)
@@ -447,7 +456,7 @@ You can have a graph representation of each metric from the running application 
 - [springbootapp](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/springbootapp)
 - [wordpress](https://github.com/ubitech/arcadia-components/tree/master/components/wrapped/wordpress)
 
-### 4.2 NATIVE Components
+### 11.2 NATIVE Components
 
 - [ping](https://github.com/ubitech/arcadia-components/tree/master/components/native/ping)
 - [pong](https://github.com/ubitech/arcadia-components/tree/master/components/native/pong)
