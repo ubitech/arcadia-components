@@ -518,7 +518,7 @@ You can have a graph representation of each metric from the running application 
 
 The following describe the states during the lifecycle of an ARCADIA component.
 
-| Lifecycle State | Description |
+| State | Description |
 |---------------------------------------------------|----------------|
 | `BOOTSTRAPPED`| A virtual machine has been spawned and has received the boot command |
 | `INITIALIZED` | The agent has established a bidirectional path is established with the controller |
