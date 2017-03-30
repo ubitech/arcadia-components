@@ -1,10 +1,6 @@
 # ARCADIA Components
 > ARCADIA Components Developer Documentation
 
-```
-WORKING DRAFT
-```
-
 <pre>
 EDITORS
 <a href="https://github.com/azafeiropoulos">azafeiropoulos</a>
@@ -44,7 +40,7 @@ EDITORS
 <a href="#10-component-lifecycle">10 Component Lifecycle</a>
 <a href="#11-examples">11 Examples</a>
 <a href="#111-wrapped-components">11.1 WRAPPED components</a>
-<a href="#112-wrapped-components">11.2 NATIVE components</a>
+<a href="#112-native-components">11.2 NATIVE components</a>
 </pre>
 
 ## 1 Introduction
