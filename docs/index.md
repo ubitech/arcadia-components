@@ -6,7 +6,7 @@ EDITORS
 <a href="https://github.com/cparaskeva">Christos Paraskeva</a>
 <a href="https://github.com/gtsiolis">George Tsiolis</a>
 <a href="https://github.com/azafeiropoulos">Anastasios Zafeiropoulos</a>
-<a href="https://github.com/azafeiropoulos">Giannis Tsantilis</a>
+<a href="https://github.com/giannis20012001">Giannis Tsantilis</a>
 <a href="https://github.com/pgouvas">Panagiotis Gouvas</a>
 </pre>
 
