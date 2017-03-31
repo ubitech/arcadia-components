@@ -3,9 +3,11 @@
 
 <pre>
 EDITORS
-<a href="https://github.com/azafeiropoulos">azafeiropoulos</a>
-<a href="https://github.com/cparaskeva">cparaskeva</a>
-<a href="https://github.com/gtsiolis">gtsiolis</a>
+<a href="https://github.com/cparaskeva">Christos Paraskeva</a>
+<a href="https://github.com/gtsiolis">George Tsiolis</a>
+<a href="https://github.com/azafeiropoulos">Anastasios Zafeiropoulos</a>
+<a href="https://github.com/azafeiropoulos">Giannis Tsantilis</a>
+<a href="https://github.com/pgouvas">Panagiotis Gouvas</a>
 </pre>
 
 <pre>
