@@ -25,5 +25,10 @@
         <module>dummycomponentfour</module>
         <module>dummycomponentfive</module>
         <module>dummycomponentsix</module>
+        <module>sracomponent</module>
+        <module>persistenceengine</module>
+        <module>callhandler</module>
+        <module>pushserver</module>
+        <module>signalinghandler</module>
     </modules>
 </project>
