@@ -7,7 +7,7 @@ import eu.arcadia.maestro.api.MetricsProvider;
  * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 10/3/2017.
  */
 
-public class SraAppMetricsProvider implements MetricsProvider {
+public class SraComponentMetricsProvider implements MetricsProvider {
     @Override
     public <T> T getMetric(String s) {
         return null;

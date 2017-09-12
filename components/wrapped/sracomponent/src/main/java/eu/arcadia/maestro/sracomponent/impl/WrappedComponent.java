@@ -2,6 +2,7 @@ package eu.arcadia.maestro.sracomponent.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
+import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
@@ -27,8 +28,8 @@ import java.util.logging.Logger;
  */
 @ArcadiaComponent(componentname = "SRAComponent",
         componentversion = "0.1.0",
-        componentdescription = "A service registration & activation component created for Arcadia.",
-        tags = {"Arcadia", "component", "Arcadia Pilot", "sra", "Service Registration & Activation"})
+        componentdescription = "A service registration component a component created for Arcadia.",
+        tags = {"Arcadia", "component", "Arcadia Pilot", "SRAComponent"})
 
 /**
  * Arcadia wrapper exposed Metrics
@@ -59,6 +60,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
+@ArcadiaChainableEndpoint(CEPCID = "sracomponent", allowsMultipleTenants = true)
 @SuppressWarnings("Duplicates")
 public class WrappedComponent {
     public static String getSracomponenturi() {
@@ -94,27 +96,28 @@ public class WrappedComponent {
 
     }
 
-    public static String getSraport() {
+    public static String getSracomponentportport() {
         return "80";
 
     }
 
-    public static String getPersistanceengineuri() {
-        return System.getProperty("persistanceengineuri");
+    public static String getPersistenceengineuri() {
+        return System.getProperty("persistenceengineuri");
 
     }
 
-    public static String getPersistanceengineport() {
-        return System.getProperty("persistanceengineport");
+    public static String getPersistenceengineport() {
+        return System.getProperty("persistenceengineport");
 
     }
+
 
     /**
      * Handle the binding
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "persistanceengine")
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "persistenceengine")
     public static void bindDependency(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
