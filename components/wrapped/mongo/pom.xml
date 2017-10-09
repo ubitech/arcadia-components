@@ -50,7 +50,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.arcadia.maestro.wordpress.WordpressTest</mainClass>
+                            <mainClass>eu.arcadia.maestro.mongo.</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

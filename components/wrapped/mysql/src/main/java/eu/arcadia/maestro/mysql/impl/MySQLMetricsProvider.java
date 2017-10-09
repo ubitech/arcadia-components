@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  * @author Christos Paraskeva (ch.paraskeva at gmail dot com)
  */
 public class MySQLMetricsProvider implements MetricsProvider {
- 
     @Override
     public String getMetric(String name) {
 
@@ -24,7 +23,9 @@ public class MySQLMetricsProvider implements MetricsProvider {
         try {
             connection = DSHandler.INSTANCE.getConnection();
             stm = connection.prepareStatement("SHOW GLOBAL STATUS WHERE Variable_name = ?");
-            stm.setString(1, name);
+            String compose = "'" + name + "'";
+            stm.setString(1, compose);
+
             resultSet = stm.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString("Value");

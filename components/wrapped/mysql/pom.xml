@@ -10,7 +10,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>eu.arcadia</groupId>
@@ -25,7 +25,7 @@
             <artifactId>annotation-libs</artifactId>
             <version>1.0.0.M1</version>
         </dependency>
-        
+
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
             <groupId>mysql</groupId>
@@ -33,8 +33,8 @@
             <version>6.0.5</version>
         </dependency>
     </dependencies>
-    
-    
+
+
     <build>
         <plugins>
             <plugin>
@@ -59,16 +59,16 @@
                     </archive>
                 </configuration>
             </plugin>
-            
+
         </plugins>
     </build>
-    
+
     <repositories>
         <!-- Ubitech Arcadia Repository -->
         <repository>
             <id>thirdparty</id>
             <url>http://ci.arcadia-framework.eu/nexus/content/repositories/thirdparty</url>
-        </repository>                                                                        
+        </repository>
     </repositories>
     <name>mysql</name>
 </project>
