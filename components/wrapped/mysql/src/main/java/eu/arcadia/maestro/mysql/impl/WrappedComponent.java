@@ -24,31 +24,57 @@ import java.util.logging.Level;
  *
  * @author Christos Paraskeva (ch.paraskeva at gmail dot com)
  */
+
 /**
  * Arcadia Component Definition
  *
  */
 @ArcadiaComponent(componentname = "MySQL", componentversion = "1.0.0", componentdescription = "MySQL is a widely used, open-source relational database management system (RDBMS)", tags = {"database", "rdbms", "server", "sql"})
+
 /**
  * Arcadia Metrics
  */
 @ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "Number of bytes", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
 @ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "Number of bytes", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
 @ArcadiaMetric(name = "Connections", description = "Number of current connections to mysql server", unitofmeasurement = "Number of connections", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
+
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_port", description = "The port which mysql server is listening", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_user",
+        description = "The username of the database",
+        parametertype = ParameterType.String,
+        defaultvalue = "root",
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_password",
+        description = "The password of the database user",
+        parametertype = ParameterType.String,
+        defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!",
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_exposed_host_port",
+        description = "The port which mysql server is listening on the host",
+        parametertype = ParameterType.String,
+        defaultvalue = "3306",
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_exposed_container_port",
+        description = "The port which mysql server is listening on the container",
+        parametertype = ParameterType.String,
+        defaultvalue = "3306",
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_host",
+        description = "The hostname which the mysql server can be reached",
+        parametertype = ParameterType.String,
+        defaultvalue = "MYSQL_ROOT_HOST=%",
+        mutableafterstartup = false)
 
 /**
  * Container Parameters
  */
+/*@ArcadiaContainerParameter(key = "DockerHostExpose", value = "3306", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerContainerExpose", value = "3306", description = "Docker expose port")
+@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")*/
+@ArcadiaContainerParameter(key = "DockerRegistryUri", value = "https://hub.docker.com/", description = "Docker image name")
 @ArcadiaContainerParameter(key = "DockerImage", value = "mysql", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", value = "3306", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")
 
 /**
  * Miscellaneous
