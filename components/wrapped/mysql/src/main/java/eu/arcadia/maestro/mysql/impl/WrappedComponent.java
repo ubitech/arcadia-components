@@ -41,40 +41,55 @@ import java.util.logging.Level;
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(name = "db_user",
-        description = "The username of the database",
+/*@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_port", description = "The port which mysql server is listening", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)*/
+//
+/*@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_exposed_host_port", description = "The port which mysql server is listening on the host", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_exposed_container_port", description = "The port which mysql server is listening on the container", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
+@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_HOST=%", mutableafterstartup = false)*/
+//
+@ArcadiaConfigurationParameter(name = "MYSQL_USER",
+        description = "The username of the database user",
         parametertype = ParameterType.String,
         defaultvalue = "root",
         mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_password",
+@ArcadiaConfigurationParameter(name = "MYSQL_ROOT_PASSWORD",
         description = "The password of the database user",
         parametertype = ParameterType.String,
-        defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!",
+        defaultvalue = "!arcadia!",
         mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_exposed_host_port",
-        description = "The port which mysql server is listening on the host",
+@ArcadiaConfigurationParameter(name = "MYSQL_ROOT_HOST",
+        description = "The hostname where mysql server can be reached",
         parametertype = ParameterType.String,
-        defaultvalue = "3306",
-        mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_exposed_container_port",
-        description = "The port which mysql server is listening on the container",
-        parametertype = ParameterType.String,
-        defaultvalue = "3306",
-        mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host",
-        description = "The hostname which the mysql server can be reached",
-        parametertype = ParameterType.String,
-        defaultvalue = "MYSQL_ROOT_HOST=%",
+        defaultvalue = "%",
         mutableafterstartup = false)
 
 /**
  * Container Parameters
  */
-/*@ArcadiaContainerParameter(key = "DockerHostExpose", value = "3306", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerContainerExpose", value = "3306", description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")*/
-@ArcadiaContainerParameter(key = "DockerRegistryUri", value = "https://hub.docker.com/", description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerImage", value = "mysql", description = "Docker image name")
+/*@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")*/
+@ArcadiaContainerParameter(key = "DockerRegistryUri",
+        value = "https://hub.docker.com/",
+        description = "Docker registry URI")
+@ArcadiaContainerParameter(key = "DockerRegistryUserName",
+        value = "arcadia",
+        description = "Docker registry username")
+@ArcadiaContainerParameter(key = "DockerRegistryUserPassword",
+        value = "!arcadia!",
+        description = "Docker Docker registry password")
+@ArcadiaContainerParameter(key = "DockerImage",
+        value = "mysql",
+        description = "Docker image name")
+@ArcadiaContainerParameter(key = "DockerHostExposedPorts",
+        value = "3306",
+        description = "The port which mysql server is listening on the host")
+@ArcadiaContainerParameter(key = "DockerContainerExposedPorts",
+        value = "3306",
+        description = "The port which mysql server is listening on the container")
 
 /**
  * Miscellaneous
@@ -95,7 +110,7 @@ public class WrappedComponent {
      * Arcadia Configuration Parameters 
      * 
      */
-    public String getDb_user() {
+   /* public String getDb_user() {
         return "";
     }
 
@@ -109,6 +124,31 @@ public class WrappedComponent {
 
     public String getDb_host() {
         return "";
+    }*/
+
+   public String getMYSQL_USER() {
+       return "";
+
+   }
+
+    public String getMYSQL_ROOT_PASSWORD() {
+        return "";
+
+    }
+
+    public String getExposed_Host_Port() {
+        return "";
+
+    }
+
+    public String getExposed_Container_Port() {
+        return "";
+
+    }
+
+    public String getMYSQL_ROOT_HOST() {
+        return "";
+
     }
 
     /**
