@@ -29,14 +29,39 @@ import java.util.logging.Level;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "MySQL", componentversion = "1.0.0", componentdescription = "MySQL is a widely used, open-source relational database management system (RDBMS)", tags = {"database", "rdbms", "server", "sql"})
+@ArcadiaComponent(
+        componentname = "MySQL",
+        componentversion = "1.0.0",
+        componentdescription = "MySQL is a widely used, open-source relational database management system (RDBMS)",
+        tags = {"database", "rdbms", "server", "sql"})
 
 /**
  * Arcadia Metrics
  */
-@ArcadiaMetric(name = "Bytes_received", description = "Number of bytes received", unitofmeasurement = "Number of bytes", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-@ArcadiaMetric(name = "Bytes_sent", description = "Number of bytes sent", unitofmeasurement = "Number of bytes", valuetype = ValueType.Integer, maxvalue = "100000", minvalue = "0", higherisbetter = false)
-@ArcadiaMetric(name = "Connections", description = "Number of current connections to mysql server", unitofmeasurement = "Number of connections", valuetype = ValueType.Integer, maxvalue = "10000", minvalue = "0", higherisbetter = false)
+@ArcadiaMetric(
+        name = "Bytes_received",
+        description = "Number of bytes received",
+        unitofmeasurement = "Number of bytes",
+        valuetype = ValueType.Integer,
+        maxvalue = "100000",
+        minvalue = "0",
+        higherisbetter = false)
+@ArcadiaMetric(
+        name = "Bytes_sent",
+        description = "Number of bytes sent",
+        unitofmeasurement = "Number of bytes",
+        valuetype = ValueType.Integer,
+        maxvalue = "100000",
+        minvalue = "0",
+        higherisbetter = false)
+@ArcadiaMetric(
+        name = "Connections",
+        description = "Number of current connections to mysql server",
+        unitofmeasurement = "Number of connections",
+        valuetype = ValueType.Integer,
+        maxvalue = "10000",
+        minvalue = "0",
+        higherisbetter = false)
 
 /**
  * Arcadia Configuration Parameters
@@ -46,48 +71,51 @@ import java.util.logging.Level;
 @ArcadiaConfigurationParameter(name = "db_port", description = "The port which mysql server is listening", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
 @ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)*/
 //
-/*@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_exposed_host_port", description = "The port which mysql server is listening on the host", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_exposed_container_port", description = "The port which mysql server is listening on the container", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "MYSQL_ROOT_HOST=%", mutableafterstartup = false)*/
-//
-@ArcadiaConfigurationParameter(name = "MYSQL_USER",
+@ArcadiaConfigurationParameter(
+        name = "db_user",
         description = "The username of the database user",
         parametertype = ParameterType.String,
-        defaultvalue = "root",
+        defaultvalue = "MYSQL_USER=root",
         mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "MYSQL_ROOT_PASSWORD",
+@ArcadiaConfigurationParameter(
+        name = "db_password",
         description = "The password of the database user",
         parametertype = ParameterType.String,
-        defaultvalue = "!arcadia!",
+        defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!",
         mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "MYSQL_ROOT_HOST",
+@ArcadiaConfigurationParameter(
+        name = "db_host",
         description = "The hostname where mysql server can be reached",
         parametertype = ParameterType.String,
-        defaultvalue = "%",
+        defaultvalue = "MYSQL_ROOT_HOST=%",
         mutableafterstartup = false)
 
 /**
  * Container Parameters
  */
 /*@ArcadiaContainerParameter(key = "DockerEnvironment", value = "MYSQL_ROOT_PASSWORD=!arcadia!,MYSQL_ROOT_HOST=%", description = "Docker environment variables")*/
-@ArcadiaContainerParameter(key = "DockerRegistryUri",
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUri",
         value = "https://hub.docker.com/",
         description = "Docker registry URI")
-@ArcadiaContainerParameter(key = "DockerRegistryUserName",
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUserName",
         value = "arcadia",
         description = "Docker registry username")
-@ArcadiaContainerParameter(key = "DockerRegistryUserPassword",
+@ArcadiaContainerParameter
+        (key = "DockerRegistryUserPassword",
         value = "!arcadia!",
         description = "Docker Docker registry password")
-@ArcadiaContainerParameter(key = "DockerImage",
+@ArcadiaContainerParameter(
+        key = "DockerImage",
         value = "mysql",
         description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerHostExposedPorts",
+@ArcadiaContainerParameter(
+        key = "DockerHostExposedPorts",
         value = "3306",
         description = "The port which mysql server is listening on the host")
-@ArcadiaContainerParameter(key = "DockerContainerExposedPorts",
+@ArcadiaContainerParameter(
+        key = "DockerContainerExposedPorts",
         value = "3306",
         description = "The port which mysql server is listening on the container")
 
@@ -101,56 +129,28 @@ import java.util.logging.Level;
  * Arcadia Dependency Exports
  */
 @ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
-
 public class WrappedComponent {
-
-    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
-
     /*
      * Arcadia Configuration Parameters 
      * 
      */
-   /* public String getDb_user() {
+    public String getDb_user() {
         return "";
+
     }
 
     public String getDb_password() {
         return "";
-    }
 
-    public String getDb_port() {
-        return "";
     }
 
     public String getDb_host() {
         return "";
-    }*/
-
-   public String getMYSQL_USER() {
-       return "";
-
-   }
-
-    public String getMYSQL_ROOT_PASSWORD() {
-        return "";
 
     }
 
-    public String getExposed_Host_Port() {
-        return "";
-
-    }
-
-    public String getExposed_Container_Port() {
-        return "";
-
-    }
-
-    public String getMYSQL_ROOT_HOST() {
-        return "";
-
-    }
-
+    //==================================================================================================================
+    //==================================================================================================================
     /**
      * Find the public IP of the VM
      *
@@ -194,22 +194,29 @@ public class WrappedComponent {
 
     }
 
+    //==================================================================================================================
+    //==================================================================================================================
     /*
      * Arcadia Metrics 
      * 
      */
     public static int getBytes_received() {
         return 0;
+
     }
 
     public static int getBytes_sent() {
         return 0;
+
     }
 
     public static int getConnections() {
         return 0;
+
     }
 
+    //==================================================================================================================
+    //==================================================================================================================
     /**
      * Handle the binding
      *
@@ -218,6 +225,9 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointResolutionHandler(CEPCID = "mysqltcp")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+
     }
+
+    private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
 
 }
