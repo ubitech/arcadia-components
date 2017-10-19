@@ -150,14 +150,10 @@ public class WrappedComponent {
     }
 
     //==================================================================================================================
+    //Parameters shared to other components
     //==================================================================================================================
-    /**
-     * Find the public IP of the VM
-     *
-     * @return The public IP of the VM
-     */
     @SuppressWarnings("Duplicates")
-    public static String getUri() {
+    public static String getMysqluri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
         try {
@@ -189,17 +185,14 @@ public class WrappedComponent {
 
     }
 
-    public static String getPort() {
-        return System.getProperty("db_port");
+    public static String getMysqlport() {
+        return System.getProperty("DockerHostExposedPorts");
 
     }
 
     //==================================================================================================================
+    //Component metrics
     //==================================================================================================================
-    /*
-     * Arcadia Metrics 
-     * 
-     */
     public static int getBytes_received() {
         return 0;
 
@@ -216,6 +209,7 @@ public class WrappedComponent {
     }
 
     //==================================================================================================================
+    //Perform bindings
     //==================================================================================================================
     /**
      * Handle the binding

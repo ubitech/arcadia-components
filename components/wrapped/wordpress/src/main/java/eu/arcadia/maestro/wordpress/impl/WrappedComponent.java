@@ -14,7 +14,13 @@ import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
+import eu.arcadia.maestro.wordpress.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -52,7 +58,7 @@ import java.util.logging.Logger;
         name = "db_host",
         description = "The hostname where mysql server can be reached",
         parametertype = ParameterType.String,
-        defaultvalue = "WORDPRESS_DB_HOST=%%", //Old: %WORDPRESS_DB_HOST%
+        defaultvalue = "WORDPRESS_DB_HOST=mysqluri:mysqlport", //Old: %WORDPRESS_DB_HOST%
         mutableafterstartup = false)
 
 /**
@@ -115,23 +121,66 @@ public class WrappedComponent {
     }
 
     //==================================================================================================================
+    //Parameters shared to other components
     //==================================================================================================================
     /**
      * Find the public IP of the VM
      *
      * @return The public IP of the VM
      */
-    public static String getUri() {
-        return System.getProperty("uri");
+    @SuppressWarnings("Duplicates")
+    public static String getWordpressuri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        } catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress()))
+                        && (!IpHandlingUtil.isIpV6Address(addr.getHostAddress()))
+                        && (!addr.getHostAddress().equals("127.0.0.1"))
+                        && (!addr.getHostAddress().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
 
     }
 
-    public static String getPort() {
-        return System.getProperty("port");
+    public static String getWordpressport() {
+        return "80";
 
     }
 
     //==================================================================================================================
+    //Parameters required by other components
+    //==================================================================================================================
+    public static String getMysqluri() {
+        return System.getProperty("mysqluri");
+
+    }
+
+    public static String getMysqlport() {
+        return System.getProperty("mysqlport");
+
+    }
+
+    //==================================================================================================================
+    //Perform bindings
     //==================================================================================================================
     /**
      * Handle the binding
@@ -143,7 +192,7 @@ public class WrappedComponent {
         String environment = System.getProperty("environment");
         System.setProperty("environment", environment.replace(
                 "%WORDPRESS_DB_HOST%",
-                getUri() + ":" + getPort()));
+                getMysqlport() + ":" + getMysqlport()));
 
     }
 
