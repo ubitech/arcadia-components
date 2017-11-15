@@ -1,1 +1,7 @@
-eu.arcadia.maestro.dummycomponentsix.impl.DummyComponentSixAppMetricsProvider
+eu.arcadia.maestro.dummycomp//Instantiate
+        MetricsProvider metricsProvider = new DummyComponentSixAppMetricsProvider();
+
+        Arrays.asList(Metric.values()).forEach(metric -> {
+            System.out.println(String.format("Metric: %s\tValue: %s", metric, metricsProvider.getMetric(metric.name())));
+
+        });onentsix.impl.DummyComponentSixAppMetricsProvider

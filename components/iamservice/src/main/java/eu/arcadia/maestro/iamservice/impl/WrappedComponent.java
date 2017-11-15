@@ -1,14 +1,19 @@
-package eu.arcadia.maestro.dummycomponentsix.impl;
+package eu.arcadia.maestro.iamservice.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
+import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
+import eu.arcadia.annotations.ArcadiaMetric;
+import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
-import eu.arcadia.maestro.dummycomponentsix.util.IpHandlingUtil;
+import eu.arcadia.annotations.ValueType;
+import eu.arcadia.maestro.iamservice.util.IpHandlingUtil;
+
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -27,20 +32,32 @@ import java.util.logging.Logger;
  *
  */
 @ArcadiaComponent(
-        componentname = "DummyComponentSix",
+        componentname = "IAMService",
         componentversion = "0.1.0",
-        componentdescription = "A dummy component created for Arcadia demonstration purposes.",
-        tags = {"Arcadia", "component", "Arcadia Pilot", "alpine", "DummyComponentSix"})
+        componentdescription = "The FI-STAR Access Control Service.",
+        tags = {"Identity and Access Management", "OAuth2", "XACML", "FI-PPP Enabler"})
 
 /**
  * Arcadia Metrics
  */
-//Non for this component
+@ArcadiaMetric(
+        name = "MIsRunning",
+        description = "Status of Service",
+        unitofmeasurement = "string",
+        valuetype = ValueType.String,
+        maxvalue = "",
+        minvalue = "",
+        higherisbetter = false)
 
 /**
  * Arcadia Configuration Parameters
  */
-//None for this component
+/*@ArcadiaConfigurationParameter(
+        name = "cDeployedLocation",
+        description = "Required location to deploy",
+        parametertype = ParameterType.String,
+        defaultvalue = "[Countries.GERMANY]",
+        mutableafterstartup = false)*/
 
 /**
  * Container Parameters
@@ -59,16 +76,16 @@ import java.util.logging.Logger;
         description = "Docker Docker registry password")
 @ArcadiaContainerParameter(
         key = "DockerImage",
-        value = "httpd:2.4",
+        value = "trantub/fistar_iac",
         description = "Docker image name")
 @ArcadiaContainerParameter(
         key = "DockerHostExposedPorts",
-        value = "80",
-        description = "The port which DummyComponentSix server is listening on the host")
+        value = "7770",
+        description = "The port which FI-STAR IAC server is listening on the host")
 @ArcadiaContainerParameter(
         key = "DockerContainerExposedPorts",
-        value = "80",
-        description = "The port which DummyComponentSix server is listening on the container")
+        value = "7770",
+        description = "The port which FI-STAR IAC server is listening on the container")
 
 /**
  * Miscellaneous
@@ -79,18 +96,26 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "dummycomponentsix", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "iamservice", allowsMultipleTenants = true)
 public class WrappedComponent {
      /*
     * Arcadia Configuration Parameters
     */
-    //None for this component
+     /*public static String getCDeployedLocation() {
+         return System.getProperty("cDeployedLocation");
+
+     }
+
+    public static void setCDeployedLocation(String uri) {
+        System.setProperty("cDeployedLocation", uri);
+
+    }*/
 
     //==================================================================================================================
     //Parameters shared to other components
     //==================================================================================================================
     @SuppressWarnings("Duplicates")
-    public static String getDummycomponentsixuri() {
+    public static String getIamserviceuri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
         try {
@@ -123,8 +148,8 @@ public class WrappedComponent {
 
     }
 
-    public static String getDummycomponentsixport() {
-        return "80";
+    public static String getIamserviceport() {
+        return "7770";
 
     }
 
@@ -136,7 +161,10 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    //Non for this component
+    public static String getMIsRunning() {
+        return "";
+
+    }
 
     //==================================================================================================================
     //Perform bindings
@@ -146,7 +174,7 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "dummycomponentsix")
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "iamservice")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 

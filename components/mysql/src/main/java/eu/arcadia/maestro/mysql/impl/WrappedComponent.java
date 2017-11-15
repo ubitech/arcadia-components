@@ -191,7 +191,7 @@ public class WrappedComponent {
     }
 
     //==================================================================================================================
-    //Parameters shared to other components
+    //Parameters required by other components
     //==================================================================================================================
     //Non for this component
 

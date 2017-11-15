@@ -1,20 +1,19 @@
-package eu.arcadia.maestro.wordpress.impl;
+package eu.arcadia.maestro.uihealth.impl;
 
-/**
- * Created by John Tsantilis (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi)
- * on 10/2/2017.
- */
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
+import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
-import eu.arcadia.maestro.wordpress.util.IpHandlingUtil;
+import eu.arcadia.annotations.ValueType;
+import eu.arcadia.maestro.uihealth.util.IpHandlingUtil;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -24,41 +23,59 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Created by John Tsantilis
+ * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 10/3/2017.
+ */
+
+/**
  * Arcadia Component Definition
  *
  */
 @ArcadiaComponent(
-        componentname = "Wordpress",
+        componentname = "UIHealth",
         componentversion = "0.1.0",
-        componentdescription = "WordPress is a free and open source blogging tool and a content "
-        + "management system (CMS) based on PHP and MySQL, which runs on a web hosting service.",
-        tags = {"CMS", "site", "PHP", "MySQL"})
+        componentdescription = "Web User Interface for the ARCADIA RPM scenario.",
+        tags = {"User Interface", "Heart Rate"})
 
 /**
  * Arcadia Metrics
  */
-//Non for this component
+@ArcadiaMetric(
+        name = "mIsRunning",
+        description = "Status of Service",
+        unitofmeasurement = "string",
+        valuetype = ValueType.String,
+        maxvalue = "",
+        minvalue = "",
+        higherisbetter = false)
+
 
 /**
  * Arcadia Configuration Parameters
  */
-@ArcadiaConfigurationParameter(
-        name = "db_user",
-        description = "The username of the database user",
+/*@ArcadiaConfigurationParameter(
+        name = "cDeployedLocation",
+        description = "Required location to deploy",
         parametertype = ParameterType.String,
-        defaultvalue = "WORDPRESS_DB_USER=root",
+        defaultvalue = "DE",
         mutableafterstartup = false)
 @ArcadiaConfigurationParameter(
-        name = "db_password",
-        description = "The password of the database user",
+        name = "cClientID",
+        description = "Application ID",
         parametertype = ParameterType.String,
-        defaultvalue = "WORDPRESS_DB_PASSWORD=!arcadia!",
+        defaultvalue = "OdBSR3CoPtwEKIedDUE5j_WU3rEa",
         mutableafterstartup = false)
 @ArcadiaConfigurationParameter(
-        name = "db_host",
-        description = "The hostname where mysql server can be reached",
+        name = "cClientSecret",
+        description = "Application Secret",
         parametertype = ParameterType.String,
-        defaultvalue = "WORDPRESS_DB_HOST=mysqluri:mysqlport", //Old: %WORDPRESS_DB_HOST%
+        defaultvalue = "SJiaVnwV16qYoMiuEvJyxDcH5HMa",
+        mutableafterstartup = false)*/
+@ArcadiaConfigurationParameter(
+        name = "apigateway_endpoint",
+        description = "The endpoint of the API Gateway Service",
+        parametertype = ParameterType.String,
+        defaultvalue = "ENDPOINT=apigatewayuri:apigatewayport",
         mutableafterstartup = false)
 
 /**
@@ -78,17 +95,16 @@ import java.util.logging.Logger;
         description = "Docker Docker registry password")
 @ArcadiaContainerParameter(
         key = "DockerImage",
-        value = "wordpress",
+        value = "trantub/arcadia_ui",
         description = "Docker image name")
 @ArcadiaContainerParameter(
         key = "DockerHostExposedPorts",
-        value = "80",
+        value = "7770",
         description = "The port which mysql server is listening on the host")
 @ArcadiaContainerParameter(
         key = "DockerContainerExposedPorts",
-        value = "80",
+        value = "7770",
         description = "The port which mysql server is listening on the container")
-
 
 /**
  * Miscellaneous
@@ -101,24 +117,43 @@ import java.util.logging.Logger;
  */
 //Non for this component
 public class WrappedComponent {
-    /*
+     /*
     * Arcadia Configuration Parameters
-    *
     */
-    public String getDb_user() {
-        return "";
+     /*public static String getCDeployedLocation() {
+         return System.getProperty("cDeployedLocation");
+
+     }
+
+    public static void setCDeployedLocation(String uri) {
+        System.setProperty("cDeployedLocation", uri);
 
     }
 
-    public String getDb_password() {
-        return "";
+    public static String getCClientID() {
+        return System.getProperty("cClientID");
 
     }
 
-    public String getDb_host() {
-        return "";
+    public static void setCClientID(String str) {
+        System.setProperty("cClientID", str);
 
     }
+
+    public static String getCClientSecret() {
+        return System.getProperty("cClientSecret");
+
+    }
+
+    public static void setCClientSecret(String str) {
+        System.setProperty("cClientSecret", str);
+
+    }*/
+
+     public String getApigateway_endpoint() {
+         return "";
+
+     }
 
     //==================================================================================================================
     //Parameters shared to other components
@@ -128,20 +163,23 @@ public class WrappedComponent {
     //==================================================================================================================
     //Parameters required by other components
     //==================================================================================================================
-    public static String getMysqluri() {
-        return System.getProperty("mysqluri");
+    public static String getApigatewayuri() {
+        return System.getProperty("apigatewayuri");
 
     }
 
-    public static String getMysqlport() {
-        return System.getProperty("mysqlport");
+    public static String getApigatewayport() {
+        return System.getProperty("apigatewayport");
 
     }
 
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    //Non for this component
+    public static String getMIsRunning() {
+        return String.valueOf(isrunning);
+
+    }
 
     //==================================================================================================================
     //Perform bindings
@@ -151,15 +189,13 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "mysqltcp")
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "apigateway")
     public static void bindDependency(ChainingInfo chainingInfo) {
-        String environment = System.getProperty("environment");
-        System.setProperty("environment", environment.replace(
-                "%WORDPRESS_DB_HOST%",
-                getMysqlport() + ":" + getMysqlport()));
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
 
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
+    private static Integer isrunning = 0;
 
 }

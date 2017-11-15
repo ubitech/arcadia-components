@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.arcadia.maestro</groupId>
-    <artifactId>aggregator</artifactId>
+    <artifactId>components</artifactId>
     <version>0.1.0.BUILD-SNAPSHOT</version>
     <name>arcadia-components-aggregator</name>
     <packaging>pom</packaging>
@@ -25,5 +25,8 @@
         <module>dummycomponentfour</module>
         <module>dummycomponentfive</module>
         <module>dummycomponentsix</module>
+        <module>iamservice</module>
+        <module>apigateway</module>
+        <module>uihealth</module>
     </modules>
 </project>

@@ -4,13 +4,20 @@ import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
+import eu.arcadia.maestro.orion.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -22,21 +29,32 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "OrionBroker", 
-    componentversion = "0.1.0", 
-    componentdescription = "The Orion Context Broker is an implementation of " +
+@ArcadiaComponent(
+        componentname = "TUBOrionBroker",
+        componentversion = "0.1.0",
+        componentdescription = "The Orion Context Broker is an implementation of " +
             "the Publish/Subscribe Context Broker GE, providing the NGSI9 and NGSI10 interfaces.",
-    tags = {"Context broker", "Publish/Subscribe", "IoT", "smart devices"})
+        tags = {"Context broker", "Publish/Subscribe", "IoT", "FI-PPP Enabler"})
 
 /**
  * Arcadia wrapper exposed Metrics
  */
-@ArcadiaMetric(name = "metrics",
+@ArcadiaMetric(
+        name = "Metrics",
         description = "A multi-level JSON tree response that includes various internal metrics",
         unitofmeasurement = "string",
         valuetype = ValueType.String,
         maxvalue = "N/A",
         minvalue = "N/A",
+        higherisbetter = false)
+
+@ArcadiaMetric(
+        name = "MIsRunning",
+        description = "Status of Service",
+        unitofmeasurement = "string",
+        valuetype = ValueType.String,
+        maxvalue = "",
+        minvalue = "",
         higherisbetter = false)
 
 /**
@@ -47,15 +65,30 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage", 
-    value = "fiware/orion", 
-    description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose", 
-    value = "1026", 
-    description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerCmd", 
-    value = "-dbhost %MONGO_DB_HOST%", 
-    description = "Docker added command")
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUri",
+        value = "https://hub.docker.com/",
+        description = "Docker registry URI")
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUserName",
+        value = "arcadia",
+        description = "Docker registry username")
+@ArcadiaContainerParameter
+        (key = "DockerRegistryUserPassword",
+                value = "!arcadia!",
+                description = "Docker Docker registry password")
+@ArcadiaContainerParameter(
+        key = "DockerImage",
+        value = "trantub/fiware_orion",
+        description = "Docker image name")
+@ArcadiaContainerParameter(
+        key = "DockerHostExposedPorts",
+        value = "1026",
+        description = "The port which mysql server is listening on the host")
+@ArcadiaContainerParameter(
+        key = "DockerContainerExposedPorts",
+        value = "1026",
+        description = "The port which mysql server is listening on the container")
 
 /**
  * Miscellaneous
@@ -66,47 +99,84 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "mongotcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "oriontcp", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
-     * Arcadia wrapper exposed Metrics
+     * Arcadia Configuration Parameters
      *
      */
+    //Non for this component
+
+    //==================================================================================================================
+    //Parameters shared to other components
+    //==================================================================================================================
+    @SuppressWarnings("Duplicates")
+    public static String getOrionuri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        } catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress()))
+                        && (!IpHandlingUtil.isIpV6Address(addr.getHostAddress()))
+                        && (!addr.getHostAddress().equals("127.0.0.1"))
+                        && (!addr.getHostAddress().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static String getOrionport() {
+        return System.getProperty("DockerHostExposedPorts");
+
+    }
+
+    //==================================================================================================================
+    //Parameters required by other components
+    //==================================================================================================================
+    //Non for this component
+
+    //==================================================================================================================
+    //Component metrics
+    //==================================================================================================================
     public static String getMetrics() {
         return "";
 
     }
 
-    public static String getOrionUri() {
-        return System.getProperty("orionUri");
+    public static String getMIsRunning() {
+        return "";
 
     }
 
-    public static String getOrionPort() {
-        return System.getProperty("orionPort");
-
-    }
-
-    public static String getUri() {
-        return System.getProperty("uri");
-
-    }
-
-    public static String getPort() {
-        return System.getProperty("port");
-
-    }
-
+    //==================================================================================================================
+    //Perform bindings
+    //==================================================================================================================
     /**
      * Handle the binding
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "mongotcp")
-    public static void bindDependency(ChainingInfo chainingInfo) {
-        String CMD = System.getProperty("cmd");
-        System.setProperty("cmd", System.getProperty("cmd").replace("%MONGO_DB_HOST%", getUri()));
-        LOGGER.info(String.format("cmd: %s", System.getProperty("cmd")));
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "oriontcp")
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
 

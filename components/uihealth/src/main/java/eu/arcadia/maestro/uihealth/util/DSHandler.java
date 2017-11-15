@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.dummycomponentone.util;
+package eu.arcadia.maestro.uihealth.util;
 
 /**
  * Created by John Tsantilis
@@ -16,7 +16,7 @@ public enum DSHandler {
      * @return DSHandler Object
      */
     DSHandler() {
-        //Do nothing
+        //
 
     }
 
