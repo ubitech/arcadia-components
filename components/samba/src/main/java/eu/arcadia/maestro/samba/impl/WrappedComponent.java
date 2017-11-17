@@ -31,17 +31,17 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "Samba",
+@ArcadiaComponent(
+        componentname = "Samba",
         componentversion = "0.1.0",
         componentdescription = "Samba is an Open Source/Free Software suite that provides " +
                 "seamless file and print services to SMB/CIFS clients",
         tags = {"samba", "file service", "SMB/CIFS"})
 
-//TODO:  Must add specific metrics for Samba server.
 /**
- * Arcadia wrapper exposed Metrics
+ * Arcadia Metrics
  */
-//Non for this component
+//None for this component
 
 /**
  * Arcadia Configuration Parameters
@@ -51,15 +51,33 @@ import java.util.logging.Logger;
 /**
  * Docker Container Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage",
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUri",
+        value = "https://hub.docker.com/",
+        description = "Docker registry URI")
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUserName",
+        value = "arcadia",
+        description = "Docker registry username")
+@ArcadiaContainerParameter
+        (key = "DockerRegistryUserPassword",
+                value = "!arcadia!",
+                description = "Docker Docker registry password")
+@ArcadiaContainerParameter(
+        key = "DockerImage",
         value = "dperson/samba",
         description = "Docker image name")
-//TODO:  Must allow multiple ports for docker container to be exposed to vm instance.
-@ArcadiaContainerParameter(key = "DockerExpose",
-        value = "139,445" /* multiple ports! must add value = "445"*/,
-        description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerCmd",
-        value = "-p -u www-data;ngn -s share;/mnt;no;no;no;www-data;www-data;www-data",
+@ArcadiaContainerParameter(
+        key = "DockerHostExposedPorts",
+        value = "139,445",
+        description = "The port which mysql server is listening on the host")
+@ArcadiaContainerParameter(
+        key = "DockerContainerExposedPorts",
+        value = "139,445",
+        description = "The port which mysql server is listening on the container")
+@ArcadiaContainerParameter(
+        key = "DockerCmd",
+        value = "-p -u %www-data;ngn% -s %share;/mnt;no;no;no;www-data;www-data;www-data%",
         description = "Docker added command")
 
 /**
@@ -72,8 +90,17 @@ import java.util.logging.Logger;
  * Arcadia Dependency Exports
  */
 @ArcadiaChainableEndpoint(CEPCID = "samba", allowsMultipleTenants = true)
-@SuppressWarnings("Duplicates")
 public class WrappedComponent {
+    /*
+     * Arcadia Configuration Parameters
+     *
+     */
+    //None for this component
+
+    //==================================================================================================================
+    //Parameters shared to other components
+    //==================================================================================================================
+    @SuppressWarnings("Duplicates")
     public static String getSambauri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
@@ -107,15 +134,26 @@ public class WrappedComponent {
 
     }
 
-    //TODO:  Must return multiple ports!Therefore String should change to List<> or ArrayList<>.
     public static String getSambaport() {
-        return "139";
-        //return 139 & 445
+        return System.getProperty("DockerHostExposedPorts");
 
     }
 
+    //==================================================================================================================
+    //Parameters required by other components
+    //==================================================================================================================
+    //None for this component
+
+    //==================================================================================================================
+    //Component metrics
+    //==================================================================================================================
+    //None for this component
+
+    //==================================================================================================================
+    //Perform bindings
+    //==================================================================================================================
     /**
-     * Handle the binding
+     * Handle binding dependencies to other components
      *
      * @param chainingInfo ChainingInfo object
      */

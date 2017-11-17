@@ -5,8 +5,10 @@ import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
+import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
+import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
 
 import java.util.logging.Logger;
@@ -20,44 +22,106 @@ import java.util.logging.Logger;
  * Arcadia Component Definition
  *
  */
-@ArcadiaComponent(componentname = "PhpDashboard",
+@ArcadiaComponent(
+        componentname = "PhpDashboard",
         componentversion = "0.1.0",
         componentdescription = "A PHP pilot application created for Arcadia demonstration purposes.",
         tags = {"PHP", "Application", "Arcadia Pilot"})
 
 /**
- * Arcadia wrapper exposed Metrics
- */
-//Non for this component
-
-/**
- * Arcadia Configuration Parameters
+ * Arcadia Metrics
  */
 //None for this component
 
 /**
- * Docker Container Parameters
+ * Arcadia Configuration Parameters
  */
-@ArcadiaContainerParameter(key = "DockerImage",
+@ArcadiaConfigurationParameter(
+        name = "share_host",
+        description = "The samba server",
+        parametertype = ParameterType.String,
+        defaultvalue = "SHARE_HOST=sambauri", //Old: SHARE_HOST=%SHARE_HOST%
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "git_user",
+        description = "The git user to fetch app updates from repo",
+        parametertype = ParameterType.String,
+        defaultvalue = "GIT_USER=itsantilis", //Old: GIT_USER=itsantilis
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "git_pass",
+        description = "The git user password",
+        parametertype = ParameterType.String,
+        defaultvalue = "GIT_PASS=arcadialtfe", //Old: GIT_PASS=arcadialtfe
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "db_host",
+        description = "The hostname where mysql server can be reached",
+        parametertype = ParameterType.String,
+        defaultvalue = "DB_HOST=mysqluri", //Old: DB_HOST=%DB_HOST%
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "db_root",
+        description = "The username of the root database user",
+        parametertype = ParameterType.String,
+        defaultvalue = "DB_ROOT_USER=root", //Old: DB_ROOT_USER=root
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "db_root_password",
+        description = "The password of root database user",
+        parametertype = ParameterType.String,
+        defaultvalue = "DB_ROOT_PASS=gen6", //Old: DB_ROOT_PASS=gen6
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "db_name",
+        description = "The database name",
+        parametertype = ParameterType.String,
+        defaultvalue = "DB_NAME=gen6", //Old: DB_NAME=gen6
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "db_user",
+        description = "The username of the database user",
+        parametertype = ParameterType.String,
+        defaultvalue = "DB_USER=gen6", //Old: DB_USER=gen6
+        mutableafterstartup = false)
+@ArcadiaConfigurationParameter(
+        name = "db_password",
+        description = "The password of the database user",
+        parametertype = ParameterType.String,
+        defaultvalue = "DB_PASS=gen6", //Old: DB_PASS=gen6
+        mutableafterstartup = false)
+
+/**
+ * Container Parameters
+ */
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUri",
+        value = "https://hub.docker.com/",
+        description = "Docker registry URI")
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUserName",
+        value = "arcadia",
+        description = "Docker registry username")
+@ArcadiaContainerParameter(
+        key = "DockerRegistryUserPassword",
+        value = "!arcadia!",
+        description = "Docker Docker registry password")
+@ArcadiaContainerParameter(
+        key = "DockerImage",
         value = "giannis20012001/phpdashboard",
         description = "Docker image name")
-@ArcadiaContainerParameter(key = "DockerExpose",
+@ArcadiaContainerParameter(
+        key = "DockerHostExposedPorts",
         value = "80",
-        description = "Docker expose port")
-@ArcadiaContainerParameter(key = "DockerEnvironment",
-        value = "SHARE_HOST=%SHARE_HOST%," +
-                "GIT_USER=itsantilis," +
-                "GIT_PASS=arcadialtfe," +
-                "DB_HOST=%DB_HOST%," +
-                "DB_ROOT_USER=root," +
-                "DB_ROOT_PASS=gen6," +
-                "DB_NAME=gen6," +
-                "DB_USER=gen6," +
-                "DB_PASS=gen6",
-        description = "Docker environment variables")
-@ArcadiaContainerParameter(key = "DockerPrivilegeflag",
-value = "true",
-description = "Enable docker privileged condition")
+        description = "The port which mysql server is listening on the host")
+@ArcadiaContainerParameter(
+        key = "DockerContainerExposedPorts",
+        value = "80",
+        description = "The port which mysql server is listening on the container")
+@ArcadiaContainerParameter(
+        key = "DockerPrivilegeflag",
+        value = "true",
+        description = "Enable docker privileged condition")
 
 /**
  * Miscellaneous
@@ -68,16 +132,72 @@ description = "Enable docker privileged condition")
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "mysqltcp", allowsMultipleTenants = true)
-@ArcadiaChainableEndpoint(CEPCID = "samba", allowsMultipleTenants = true)
+//None for this component
 public class WrappedComponent {
-    public static String getUri() {
-        return System.getProperty("uri");
+    /*
+    * Arcadia Configuration Parameters
+    *
+    */
+    public String getShare_host() {
+        return "";
 
     }
 
-    public static String getPort() {
-        return System.getProperty("port");
+    public String getGit_user() {
+        return "";
+
+    }
+
+    public String getGit_pass() {
+        return "";
+
+    }
+
+    public String getDb_host() {
+        return "";
+
+    }
+
+    public String getDb_root() {
+        return "";
+
+    }
+
+    public String getDb_root_password() {
+        return "";
+
+    }
+
+    public String getDb_name() {
+        return "";
+
+    }
+
+    public String getDb_user() {
+        return "";
+
+    }
+
+    public String getDb_password() {
+        return "";
+
+    }
+
+    //==================================================================================================================
+    //Parameters shared to other components
+    //==================================================================================================================
+    //None for this component
+
+    //==================================================================================================================
+    //Parameters required by other components
+    //==================================================================================================================
+    public static String getMysqluri() {
+        return System.getProperty("mysqluri");
+
+    }
+
+    public static String getMysqlport() {
+        return System.getProperty("mysqlport");
 
     }
 
@@ -91,18 +211,27 @@ public class WrappedComponent {
 
     }
 
+    //==================================================================================================================
+    //Component metrics
+    //==================================================================================================================
+    //None for this component
+
+    //==================================================================================================================
+    //Perform bindings
+    //==================================================================================================================
     /**
-     * Handle the binding
+     * Handle binding dependencies by other components
      *
      * @param chainingInfo ChainingInfo object
      */
-    //TODO: Add secondary ArcadiaChainableEndpointBindingHandler to support additional component interconnection
+    /**
+     * Handle binding dependencies by other components
+     *
+     * @param chainingInfo ChainingInfo object
+     */
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "mysqltcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
-        String environment = System.getProperty("environment");
-        System.setProperty("environment", environment.replace("%DB_HOST%", getUri())
-                .replace("%SHARE_HOST%", getSambauri()));
-        LOGGER.info(String.format("env: %s", System.getProperty("environment")));
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
 
