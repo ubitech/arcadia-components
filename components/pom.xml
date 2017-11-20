@@ -28,5 +28,7 @@
         <module>iamservice</module>
         <module>apigateway</module>
         <module>uihealth</module>
+        <module>postgres</module>
+        <module>redis</module>
     </modules>
 </project>

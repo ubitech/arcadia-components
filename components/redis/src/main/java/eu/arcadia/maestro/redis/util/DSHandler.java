@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.postgres.util;
+package eu.arcadia.maestro.redis.util;
 
 /**
  * Created by John Tsantilis
