@@ -30,5 +30,7 @@
         <module>uihealth</module>
         <module>postgres</module>
         <module>redis</module>
+        <module>turnserver</module>
+        <module>signalingHandler</module>
     </modules>
 </project>
