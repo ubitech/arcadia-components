@@ -108,7 +108,7 @@ import java.util.logging.Level;
         description = "Docker Docker registry password")
 @ArcadiaContainerParameter(
         key = "DockerImage",
-        value = "mysql",
+        value = "giannis20012001/arcadia-mysql",
         description = "Docker image name")
 @ArcadiaContainerParameter(
         key = "DockerHostExposedPorts",
