@@ -41,7 +41,7 @@ import java.util.logging.Logger;
  * Arcadia Metrics
  */
 @ArcadiaMetric(
-        name = "mIsRunning",
+        name = "isRunning",
         description = "Status of Service",
         unitofmeasurement = "string",
         valuetype = ValueType.String,
@@ -49,21 +49,21 @@ import java.util.logging.Logger;
         minvalue = "",
         higherisbetter = false)
 @ArcadiaMetric(name =
-        "mUnauthorizeRequestRate",
+        "unauthorizeRequestRate",
         description = "Unauthorized Request Rate",
         unitofmeasurement = "min",
         valuetype = ValueType.Integer,
         maxvalue = "",
         minvalue = "0",
         higherisbetter = false)
-@ArcadiaMetric(
-        name = "mErrorRequestRate",
+/*@ArcadiaMetric(
+        name = "errorRequestRate",
         description = "Request Rate",
         unitofmeasurement = "min",
         valuetype = ValueType.Integer,
         maxvalue = "",
         minvalue = "0",
-        higherisbetter = false)
+        higherisbetter = false)*/
 
 
 /**
@@ -125,7 +125,7 @@ import java.util.logging.Logger;
         description = "Docker Docker registry password")
 @ArcadiaContainerParameter(
         key = "DockerImage",
-        value = "trantub/arcadia_af",
+        value = "giannis20012001/apigateway", //OLD: value = "trantub/arcadia_af",
         description = "Docker image name")
 @ArcadiaContainerParameter(
         key = "DockerHostExposedPorts",
@@ -268,20 +268,20 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    public static String getMIsRunning() {
+    public static String getIsRunning() {
         return "";
 
     }
 
-    public static String getMUnauthorizeRequestRate() {
+    public static String getUnauthorizeRequestRate() {
         return "";
 
     }
 
-    public static String getMErrorRequestRate() {
+    /*public static String getErrorRequestRate() {
         return "";
 
-    }
+    }*/
 
     //==================================================================================================================
     //Perform bindings
