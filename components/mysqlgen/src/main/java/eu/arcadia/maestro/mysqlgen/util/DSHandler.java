@@ -1,16 +1,16 @@
-package eu.arcadia.maestro.mysql.util;
+package eu.arcadia.maestro.mysqlgen.util;
 
 /**
  *
  * @author Christos Paraskeva (ch.paraskeva at gmail dot com)
  */
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

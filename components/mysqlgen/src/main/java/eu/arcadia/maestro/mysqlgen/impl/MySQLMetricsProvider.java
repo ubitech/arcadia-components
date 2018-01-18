@@ -1,7 +1,8 @@
-package eu.arcadia.maestro.mysql.impl;
+package eu.arcadia.maestro.mysqlgen.impl;
 
 import eu.arcadia.maestro.api.MetricsProvider;
-import eu.arcadia.maestro.mysql.util.DSHandler;
+import eu.arcadia.maestro.mysqlgen.util.DSHandler;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

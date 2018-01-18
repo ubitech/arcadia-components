@@ -1,8 +1,9 @@
-package eu.arcadia.maestro.mysql;
+package eu.arcadia.maestro.mysqlgen;
 
 import eu.arcadia.maestro.api.MetricsProvider;
-import eu.arcadia.maestro.mysql.impl.MySQLMetricsProvider;
-import eu.arcadia.maestro.mysql.util.Metric;
+import eu.arcadia.maestro.mysqlgen.impl.MySQLMetricsProvider;
+import eu.arcadia.maestro.mysqlgen.util.Metric;
+
 import java.util.Arrays;
 
 /**

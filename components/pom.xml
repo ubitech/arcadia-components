@@ -14,6 +14,7 @@
     <modules>
         <module>mongo</module>
         <module>mysql</module>
+        <module>mysqlgen</module>
         <module>orion</module>
         <module>samba</module>
         <module>wordpress</module>
