@@ -74,7 +74,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-//None for this component
+@ArcadiaChainableEndpoint(CEPCID = "dummycomponentone", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
     * Arcadia Configuration Parameters

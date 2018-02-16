@@ -2,6 +2,7 @@ package eu.arcadia.maestro.signalingHandler.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
+import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
@@ -73,7 +74,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-//None for this component
+@ArcadiaChainableEndpoint(CEPCID = "signalinghandler", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
     * Arcadia Configuration Parameters

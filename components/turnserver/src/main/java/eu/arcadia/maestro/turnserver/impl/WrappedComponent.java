@@ -12,7 +12,6 @@ import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
-import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.maestro.turnserver.util.IpHandlingUtil;
 
 import java.net.InetAddress;
@@ -78,7 +77,7 @@ import java.util.logging.Logger;
 /**
  * Miscellaneous
  */
-@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
+//No ArcadiaBehavioralProfile
 @ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
 
 /**

@@ -99,7 +99,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-//Non for this component
+@ArcadiaChainableEndpoint(CEPCID = "wordpresstcp", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
     * Arcadia Configuration Parameters

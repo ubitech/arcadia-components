@@ -39,7 +39,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia wrapper exposed Metrics
  */
-@ArcadiaMetric(
+/*@ArcadiaMetric(
         name = "Metrics",
         description = "A multi-level JSON tree response that includes various internal metrics",
         unitofmeasurement = "string",
@@ -55,7 +55,7 @@ import java.util.logging.Logger;
         valuetype = ValueType.String,
         maxvalue = "",
         minvalue = "",
-        higherisbetter = false)
+        higherisbetter = false)*/
 
 /**
  * Arcadia Configuration Parameters
@@ -93,7 +93,7 @@ import java.util.logging.Logger;
 /**
  * Miscellaneous
  */
-@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
+//No ArcadiaBehavioralProfile
 @ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
 
 /**
@@ -156,7 +156,7 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    public static String getMetrics() {
+    /*public static String getMetrics() {
         return "";
 
     }
@@ -164,7 +164,7 @@ public class WrappedComponent {
     public static String getMIsRunning() {
         return "";
 
-    }
+    }*/
 
     //==================================================================================================================
     //Perform bindings

@@ -60,6 +60,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
+@ArcadiaChainableEndpoint(CEPCID = "springbootapp", allowsMultipleTenants = true)
 public class WrappedComponent {
     @SuppressWarnings("Duplicates")
     public static String getSpringbootappuri() {

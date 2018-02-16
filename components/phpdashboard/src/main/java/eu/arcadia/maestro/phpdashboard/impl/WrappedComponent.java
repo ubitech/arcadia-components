@@ -8,8 +8,10 @@ import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
+import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
+import eu.arcadia.annotations.ValueType;
 
 import java.util.logging.Logger;
 
@@ -31,7 +33,14 @@ import java.util.logging.Logger;
 /**
  * Arcadia Metrics
  */
-//None for this component
+@ArcadiaMetric(
+        name = "Apache_Active_Workers",
+        description = "Number of active Apache workers",
+        unitofmeasurement = "Number of Apache workers",
+        valuetype = ValueType.Integer,
+        maxvalue = "100000",
+        minvalue = "0",
+        higherisbetter = false)
 
 /**
  * Arcadia Configuration Parameters
@@ -46,13 +55,13 @@ import java.util.logging.Logger;
         name = "git_user",
         description = "The git user to fetch app updates from repo",
         parametertype = ParameterType.String,
-        defaultvalue = "GIT_USER=itsantilis", //Old: GIT_USER=itsantilis
+        defaultvalue = "GIT_USER=gen6", //Old: GIT_USER=itsantilis
         mutableafterstartup = false)
 @ArcadiaConfigurationParameter(
         name = "git_pass",
         description = "The git user password",
         parametertype = ParameterType.String,
-        defaultvalue = "GIT_PASS=arcadialtfe", //Old: GIT_PASS=arcadialtfe
+        defaultvalue = "GIT_PASS=gen6ltfe", //Old: GIT_PASS=arcadialtfe
         mutableafterstartup = false)
 @ArcadiaConfigurationParameter(
         name = "db_host",
@@ -132,7 +141,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-//None for this component
+@ArcadiaChainableEndpoint(CEPCID = "phpdashboard", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
     * Arcadia Configuration Parameters
@@ -214,7 +223,10 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    //None for this component
+    public static int getApache_Active_Workers() {
+        return 0;
+
+    }
 
     //==================================================================================================================
     //Perform bindings

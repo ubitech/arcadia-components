@@ -41,15 +41,15 @@ import java.util.logging.Logger;
  * Arcadia Metrics
  */
 @ArcadiaMetric(
-        name = "isRunning",
+        name = "isrunning",
         description = "Status of Service",
-        unitofmeasurement = "string",
-        valuetype = ValueType.String,
+        unitofmeasurement = "binary",
+        valuetype = ValueType.Integer,
         maxvalue = "",
-        minvalue = "",
+        minvalue = "0",
         higherisbetter = false)
 @ArcadiaMetric(name =
-        "unauthorizeRequestRate",
+        "unauthorized_request_rate",
         description = "Unauthorized Request Rate",
         unitofmeasurement = "min",
         valuetype = ValueType.Integer,
@@ -139,7 +139,7 @@ import java.util.logging.Logger;
 /**
  * Miscellaneous
  */
-@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
+//No ArcadiaBehavioralProfile
 @ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
 
 /**
@@ -268,12 +268,12 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    public static String getIsRunning() {
+    public static String getIsrunning() {
         return "";
 
     }
 
-    public static String getUnauthorizeRequestRate() {
+    public static String getUnauthorized_request_rate() {
         return "";
 
     }

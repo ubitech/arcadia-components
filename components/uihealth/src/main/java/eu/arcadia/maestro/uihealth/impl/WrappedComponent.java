@@ -40,14 +40,14 @@ import java.util.logging.Logger;
 /**
  * Arcadia Metrics
  */
-@ArcadiaMetric(
+/*@ArcadiaMetric(
         name = "mIsRunning",
         description = "Status of Service",
         unitofmeasurement = "string",
         valuetype = ValueType.String,
         maxvalue = "",
         minvalue = "",
-        higherisbetter = false)
+        higherisbetter = false)*/
 
 
 /**
@@ -115,7 +115,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-//Non for this component
+@ArcadiaChainableEndpoint(CEPCID = "uihealth", allowsMultipleTenants = true)
 public class WrappedComponent {
      /*
     * Arcadia Configuration Parameters
@@ -176,10 +176,10 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    public static String getMIsRunning() {
+    /*public static String getMIsRunning() {
         return String.valueOf(isrunning);
 
-    }
+    }*/
 
     //==================================================================================================================
     //Perform bindings

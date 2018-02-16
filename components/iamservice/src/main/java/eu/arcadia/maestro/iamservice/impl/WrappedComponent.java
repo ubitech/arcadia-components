@@ -40,14 +40,14 @@ import java.util.logging.Logger;
 /**
  * Arcadia Metrics
  */
-@ArcadiaMetric(
+/*@ArcadiaMetric(
         name = "MIsRunning",
         description = "Status of Service",
         unitofmeasurement = "string",
         valuetype = ValueType.String,
         maxvalue = "",
         minvalue = "",
-        higherisbetter = false)
+        higherisbetter = false)*/
 
 /**
  * Arcadia Configuration Parameters
@@ -90,7 +90,7 @@ import java.util.logging.Logger;
 /**
  * Miscellaneous
  */
-@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
+//No ArcadiaBehavioralProfile
 @ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
 
 /**
@@ -161,10 +161,10 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    public static String getMIsRunning() {
+    /*public static String getMIsRunning() {
         return "";
 
-    }
+    }*/
 
     //==================================================================================================================
     //Perform bindings
