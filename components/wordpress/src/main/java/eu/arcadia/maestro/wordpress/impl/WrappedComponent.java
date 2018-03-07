@@ -100,7 +100,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "wordpresstcp", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "wordpress", allowsMultipleTenants = true)
 public class WrappedComponent {
     /*
     * Arcadia Configuration Parameters
@@ -202,7 +202,7 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "wordpresstcp")
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "wordpress")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 

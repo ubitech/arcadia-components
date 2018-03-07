@@ -169,7 +169,7 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "wordpresstcp")
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "wordpress")
     public static void bindDependency(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 

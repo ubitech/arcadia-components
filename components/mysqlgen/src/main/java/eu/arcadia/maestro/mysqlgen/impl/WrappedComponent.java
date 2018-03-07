@@ -39,30 +39,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Metrics
  */
-@ArcadiaMetric(
-        name = "Bytes_received",
-        description = "Number of bytes received",
-        unitofmeasurement = "Number of bytes",
-        valuetype = ValueType.Integer,
-        maxvalue = "100000",
-        minvalue = "0",
-        higherisbetter = false)
-@ArcadiaMetric(
-        name = "Bytes_sent",
-        description = "Number of bytes sent",
-        unitofmeasurement = "Number of bytes",
-        valuetype = ValueType.Integer,
-        maxvalue = "100000",
-        minvalue = "0",
-        higherisbetter = false)
-@ArcadiaMetric(
-        name = "Connections",
-        description = "Number of current connections to mysql server",
-        unitofmeasurement = "Number of connections",
-        valuetype = ValueType.Integer,
-        maxvalue = "10000",
-        minvalue = "0",
-        higherisbetter = false)
+//None for this component
 
 /**
  * Arcadia Configuration Parameters
@@ -194,20 +171,7 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    public static int getBytes_received() {
-        return 0;
-
-    }
-
-    public static int getBytes_sent() {
-        return 0;
-
-    }
-
-    public static int getConnections() {
-        return 0;
-
-    }
+    //None for this component
 
     //==================================================================================================================
     //Perform bindings
