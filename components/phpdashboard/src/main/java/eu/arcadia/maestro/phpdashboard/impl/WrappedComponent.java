@@ -12,7 +12,13 @@ import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ParameterType;
 import eu.arcadia.annotations.ScaleBehavior;
 import eu.arcadia.annotations.ValueType;
+import eu.arcadia.maestro.phpdashboard.util.IpHandlingUtil;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -195,7 +201,43 @@ public class WrappedComponent {
     //==================================================================================================================
     //Parameters shared to other components
     //==================================================================================================================
-    //None for this component
+    @SuppressWarnings("Duplicates")
+    public static String getPhpdashboarduri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        } catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress()))
+                        && (!IpHandlingUtil.isIpV6Address(addr.getHostAddress()))
+                        && (!addr.getHostAddress().equals("127.0.0.1"))
+                        && (!addr.getHostAddress().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static String getPhpdashboardport() {
+        return System.getProperty("80");
+
+    }
 
     //==================================================================================================================
     //Parameters required by other components

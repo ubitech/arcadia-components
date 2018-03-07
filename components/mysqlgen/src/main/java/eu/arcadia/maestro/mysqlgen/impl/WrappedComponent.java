@@ -39,16 +39,34 @@ import java.util.logging.Logger;
 /**
  * Arcadia Metrics
  */
-//None for this component
+@ArcadiaMetric(
+        name = "Bytes_received",
+        description = "Number of bytes received",
+        unitofmeasurement = "Number of bytes",
+        valuetype = ValueType.Integer,
+        maxvalue = "100000",
+        minvalue = "0",
+        higherisbetter = false)
+@ArcadiaMetric(
+        name = "Bytes_sent",
+        description = "Number of bytes sent",
+        unitofmeasurement = "Number of bytes",
+        valuetype = ValueType.Integer,
+        maxvalue = "100000",
+        minvalue = "0",
+        higherisbetter = false)
+@ArcadiaMetric(
+        name = "Connections",
+        description = "Number of current connections to mysql server",
+        unitofmeasurement = "Number of connections",
+        valuetype = ValueType.Integer,
+        maxvalue = "10000",
+        minvalue = "0",
+        higherisbetter = false)
 
 /**
  * Arcadia Configuration Parameters
  */
-/*@ArcadiaConfigurationParameter(name = "db_user", description = "The username of the database", parametertype = ParameterType.String, defaultvalue = "root", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_password", description = "The password of the database user", parametertype = ParameterType.String, defaultvalue = "!arcadia!", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_port", description = "The port which mysql server is listening", parametertype = ParameterType.String, defaultvalue = "3306", mutableafterstartup = false)
-@ArcadiaConfigurationParameter(name = "db_host", description = "The hostname which the mysql server can be reached", parametertype = ParameterType.String, defaultvalue = "localhost", mutableafterstartup = false)*/
-//
 @ArcadiaConfigurationParameter(
         name = "db_user",
         description = "The username of the database user",
@@ -164,7 +182,7 @@ public class WrappedComponent {
     }
 
     public static String getMysqlport() {
-        return System.getProperty("DockerHostExposedPorts");
+        return System.getProperty("3306");
 
     }
 
@@ -176,7 +194,20 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    //None for this component
+    public static int getBytes_received() {
+        return 0;
+
+    }
+
+    public static int getBytes_sent() {
+        return 0;
+
+    }
+
+    public static int getConnections() {
+        return 0;
+
+    }
 
     //==================================================================================================================
     //Perform bindings

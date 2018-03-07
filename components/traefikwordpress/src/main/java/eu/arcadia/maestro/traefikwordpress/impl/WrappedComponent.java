@@ -1,7 +1,6 @@
-package eu.arcadia.maestro.uihealth.impl;
+package eu.arcadia.maestro.traefikwordpress.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
-import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
@@ -9,11 +8,8 @@ import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
-import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ParameterType;
-import eu.arcadia.annotations.ScaleBehavior;
-import eu.arcadia.annotations.ValueType;
-import eu.arcadia.maestro.uihealth.util.IpHandlingUtil;
+import eu.arcadia.maestro.traefikwordpress.util.IpHandlingUtil;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -32,50 +28,26 @@ import java.util.logging.Logger;
  *
  */
 @ArcadiaComponent(
-        componentname = "UIHealth",
+        componentname = "TraefikWordpress",
         componentversion = "0.1.0",
-        componentdescription = "Web User Interface for the ARCADIA RPM scenario.",
-        tags = {"User Interface", "Heart Rate"})
+        componentdescription = "Træfik (pronounced like traffic) is a modern HTTP reverse proxy and load balancer " +
+                "made to deploy microservices with ease.",
+        tags = {"proxy", "HTTP reverse proxy", "microservices"})
 
 /**
  * Arcadia Metrics
  */
-/*@ArcadiaMetric(
-        name = "mIsRunning",
-        description = "Status of Service",
-        unitofmeasurement = "string",
-        valuetype = ValueType.String,
-        maxvalue = "",
-        minvalue = "",
-        higherisbetter = false)*/
+//None for this component
 
 
 /**
  * Arcadia Configuration Parameters
  */
-/*@ArcadiaConfigurationParameter(
-        name = "cDeployedLocation",
-        description = "Required location to deploy",
-        parametertype = ParameterType.String,
-        defaultvalue = "DE",
-        mutableafterstartup = false)
 @ArcadiaConfigurationParameter(
-        name = "cClientID",
-        description = "Application ID",
+        name = "consul_http_token",
+        description = "The http token used for consul ACL",
         parametertype = ParameterType.String,
-        defaultvalue = "OdBSR3CoPtwEKIedDUE5j_WU3rEa",
-        mutableafterstartup = false)
-@ArcadiaConfigurationParameter(
-        name = "cClientSecret",
-        description = "Application Secret",
-        parametertype = ParameterType.String,
-        defaultvalue = "SJiaVnwV16qYoMiuEvJyxDcH5HMa",
-        mutableafterstartup = false)*/
-@ArcadiaConfigurationParameter(
-        name = "apigateway_endpoint",
-        description = "The endpoint of the API Gateway Service",
-        parametertype = ParameterType.String,
-        defaultvalue = "ENDPOINT=apigatewayuri:apigatewayport",
+        defaultvalue = "CONSUL_HTTP_TOKEN=4f3fa35a-h3ab-45a2-914f-f82a34fab0c45",
         mutableafterstartup = false)
 
 /**
@@ -95,62 +67,36 @@ import java.util.logging.Logger;
         description = "Docker Docker registry password")
 @ArcadiaContainerParameter(
         key = "DockerImage",
-        value = "trantub/arcadia_ui",
+        value = "traefik",
         description = "Docker image name")
 @ArcadiaContainerParameter(
         key = "DockerHostExposedPorts",
-        value = "7770",
+        value = "80,8080",
         description = "The port which mysql server is listening on the host")
 @ArcadiaContainerParameter(
         key = "DockerContainerExposedPorts",
-        value = "7770",
+        value = "80,8080",
         description = "The port which mysql server is listening on the container")
+@ArcadiaContainerParameter(
+        key = "DockerCmd",
+        value = "--consul --consul.endpoint=consuleServiceIP:consuleServicePort",
+        description = "Docker added command")
 
 /**
  * Miscellaneous
  */
-@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
+//No ArcadiaBehavioralProfile
 @ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
 
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "uihealth", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "traefikworpress", allowsMultipleTenants = true)
 public class WrappedComponent {
      /*
     * Arcadia Configuration Parameters
     */
-     /*public static String getCDeployedLocation() {
-         return System.getProperty("cDeployedLocation");
-
-     }
-
-    public static void setCDeployedLocation(String uri) {
-        System.setProperty("cDeployedLocation", uri);
-
-    }
-
-    public static String getCClientID() {
-        return System.getProperty("cClientID");
-
-    }
-
-    public static void setCClientID(String str) {
-        System.setProperty("cClientID", str);
-
-    }
-
-    public static String getCClientSecret() {
-        return System.getProperty("cClientSecret");
-
-    }
-
-    public static void setCClientSecret(String str) {
-        System.setProperty("cClientSecret", str);
-
-    }*/
-
-     public String getApigateway_endpoint() {
+     public String getConsul_http_token() {
          return "";
 
      }
@@ -159,7 +105,7 @@ public class WrappedComponent {
     //Parameters shared to other components
     //==================================================================================================================
     @SuppressWarnings("Duplicates")
-    public static String getUihealthuri() {
+    public static String getTraefikworpressuri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
         try {
@@ -192,31 +138,28 @@ public class WrappedComponent {
 
     }
 
-    public static String getUihealthport() {
-        return "7770";
+    public static String getTraefikworpressport() {
+        return System.getProperty("DockerHostExposedPorts");
 
     }
 
     //==================================================================================================================
     //Parameters required by other components
     //==================================================================================================================
-    public static String getApigatewayuri() {
-        return System.getProperty("apigatewayuri");
+    public static String getWordpressuri() {
+        return System.getProperty("wordpressuri");
 
     }
 
-    public static String getApigatewayport() {
-        return System.getProperty("apigatewayport");
+    public static String getWordpressport() {
+        return System.getProperty("wordpressport");
 
     }
 
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    /*public static String getMIsRunning() {
-        return String.valueOf(isrunning);
-
-    }*/
+    //None for this component
 
     //==================================================================================================================
     //Perform bindings
@@ -226,13 +169,23 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "apigateway")
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "wordpresstcp")
     public static void bindDependency(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
 
+    /**
+     * Handle binding dependencies to other components
+     *
+     * @param chainingInfo ChainingInfo object
+     */
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "traefikworpress")
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+
+    }
+
     private static final Logger LOGGER = Logger.getLogger(WrappedComponent.class.getName());
-    private static Integer isrunning = 0;
 
 }

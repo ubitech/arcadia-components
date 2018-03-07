@@ -8,6 +8,7 @@ import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
@@ -123,7 +124,43 @@ public class WrappedComponent {
     //==================================================================================================================
     //Parameters shared to other components
     //==================================================================================================================
-    //Non for this component
+    @SuppressWarnings("Duplicates")
+    public static String getWordpressuri() {
+        Enumeration<NetworkInterface> n = null;
+        InetAddress addr = null;
+        try {
+            n = NetworkInterface.getNetworkInterfaces();
+
+        } catch (SocketException ex) {
+            Logger.getLogger(WrappedComponent.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+
+        for (; n.hasMoreElements();) {
+            NetworkInterface e = n.nextElement();
+            Enumeration<InetAddress> a = e.getInetAddresses();
+            for (; a.hasMoreElements();) {
+                addr = a.nextElement();
+                if ((IpHandlingUtil.isIpV4Address(addr.getHostAddress()))
+                        && (!IpHandlingUtil.isIpV6Address(addr.getHostAddress()))
+                        && (!addr.getHostAddress().equals("127.0.0.1"))
+                        && (!addr.getHostAddress().equals("172.17.0.1"))) {
+                    return addr.getHostAddress();
+
+                }
+
+            }
+
+        }
+
+        return null;
+
+    }
+
+    public static String getWordpressport() {
+        return System.getProperty("80");
+
+    }
 
     //==================================================================================================================
     //Parameters required by other components
@@ -141,7 +178,7 @@ public class WrappedComponent {
     //==================================================================================================================
     //Component metrics
     //==================================================================================================================
-    //Non for this component
+    //None for this component
 
     //==================================================================================================================
     //Perform bindings
@@ -157,6 +194,17 @@ public class WrappedComponent {
         System.setProperty("environment", environment.replace(
                 "%WORDPRESS_DB_HOST%",
                 getMysqlport() + ":" + getMysqlport()));
+
+    }
+
+    /**
+     * Handle binding dependencies to other components
+     *
+     * @param chainingInfo ChainingInfo object
+     */
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "wordpresstcp")
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
 

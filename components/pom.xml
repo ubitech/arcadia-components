@@ -33,5 +33,6 @@
         <module>redis</module>
         <module>turnserver</module>
         <module>signalingHandler</module>
+        <module>traefikwordpress</module>
     </modules>
 </project>

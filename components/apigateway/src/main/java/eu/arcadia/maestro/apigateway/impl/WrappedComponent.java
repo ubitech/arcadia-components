@@ -139,7 +139,7 @@ import java.util.logging.Logger;
 /**
  * Miscellaneous
  */
-//No ArcadiaBehavioralProfile
+@ArcadiaBehavioralProfile(scalability = ScaleBehavior.VERTICAL_HORIZONTAL)
 @ArcadiaExecutionRequirement(memory = 128, vcpu = 2)
 
 /**
