@@ -4,6 +4,7 @@ import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
+import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
@@ -292,6 +293,17 @@ public class WrappedComponent {
     @ArcadiaChainableEndpointBindingHandler(CEPCID = "samba")
     public static void bindDependencySecondary(ChainingInfo chainingInfo) {
         //
+
+    }
+
+    /**
+     * Handle binding dependencies to other components
+     *
+     * @param chainingInfo ChainingInfo object
+     */
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "phpdashboard")
+    public static void bindedRootComponent(ChainingInfo chainingInfo) {
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 
     }
 
