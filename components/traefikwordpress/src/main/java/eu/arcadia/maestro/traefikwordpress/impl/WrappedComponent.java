@@ -79,7 +79,7 @@ import java.util.logging.Logger;
         description = "The port which mysql server is listening on the container")
 @ArcadiaContainerParameter(
         key = "DockerCmd",
-        value = "--consul --consul.endpoint=consuleServiceIP:consuleServicePort",
+        value = "--consul --consul.endpoint=147.102.17.77:8500",
         description = "Docker added command")
 
 /**

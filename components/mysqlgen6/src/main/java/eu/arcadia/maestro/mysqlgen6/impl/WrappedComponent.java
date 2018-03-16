@@ -1,18 +1,14 @@
-package eu.arcadia.maestro.mysqlgen.impl;
+package eu.arcadia.maestro.mysqlgen6.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
-import eu.arcadia.annotations.ArcadiaBehavioralProfile;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
-import eu.arcadia.annotations.ArcadiaMetric;
 import eu.arcadia.annotations.ParameterType;
-import eu.arcadia.annotations.ScaleBehavior;
-import eu.arcadia.annotations.ValueType;
-import eu.arcadia.maestro.mysqlgen.util.IpHandlingUtil;
+import eu.arcadia.maestro.mysqlgen6.util.IpHandlingUtil;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -31,7 +27,7 @@ import java.util.logging.Logger;
  *
  */
 @ArcadiaComponent(
-        componentname = "MySQLGen",
+        componentname = "MySQLGen6",
         componentversion = "1.0.0",
         componentdescription = "MySQL is a widely used, open-source relational database management system (RDBMS)",
         tags = {"database", "rdbms", "server", "sql"})
@@ -54,7 +50,7 @@ import java.util.logging.Logger;
         name = "db_password",
         description = "The password of the database user",
         parametertype = ParameterType.String,
-        defaultvalue = "MYSQL_ROOT_PASSWORD=!arcadia!",
+        defaultvalue = "MYSQL_ROOT_PASSWORD=gen6",
         mutableafterstartup = false)
 @ArcadiaConfigurationParameter(
         name = "db_host",
@@ -81,7 +77,7 @@ import java.util.logging.Logger;
         description = "Docker Docker registry password")
 @ArcadiaContainerParameter(
         key = "DockerImage",
-        value = "mysql:5.7",
+        value = "mysql:5.5",
         description = "Docker image name")
 @ArcadiaContainerParameter(
         key = "DockerHostExposedPorts",

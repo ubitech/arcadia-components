@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.arcadia.maestro</groupId>
-    <artifactId>turnserver</artifactId>
+    <artifactId>mysqlgen6</artifactId>
     <version>0.1.0.BUILD-SNAPSHOT</version>
-    <name>turnserver</name>
+    <name>mysqlgen</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -30,13 +30,14 @@
             <version>1.0.0.M1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.5</version>
         </dependency>
     </dependencies>
+
 
     <build>
         <plugins>
@@ -57,11 +58,12 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.arcadia.maestro.turnserver.TurnServerTest</mainClass>
+                            <mainClass>eu.arcadia.maestro.mysqlgen6.MySQLTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
