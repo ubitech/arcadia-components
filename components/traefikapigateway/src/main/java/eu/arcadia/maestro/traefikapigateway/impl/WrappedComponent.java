@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  *
  */
 @ArcadiaComponent(
-        componentname = "TraefikApiGateway",
+        componentname = "TraefikApigateway",
         componentversion = "0.1.0",
         componentdescription = "Træfik (pronounced like traffic) is a modern HTTP reverse proxy and load balancer " +
                 "made to deploy microservices with ease.",
