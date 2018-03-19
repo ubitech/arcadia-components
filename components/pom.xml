@@ -35,5 +35,7 @@
         <module>turnserver</module>
         <module>signalingHandler</module>
         <module>traefikwordpress</module>
+        <module>traefikapigateway</module>
+        <module>traefikphpdashboard</module>
     </modules>
 </project>
