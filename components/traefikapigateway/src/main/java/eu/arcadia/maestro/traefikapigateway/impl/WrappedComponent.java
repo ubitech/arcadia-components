@@ -105,7 +105,7 @@ public class WrappedComponent {
     //Parameters shared to other components
     //==================================================================================================================
     @SuppressWarnings("Duplicates")
-    public static String getTraefikworpressuri() {
+    public static String getTraefikapigatewayuri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
         try {
@@ -138,7 +138,7 @@ public class WrappedComponent {
 
     }
 
-    public static String getTraefikworpressport() {
+    public static String getTraefikapigatewayport() {
         return System.getProperty("DockerHostExposedPorts");
 
     }
