@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.arcadia.maestro</groupId>
-    <artifactId>traefikapigateway</artifactId>
+    <artifactId>traefikrpm</artifactId>
     <version>0.1.0.BUILD-SNAPSHOT</version>
-    <name>traefikapigateway</name>
+    <name>traefikrpm</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -50,7 +50,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.arcadia.maestro.traefikapigateway.TraefikApiGatewayTest</mainClass>
+                            <mainClass>eu.arcadia.maestro.traefikrpm.TraefikRPMTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -65,6 +65,4 @@
             <url>http://ci.arcadia-framework.eu/nexus/content/repositories/thirdparty</url>
         </repository>
     </repositories>
-
-    
 </project>

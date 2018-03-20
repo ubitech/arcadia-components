@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.traefikapigateway.impl;
+package eu.arcadia.maestro.traefikrpm.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
@@ -9,7 +9,7 @@ import eu.arcadia.annotations.ArcadiaConfigurationParameter;
 import eu.arcadia.annotations.ArcadiaContainerParameter;
 import eu.arcadia.annotations.ArcadiaExecutionRequirement;
 import eu.arcadia.annotations.ParameterType;
-import eu.arcadia.maestro.traefikapigateway.util.IpHandlingUtil;
+import eu.arcadia.maestro.traefikrpm.util.IpHandlingUtil;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  *
  */
 @ArcadiaComponent(
-        componentname = "TraefikApigateway",
+        componentname = "TraefikRPM",
         componentversion = "0.1.0",
         componentdescription = "Træfik (pronounced like traffic) is a modern HTTP reverse proxy and load balancer " +
                 "made to deploy microservices with ease.",
@@ -91,7 +91,7 @@ import java.util.logging.Logger;
 /**
  * Arcadia Dependency Exports
  */
-@ArcadiaChainableEndpoint(CEPCID = "traefikapigateway", allowsMultipleTenants = true)
+@ArcadiaChainableEndpoint(CEPCID = "traefikrpm", allowsMultipleTenants = true)
 public class WrappedComponent {
      /*
     * Arcadia Configuration Parameters
@@ -105,7 +105,7 @@ public class WrappedComponent {
     //Parameters shared to other components
     //==================================================================================================================
     @SuppressWarnings("Duplicates")
-    public static String getTraefikapigatewayuri() {
+    public static String getTraefikrpmuri() {
         Enumeration<NetworkInterface> n = null;
         InetAddress addr = null;
         try {
@@ -138,7 +138,7 @@ public class WrappedComponent {
 
     }
 
-    public static String getTraefikapigatewayport() {
+    public static String getTraefikrpmport() {
         return System.getProperty("DockerHostExposedPorts");
 
     }
@@ -180,7 +180,7 @@ public class WrappedComponent {
      *
      * @param chainingInfo ChainingInfo object
      */
-    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "traefikapigateway")
+    @ArcadiaChainableEndpointResolutionHandler(CEPCID = "traefikrpm")
     public static void bindedRootComponent(ChainingInfo chainingInfo) {
         LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
 

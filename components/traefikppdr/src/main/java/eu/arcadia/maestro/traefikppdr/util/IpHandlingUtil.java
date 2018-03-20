@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.traefikapigateway.util;
+package eu.arcadia.maestro.traefikppdr.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

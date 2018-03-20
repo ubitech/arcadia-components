@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.traefikapigateway.util;
+package eu.arcadia.maestro.traefikrpm.util;
 
 /**
  * Created by John Tsantilis

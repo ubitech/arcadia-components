@@ -1,4 +1,4 @@
-package eu.arcadia.maestro.traefikapigateway.impl;
+package eu.arcadia.maestro.traefikppdr.impl;
 
 import eu.arcadia.maestro.api.MetricsProvider;
 
@@ -7,7 +7,7 @@ import eu.arcadia.maestro.api.MetricsProvider;
  * (i [dot] tsantilis [at] yahoo [dot] com A.K.A lumi) on 10/3/2017.
  */
 
-public class TraefikApiGatewayMetricsProvider implements MetricsProvider {
+public class TraefikPPDRMetricsProvider implements MetricsProvider {
     @Override
     public <T> T getMetric(String s) {
         return null;
