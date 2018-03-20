@@ -37,5 +37,7 @@
         <module>traefikwordpress</module>
         <module>traefikrpm</module>
         <module>traefikppdr</module>
+        <module>transcodingmaster</module>
+        <module>nosqlrepo</module>
     </modules>
 </project>
