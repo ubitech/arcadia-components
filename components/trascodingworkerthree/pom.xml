@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>eu.arcadia.maestro</groupId>
-    <artifactId>trascodingworkerone</artifactId>
+    <artifactId>trascodingworkerthree</artifactId>
     <version>0.1.0.BUILD-SNAPSHOT</version>
-    <name>trascodingworkerone</name>
+    <name>trascodingworkerthree</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -50,7 +50,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.arcadia.maestro.trascodingworkerone.TrascodingWorkerOneTest</mainClass>
+                            <mainClass>eu.arcadia.maestro.trascodingworkerthree.TrascodingWorkerThreeTest</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

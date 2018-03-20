@@ -39,5 +39,10 @@
         <module>traefikppdr</module>
         <module>transcodingmaster</module>
         <module>nosqlrepo</module>
+        <module>trascodingworkerone</module>
+        <module>trascodingworkertwo</module>
+        <module>trascodingworkerthree</module>
+        <module>trascodingworkerfour</module>
+        <module>trascodingworkerfive</module>
     </modules>
 </project>
