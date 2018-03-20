@@ -2,6 +2,7 @@ package eu.arcadia.maestro.traefikppdr.impl;
 
 import eu.arcadia.agentglue.ChainingInfo;
 import eu.arcadia.annotations.ArcadiaChainableEndpoint;
+import eu.arcadia.annotations.ArcadiaChainableEndpointBindingHandler;
 import eu.arcadia.annotations.ArcadiaChainableEndpointResolutionHandler;
 import eu.arcadia.annotations.ArcadiaComponent;
 import eu.arcadia.annotations.ArcadiaConfigurationParameter;
@@ -145,7 +146,15 @@ public class WrappedComponent {
     //==================================================================================================================
     //Parameters required by other components
     //==================================================================================================================
-    //None for this component
+    public static String getPhpdashboarduri() {
+        return System.getProperty("phpdashboarduri");
+
+    }
+
+    public static String getPhpdashboardport() {
+        return System.getProperty("phpdashboardport");
+
+    }
 
     //==================================================================================================================
     //Component metrics
@@ -155,6 +164,17 @@ public class WrappedComponent {
     //==================================================================================================================
     //Perform bindings
     //==================================================================================================================
+    /**
+     * Handle binding dependencies by other components
+     *
+     * @param chainingInfo ChainingInfo object
+     */
+    @ArcadiaChainableEndpointBindingHandler(CEPCID = "phpdashboard")
+    public static void bindDependency(ChainingInfo chainingInfo) {
+        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
+
+    }
+
     /**
      * Handle binding dependencies to other components
      *
