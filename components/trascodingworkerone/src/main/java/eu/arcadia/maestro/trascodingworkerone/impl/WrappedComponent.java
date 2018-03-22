@@ -132,15 +132,7 @@ public class WrappedComponent {
     //==================================================================================================================
     //Parameters required by other components
     //==================================================================================================================
-    public static String getTranscodingmasteruri() {
-        return System.getProperty("transcodingmasteruri");
-
-    }
-
-    public static String getTranscodingmasterport() {
-        return System.getProperty("transcodingmasterport");
-
-    }
+    //None for this component
 
     //==================================================================================================================
     //Component metrics
@@ -150,17 +142,6 @@ public class WrappedComponent {
     //==================================================================================================================
     //Perform bindings
     //==================================================================================================================
-    /**
-     * Handle binding dependencies by other components
-     *
-     * @param chainingInfo ChainingInfo object
-     */
-    @ArcadiaChainableEndpointBindingHandler(CEPCID = "transcodingmaster")
-    public static void bindDependency(ChainingInfo chainingInfo) {
-        LOGGER.info(String.format("BINDED COMPONENT: %s", chainingInfo.toString()));
-
-    }
-
     /**
      * Handle binding dependencies to other components
      *
